@@ -1,0 +1,32 @@
+mat-form-field {
+    width: 100%;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 24px;
+    width: 24px;
+    color: #ccc;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: rgb(101, 101, 101);
+}
+
+.submit-btn {
+    font-size: 16px;
+    padding: 12px 24px;
+}
+

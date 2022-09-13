@@ -1,0 +1,50 @@
+<div class="header">
+    <h1 class="fs-2 m-0">{{dialogTitle}}</h1>
+    <button mat-dialog-close class="close-btn">
+        <mat-icon>clear</mat-icon>
+    </button>
+</div>
+<p class="mt-2">What you need to do?</p>
+<div mat-dialog-content>
+    <form [formGroup]="todoForm" (ngSubmit)="addTodo()">
+
+        <!-- Category Select --> 
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category" required>
+                <mat-option *ngFor="let taskcategorie of taskcategories" [value]="taskcategorie">
+                    {{taskcategorie}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="category?.errors?.['required']">Please select the category</mat-error>
+        </mat-form-field>
+
+        <!-- Title input --> 
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Title</mat-label>
+            <input formControlName="taskTitle" minlength="2" matInput placeholder="enter todo title..." required>
+            <mat-error *ngIf="taskTitle?.errors?.['required']">Title is required</mat-error>
+            <mat-error *ngIf="taskTitle?.errors?.['minlength']">Title must be at least 2 characters long</mat-error>
+        </mat-form-field>
+
+        <!-- Description input --> 
+
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Description</mat-label>
+            <textarea formControlName="taskDescription" minlength="2" matInput placeholder="enter todo description..." required></textarea>
+            <mat-error *ngIf="taskDescription?.errors?.['required']">Description is required</mat-error>
+            <mat-error *ngIf="taskDescription?.errors?.['minlength']">Description must be at least 2 characters long</mat-error>
+        </mat-form-field>
+
+        <div mat-dialog-action [align]="'end'">
+            <button [disabled]="!todoForm.valid" mat-flat-button color="accent" type="submit" class="submit-btn">{{actionBtn}}</button>
+        </div>
+
+    </form>
+</div>
+
+
+
+

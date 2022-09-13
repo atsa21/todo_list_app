@@ -1,0 +1,35 @@
+{
+  "todoList": [
+    {
+      "category": "Work",
+      "taskTitle": "Presentation",
+      "taskDescription": "Send the presentation to Alex",
+      "checked": false,
+      "id": 1
+    },
+    {
+      "category": "Work",
+      "taskTitle": "To do list",
+      "taskDescription": "Create the to do list",
+      "checked": true,
+      "id": 2
+    },
+    {
+      "category": "Personal",
+      "taskTitle": "Plants",
+      "taskDescription": "Water plants in living room",
+      "checked": false,
+      "id": 3
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
