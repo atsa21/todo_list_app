@@ -35,9 +35,8 @@ export class DialogTodoComponent implements OnInit {
   ngOnInit(): void {
     this.todoForm = this.formBuilder.group({
       category : new FormControl('', Validators.required),
-      title : new FormControl('', [Validators.required, Validators.minLength(2)]),
+      task : new FormControl('', [Validators.required, Validators.minLength(2)]),
       tags : this.tagsList,
-      description : new FormControl('', [Validators.required, Validators.minLength(2)]),
       authorId: this.userId,
       checked : false
     });
@@ -46,9 +45,8 @@ export class DialogTodoComponent implements OnInit {
       this.dialogTitle = "Edit Todo";
       this.actionBtn = "Save";
       this.todoForm.controls['category'].setValue(this.editData.category);
-      this.todoForm.controls['title'].setValue(this.editData.title);
+      this.todoForm.controls['task'].setValue(this.editData.task);
       this.todoForm.controls['tags'].setValue(this.editData.tags);
-      this.todoForm.controls['description'].setValue(this.editData.description);
     }
   }
 
@@ -56,16 +54,12 @@ export class DialogTodoComponent implements OnInit {
     return this.todoForm.get('category');
   }
 
-  get title(){
-    return this.todoForm.get('title');
+  get task(){
+    return this.todoForm.get('task');
   }
 
   get tags(){
     return this.todoForm.get('tags');
-  }
-
-  get description(){
-    return this.todoForm.get('description');
   }
 
   addTag(event: MatChipInputEvent): void {

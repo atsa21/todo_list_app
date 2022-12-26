@@ -18,14 +18,9 @@
             </td>
           </div>
       
-          <ng-container matColumnDef="title">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
-            <td mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : 'unready'"> {{row.title}} </td>
-          </ng-container>
-      
-          <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-            <td mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : 'unready'"> {{row.description}} </td>
+          <ng-container matColumnDef="task">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Task </th>
+            <td mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : 'unready'"> {{row.task}} </td>
           </ng-container>
 
           <ng-container matColumnDef="tags">
