@@ -27,22 +27,23 @@
 
         <mat-form-field appearance="outline" color="accent">
             <mat-label>Add tags</mat-label>
-            <mat-chip-list #chipList aria-label="Fruit selection">
-                <mat-chip *ngFor="let tag of tagsList" (removed)="removeTag(tag)">
+            <mat-chip-list #chipList aria-label="Tag selection">
+                <mat-chip *ngFor="let tag of tagsList" color="accent" (removed)="removeTag(tag)" selected>
                     {{tag}}
                     <button matChipRemove>
                       <mat-icon>cancel</mat-icon>
                     </button>
                 </mat-chip>
                 <input placeholder="New tag..."
-                       [matChipInputFor]="chipList"
-                       formControlName="tags"
-                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                       [matChipInputAddOnBlur]="addOnBlur"
-                       (matChipInputTokenEnd)="addTag($event)">
+                        *ngIf="!cantAddTag"
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="addOnBlur"
+                        (matChipInputTokenEnd)="addTag($event)"
+                        required>
             </mat-chip-list>
-            <mat-error *ngIf="tags?.errors?.['required']">Tags is required</mat-error>
         </mat-form-field>
+
         <mat-form-field appearance="outline" color="accent">
             <mat-label>Description</mat-label>
             <textarea formControlName="description" minlength="2" matInput placeholder="enter todo description..." required></textarea>
@@ -51,7 +52,7 @@
         </mat-form-field>
 
         <div mat-dialog-action [align]="'end'">
-            <button [disabled]="!todoForm.valid" mat-flat-button color="accent" type="submit" class="submit-btn">{{actionBtn}}</button>
+            <button [disabled]="!todoForm.valid || !tagsList.length" mat-flat-button color="accent" type="submit" class="submit-btn">{{actionBtn}}</button>
         </div>
 
     </form>
