@@ -2,45 +2,21 @@
   "todoList": [
     {
       "category": "Work",
-      "task": "Water plants in living room",
+      "task": "cfasecfasd",
+      "date": "26-12-2022",
       "tags": [
-        "work",
-        "work"
+        "ffffwwww"
       ],
-      "checked": true,
       "authorId": 1,
-      "id": 1
-    },
-    {
-      "category": "Work",
-      "task": "Create to-do",
-      "tags": [
-        "work",
-        "work"
-      ],
-      "checked": true,
-      "autorId": 1,
-      "id": 2
-    },
-    {
-      "category": "Personal",
-      "task": "Create to-do",
-      "tags": [
-        "work",
-        "work"
-      ],
-      "description": "Water plants in living room",
       "checked": false,
-      "authorId": 1,
       "id": 3
     },
     {
-      "category": "Personal",
-      "task": "Do new task",
+      "category": "Work",
+      "task": "ddddsd",
+      "date": "29-12-2022",
       "tags": [
-        "tag",
-        "atg",
-        "tag"
+        "sdsdsdsd"
       ],
       "authorId": 1,
       "checked": false,

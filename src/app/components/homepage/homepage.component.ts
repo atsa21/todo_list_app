@@ -11,6 +11,7 @@ export interface todoList {
   category: string;
   task: string;
   tags: string[];
+  date: string;
   action: any;
   checked: false;
 }
@@ -22,7 +23,7 @@ export interface todoList {
 })
 export class HomepageComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'checked', 'task',  'tags', 'action'];
+  displayedColumns: string[] = [ 'checked', 'task',  'tags', 'date', 'action'];
   dataSource!: MatTableDataSource<todoList>;
   tableTags: any;
 

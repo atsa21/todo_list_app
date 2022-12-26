@@ -5,6 +5,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { DateAdapter } from '@angular/material/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dialog-todo',
@@ -16,6 +18,7 @@ export class DialogTodoComponent implements OnInit {
   taskCategories: string[] = ['Personal', 'Work'];
   tagsList: string[] = [];
   cantAddTag = false;
+  minDate: Date;
 
   todoForm !: FormGroup;
   dialogTitle : string = "Add Todo";
@@ -29,13 +32,18 @@ export class DialogTodoComponent implements OnInit {
     private api: ApiService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     private dialogReg: MatDialogRef<DialogTodoComponent>,
-    private snackbar: SnackBarService) {
+    private snackbar: SnackBarService,
+    private dateAdapter: DateAdapter<Date>
+    ) {
+      this.dateAdapter.setLocale('en-GB');
+      this.minDate = new Date();
   }
 
   ngOnInit(): void {
     this.todoForm = this.formBuilder.group({
       category : new FormControl('', Validators.required),
       task : new FormControl('', [Validators.required, Validators.minLength(2)]),
+      date: new FormControl(''),
       tags : this.tagsList,
       authorId: this.userId,
       checked : false
@@ -46,12 +54,21 @@ export class DialogTodoComponent implements OnInit {
       this.actionBtn = "Save";
       this.todoForm.controls['category'].setValue(this.editData.category);
       this.todoForm.controls['task'].setValue(this.editData.task);
+      this.todoForm.controls['date'].setValue(this.editData.date);
       this.todoForm.controls['tags'].setValue(this.editData.tags);
     }
   }
 
+  public getControlValue(input: string): any {
+    return this.todoForm.get(`${input}`)?.value;
+  }
+
   get category(){
     return this.todoForm.get('category');
+  }
+
+  get date(){
+    return this.todoForm.get('date');
   }
 
   get task(){
@@ -89,6 +106,7 @@ export class DialogTodoComponent implements OnInit {
   addTodo(): void {
     if(!this.editData){
       if(this.todoForm.valid){
+        this.setDateValue();
         this.tags?.setValue(this.tagsList);
         this.api.postTodo(this.todoForm.value)
         .subscribe({
@@ -107,6 +125,8 @@ export class DialogTodoComponent implements OnInit {
   }
 
   updateTodo(){
+    this.setDateValue();
+    this.tags?.setValue(this.tagsList);
     this.api.putTodo(this.todoForm.value, this.editData.id)
     .subscribe({
       next:(res)=>{
@@ -117,5 +137,14 @@ export class DialogTodoComponent implements OnInit {
         this.snackbar.openSnackBar('Error while updating the todo', 'Close');
       }
     })
+  }
+
+  setDateValue(): void {
+    const value = this.setDateFormat(this.date?.value);
+    this.date?.setValue(value);
+  }
+
+  setDateFormat(date: any): string {
+    return moment(date).format('DD-MM-YYYY');
   }
 }
