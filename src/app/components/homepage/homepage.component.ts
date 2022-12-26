@@ -9,8 +9,7 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 export interface todoList {
   category: string;
-  title: string;
-  description: string;
+  task: string;
   tags: string[];
   action: any;
   checked: false;
@@ -23,7 +22,7 @@ export interface todoList {
 })
 export class HomepageComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'checked', 'title', 'description', 'tags', 'action'];
+  displayedColumns: string[] = [ 'checked', 'task',  'tags', 'action'];
   dataSource!: MatTableDataSource<todoList>;
   tableTags: any;
 
