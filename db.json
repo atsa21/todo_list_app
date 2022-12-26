@@ -1,26 +1,38 @@
 {
   "todoList": [
     {
-      "category": "Work",
-      "task": "cfasecfasd",
-      "date": "26-12-2022",
+      "category": "Personal",
+      "task": "Water plants",
+      "date": "2022-12-25T22:00:00.000Z",
       "tags": [
-        "ffffwwww"
+        "plants",
+        "water"
+      ],
+      "authorId": 1,
+      "checked": false,
+      "id": 1
+    },
+    {
+      "category": "Work",
+      "task": "Create new task for my to-do list",
+      "date": "2022-12-28T22:00:00.000Z",
+      "tags": [
+        "new task"
+      ],
+      "authorId": 1,
+      "checked": false,
+      "id": 2
+    },
+    {
+      "category": "Personal",
+      "task": "Create music list",
+      "date": "2022-12-29T22:00:00.000Z",
+      "tags": [
+        "music"
       ],
       "authorId": 1,
       "checked": false,
       "id": 3
-    },
-    {
-      "category": "Work",
-      "task": "ddddsd",
-      "date": "29-12-2022",
-      "tags": [
-        "sdsdsdsd"
-      ],
-      "authorId": 1,
-      "checked": false,
-      "id": 4
     }
   ],
   "comments": [

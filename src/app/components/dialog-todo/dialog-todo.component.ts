@@ -55,12 +55,8 @@ export class DialogTodoComponent implements OnInit {
       this.todoForm.controls['category'].setValue(this.editData.category);
       this.todoForm.controls['task'].setValue(this.editData.task);
       this.todoForm.controls['date'].setValue(this.editData.date);
-      this.todoForm.controls['tags'].setValue(this.editData.tags);
+      this.tagsList = this.editData.tags;
     }
-  }
-
-  public getControlValue(input: string): any {
-    return this.todoForm.get(`${input}`)?.value;
   }
 
   get category(){
@@ -81,18 +77,15 @@ export class DialogTodoComponent implements OnInit {
 
   addTag(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-
     if (value) {
       this.tagsList.push(value);
     }
-
     this.checkTagLength();
     event.chipInput!.clear();
   }
 
   removeTag(tag: string): void {
     const index = this.tagsList.indexOf(tag);
-
     if (index >= 0) {
       this.tagsList.splice(index, 1);
     }
@@ -106,7 +99,6 @@ export class DialogTodoComponent implements OnInit {
   addTodo(): void {
     if(!this.editData){
       if(this.todoForm.valid){
-        this.setDateValue();
         this.tags?.setValue(this.tagsList);
         this.api.postTodo(this.todoForm.value)
         .subscribe({
@@ -120,13 +112,11 @@ export class DialogTodoComponent implements OnInit {
         })
       }
     } else {
-      this.updateTodo()
+      this.updateTodo();
     }
   }
 
   updateTodo(){
-    this.setDateValue();
-    this.tags?.setValue(this.tagsList);
     this.api.putTodo(this.todoForm.value, this.editData.id)
     .subscribe({
       next:(res)=>{
@@ -137,14 +127,5 @@ export class DialogTodoComponent implements OnInit {
         this.snackbar.openSnackBar('Error while updating the todo', 'Close');
       }
     })
-  }
-
-  setDateValue(): void {
-    const value = this.setDateFormat(this.date?.value);
-    this.date?.setValue(value);
-  }
-
-  setDateFormat(date: any): string {
-    return moment(date).format('DD-MM-YYYY');
   }
 }
