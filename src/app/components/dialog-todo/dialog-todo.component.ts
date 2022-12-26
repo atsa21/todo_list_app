@@ -5,6 +5,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { DateAdapter } from '@angular/material/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dialog-todo',
@@ -16,6 +18,7 @@ export class DialogTodoComponent implements OnInit {
   taskCategories: string[] = ['Personal', 'Work'];
   tagsList: string[] = [];
   cantAddTag = false;
+  minDate: Date;
 
   todoForm !: FormGroup;
   dialogTitle : string = "Add Todo";
@@ -29,13 +32,18 @@ export class DialogTodoComponent implements OnInit {
     private api: ApiService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     private dialogReg: MatDialogRef<DialogTodoComponent>,
-    private snackbar: SnackBarService) {
+    private snackbar: SnackBarService,
+    private dateAdapter: DateAdapter<Date>
+    ) {
+      this.dateAdapter.setLocale('en-GB');
+      this.minDate = new Date();
   }
 
   ngOnInit(): void {
     this.todoForm = this.formBuilder.group({
       category : new FormControl('', Validators.required),
       task : new FormControl('', [Validators.required, Validators.minLength(2)]),
+      date: new FormControl(''),
       tags : this.tagsList,
       authorId: this.userId,
       checked : false
@@ -46,12 +54,17 @@ export class DialogTodoComponent implements OnInit {
       this.actionBtn = "Save";
       this.todoForm.controls['category'].setValue(this.editData.category);
       this.todoForm.controls['task'].setValue(this.editData.task);
-      this.todoForm.controls['tags'].setValue(this.editData.tags);
+      this.todoForm.controls['date'].setValue(this.editData.date);
+      this.tagsList = this.editData.tags;
     }
   }
 
   get category(){
     return this.todoForm.get('category');
+  }
+
+  get date(){
+    return this.todoForm.get('date');
   }
 
   get task(){
@@ -64,18 +77,15 @@ export class DialogTodoComponent implements OnInit {
 
   addTag(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-
     if (value) {
       this.tagsList.push(value);
     }
-
     this.checkTagLength();
     event.chipInput!.clear();
   }
 
   removeTag(tag: string): void {
     const index = this.tagsList.indexOf(tag);
-
     if (index >= 0) {
       this.tagsList.splice(index, 1);
     }
@@ -102,7 +112,7 @@ export class DialogTodoComponent implements OnInit {
         })
       }
     } else {
-      this.updateTodo()
+      this.updateTodo();
     }
   }
 

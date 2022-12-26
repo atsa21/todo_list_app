@@ -1,50 +1,38 @@
 {
   "todoList": [
     {
-      "category": "Work",
-      "task": "Water plants in living room",
+      "category": "Personal",
+      "task": "Water plants",
+      "date": "2022-12-25T22:00:00.000Z",
       "tags": [
-        "work",
-        "work"
+        "plants",
+        "water"
       ],
-      "checked": true,
       "authorId": 1,
+      "checked": false,
       "id": 1
     },
     {
       "category": "Work",
-      "task": "Create to-do",
+      "task": "Create new task for my to-do list",
+      "date": "2022-12-28T22:00:00.000Z",
       "tags": [
-        "work",
-        "work"
+        "new task"
       ],
-      "checked": true,
-      "autorId": 1,
+      "authorId": 1,
+      "checked": false,
       "id": 2
     },
     {
       "category": "Personal",
-      "task": "Create to-do",
+      "task": "Create music list",
+      "date": "2022-12-29T22:00:00.000Z",
       "tags": [
-        "work",
-        "work"
+        "music"
       ],
-      "description": "Water plants in living room",
-      "checked": false,
       "authorId": 1,
+      "checked": false,
       "id": 3
-    },
-    {
-      "category": "Personal",
-      "task": "Do new task",
-      "tags": [
-        "tag",
-        "atg",
-        "tag"
-      ],
-      "authorId": 1,
-      "checked": false,
-      "id": 4
     }
   ],
   "comments": [
