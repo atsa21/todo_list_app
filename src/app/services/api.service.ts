@@ -12,8 +12,12 @@ export class ApiService {
     return this.http.post<any>("http://localhost:3000/todoList/", data);
   }
 
-  getTodo(){
+  getAllTodo(){
     return this.http.get<any>("http://localhost:3000/todoList/");
+  }
+
+  getTodoById(id: number){
+    return this.http.get<any>(`http://localhost:3000/todoList?authorId=${id}`);
   }
 
   putTodo(data: any, id : number){

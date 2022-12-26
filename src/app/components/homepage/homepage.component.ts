@@ -9,8 +9,9 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 export interface todoList {
   category: string;
-  taskTitle: string;
-  taskDescription: string;
+  title: string;
+  tags: string;
+  description: string;
   action: any;
   checked: false;
 }
@@ -22,10 +23,13 @@ export interface todoList {
 })
 export class HomepageComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'checked', 'category', 'taskTitle', 'taskDescription', 'action'];
+  displayedColumns: string[] = [ 'checked', 'title', 'tags', 'description', 'action'];
   dataSource!: MatTableDataSource<todoList>;
 
-  numberOfTodo: any;
+  public totalTodo: number = 0;
+  public readyTodo: number = 0;
+  public notReadyTodo: number = 0;
+  public progress: number = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -37,25 +41,20 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     this.getAllTodo();
   }
-  
-  openDialog() {
-    this.dialog.open(DialogTodoComponent, {
-      width: '30%'
-    }).afterClosed().subscribe(val=>{
-      if(val === 'save'){
-        this.getAllTodo();
-      }
-    })
-  }
 
   getAllTodo(){
-    this.api.getTodo()
+    const id = 1;
+    this.api.getTodoById(id)
     .subscribe({
       next:(res)=>{
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.numberOfTodo = this.dataSource.data.length;
+        this.totalTodo = this.dataSource.data.length;
+        const toDo = this.dataSource.data.filter(el => el.checked);
+        this.readyTodo = toDo.length;
+        this.progress = (this.readyTodo / this.totalTodo) * 100;
+        this.notReadyTodo = this.totalTodo - this.readyTodo;
       },
       error:(err)=>{
         this.snackbar.openSnackBar('Error while getting the todo', 'Close');

@@ -8,34 +8,46 @@
 <div mat-dialog-content>
     <form [formGroup]="todoForm" (ngSubmit)="addTodo()">
 
-        <!-- Category Select --> 
-
         <mat-form-field appearance="outline" color="accent">
             <mat-label>Category</mat-label>
             <mat-select formControlName="category" required>
-                <mat-option *ngFor="let taskcategorie of taskcategories" [value]="taskcategorie">
+                <mat-option *ngFor="let taskcategorie of taskCategories" [value]="taskcategorie">
                     {{taskcategorie}}
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="category?.errors?.['required']">Please select the category</mat-error>
         </mat-form-field>
 
-        <!-- Title input --> 
-
         <mat-form-field appearance="outline" color="accent">
             <mat-label>Title</mat-label>
-            <input formControlName="taskTitle" minlength="2" matInput placeholder="enter todo title..." required>
-            <mat-error *ngIf="taskTitle?.errors?.['required']">Title is required</mat-error>
-            <mat-error *ngIf="taskTitle?.errors?.['minlength']">Title must be at least 2 characters long</mat-error>
+            <input formControlName="title" minlength="2" matInput placeholder="enter todo title..." required>
+            <mat-error *ngIf="title?.errors?.['required']">Title is required</mat-error>
+            <mat-error *ngIf="title?.errors?.['minlength']">Title must be at least 2 characters long</mat-error>
         </mat-form-field>
 
-        <!-- Description input --> 
-
+        <mat-form-field appearance="outline" color="accent">
+            <mat-label>Add tags</mat-label>
+            <mat-chip-list #chipList aria-label="Fruit selection">
+                <mat-chip *ngFor="let tag of tagsList" (removed)="removeTag(tag)">
+                    {{tag}}
+                    <button matChipRemove>
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip>
+                <input placeholder="New tag..."
+                       [matChipInputFor]="chipList"
+                       formControlName="tags"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="addTag($event)">
+            </mat-chip-list>
+            <mat-error *ngIf="tags?.errors?.['required']">Tags is required</mat-error>
+        </mat-form-field>
         <mat-form-field appearance="outline" color="accent">
             <mat-label>Description</mat-label>
-            <textarea formControlName="taskDescription" minlength="2" matInput placeholder="enter todo description..." required></textarea>
-            <mat-error *ngIf="taskDescription?.errors?.['required']">Description is required</mat-error>
-            <mat-error *ngIf="taskDescription?.errors?.['minlength']">Description must be at least 2 characters long</mat-error>
+            <textarea formControlName="description" minlength="2" matInput placeholder="enter todo description..." required></textarea>
+            <mat-error *ngIf="description?.errors?.['required']">Description is required</mat-error>
+            <mat-error *ngIf="description?.errors?.['minlength']">Description must be at least 2 characters long</mat-error>
         </mat-form-field>
 
         <div mat-dialog-action [align]="'end'">

@@ -3,6 +3,8 @@ import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
 import { ApiService } from 'src/app/services/api.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-dialog-todo',
@@ -11,28 +13,31 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 })
 export class DialogTodoComponent implements OnInit {
 
-
-  // Create a todo
-
-  taskcategories: string[] = ['Personal', 'Work'];
+  taskCategories: string[] = ['Personal', 'Work'];
+  tagsList: string[] = [];
 
   todoForm !: FormGroup;
   dialogTitle : string = "Add Todo";
   actionBtn : string = "Submit";
+  userId: number = 1;
 
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   constructor( private formBuilder : FormBuilder,
-    private api : ApiService,
-    @Inject(MAT_DIALOG_DATA) public editData : any,
-    private dialogReg : MatDialogRef<DialogTodoComponent>,
-    private snackbar : SnackBarService) {
+    private api: ApiService,
+    @Inject(MAT_DIALOG_DATA) public editData: any,
+    private dialogReg: MatDialogRef<DialogTodoComponent>,
+    private snackbar: SnackBarService) {
   }
 
   ngOnInit(): void {
     this.todoForm = this.formBuilder.group({
       category : new FormControl('', Validators.required),
-      taskTitle : new FormControl('', [Validators.required, Validators.minLength(2)]),
-      taskDescription : new FormControl('', [Validators.required, Validators.minLength(2)]),
+      title : new FormControl('', [Validators.required, Validators.minLength(2)]),
+      tags : new FormControl('', Validators.required),
+      description : new FormControl('', [Validators.required, Validators.minLength(2)]),
+      authorId: this.userId,
       checked : false
     });
 
@@ -40,8 +45,9 @@ export class DialogTodoComponent implements OnInit {
       this.dialogTitle = "Edit Todo";
       this.actionBtn = "Save";
       this.todoForm.controls['category'].setValue(this.editData.category);
-      this.todoForm.controls['taskTitle'].setValue(this.editData.taskTitle);
-      this.todoForm.controls['taskDescription'].setValue(this.editData.taskDescription);
+      this.todoForm.controls['title'].setValue(this.editData.title);
+      this.todoForm.controls['tags'].setValue(this.editData.tags);
+      this.todoForm.controls['description'].setValue(this.editData.description);
     }
   }
 
@@ -49,15 +55,35 @@ export class DialogTodoComponent implements OnInit {
     return this.todoForm.get('category');
   }
 
-  get taskTitle(){
-    return this.todoForm.get('taskTitle');
+  get title(){
+    return this.todoForm.get('title');
   }
 
-  get taskDescription(){
-    return this.todoForm.get('taskDescription');
+  get tags(){
+    return this.todoForm.get('tags');
   }
 
-  // Add Todo
+  get description(){
+    return this.todoForm.get('description');
+  }
+
+  addTag(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    if (value) {
+      this.tagsList.push(value);
+    }
+
+    event.chipInput!.clear();
+  }
+
+  removeTag(tag: string): void {
+    const index = this.tagsList.indexOf(tag);
+
+    if (index >= 0) {
+      this.tagsList.splice(index, 1);
+    }
+  }
 
   addTodo(){
     if(!this.editData){
@@ -78,8 +104,6 @@ export class DialogTodoComponent implements OnInit {
     }
   }
 
-  // Edit Todo
-
   updateTodo(){
     this.api.putTodo(this.todoForm.value, this.editData.id)
     .subscribe({
@@ -92,6 +116,4 @@ export class DialogTodoComponent implements OnInit {
       }
     })
   }
-
-
 }

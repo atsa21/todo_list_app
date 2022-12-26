@@ -2,24 +2,57 @@
   "todoList": [
     {
       "category": "Work",
-      "taskTitle": "Presentation",
-      "taskDescription": "Send the presentation to Alex",
+      "title": "Presentation",
+      "tags": "work",
+      "description": "Send the presentation to Alex",
       "checked": false,
+      "authorId": 1,
       "id": 1
     },
     {
       "category": "Work",
-      "taskTitle": "To do list",
-      "taskDescription": "Create the to do list",
+      "title": "To do list",
+      "tags": "work",
+      "description": "Create the to do list",
       "checked": true,
+      "autorId": 1,
       "id": 2
     },
     {
       "category": "Personal",
-      "taskTitle": "Plants",
-      "taskDescription": "Water plants in living room",
+      "title": "Plants",
+      "tags": "work",
+      "description": "Water plants in living room",
       "checked": false,
+      "authorId": 1,
       "id": 3
+    },
+    {
+      "category": "Personal",
+      "title": "Plants",
+      "tags": "work",
+      "description": "Water plants in living room",
+      "checked": false,
+      "authorId": 2,
+      "id": 3
+    },
+    {
+      "category": "Personal",
+      "title": "Task",
+      "tags": "work",
+      "description": "Task",
+      "checked": true,
+      "authorId": 1,
+      "id": 4
+    },
+    {
+      "category": "Work",
+      "title": "Title",
+      "tags": "tag",
+      "description": "Test description",
+      "authorId": 1,
+      "checked": false,
+      "id": 6
     }
   ],
   "comments": [
