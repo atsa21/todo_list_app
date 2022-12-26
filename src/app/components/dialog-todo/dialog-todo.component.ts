@@ -15,6 +15,7 @@ export class DialogTodoComponent implements OnInit {
 
   taskCategories: string[] = ['Personal', 'Work'];
   tagsList: string[] = [];
+  cantAddTag = false;
 
   todoForm !: FormGroup;
   dialogTitle : string = "Add Todo";
@@ -35,7 +36,7 @@ export class DialogTodoComponent implements OnInit {
     this.todoForm = this.formBuilder.group({
       category : new FormControl('', Validators.required),
       title : new FormControl('', [Validators.required, Validators.minLength(2)]),
-      tags : new FormControl('', Validators.required),
+      tags : this.tagsList,
       description : new FormControl('', [Validators.required, Validators.minLength(2)]),
       authorId: this.userId,
       checked : false
@@ -74,6 +75,7 @@ export class DialogTodoComponent implements OnInit {
       this.tagsList.push(value);
     }
 
+    this.checkTagLength();
     event.chipInput!.clear();
   }
 
@@ -83,11 +85,17 @@ export class DialogTodoComponent implements OnInit {
     if (index >= 0) {
       this.tagsList.splice(index, 1);
     }
+    this.checkTagLength();
   }
 
-  addTodo(){
+  checkTagLength(): void {
+    this.tagsList.length === 3 ? this.cantAddTag = true : this.cantAddTag = false;
+  }
+
+  addTodo(): void {
     if(!this.editData){
       if(this.todoForm.valid){
+        this.tags?.setValue(this.tagsList);
         this.api.postTodo(this.todoForm.value)
         .subscribe({
           next:(res)=>{

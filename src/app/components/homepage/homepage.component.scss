@@ -25,7 +25,7 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            background-color: white;
+            background-color: var(--white);
             padding-left: 18px;
 
             .paginator_text {
@@ -48,17 +48,44 @@
 }
 
 .ready {
-    color: rgb(187, 187, 187);
+    color: var(--light-grey);
 }
 
 .unready {
-    color: black;
+    color: var(--black);
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tags-box {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+}
+
+.tag {
+    border-radius: 12px;
+    padding: 4px 8px;
+}
+
+.ready-tag {
+    color: var(--white);
+    background-color: var(--light-grey);
+}
+
+.unready-tag {
+    color: var(--white);
+    background-color: var(--accent-color);
 }
 
 .clear-btn {
-    color: #ccc;
+    color: var(--light-grey);
 }
 
 .clear-btn:hover {
-    color: rgb(101, 101, 101);
+    color: var(--grey);
 }
