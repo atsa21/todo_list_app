@@ -27,5 +27,9 @@ export class ApiService {
   deleteTodo(id: number){
     return this.http.delete<any>("http://localhost:3000/todoList/" + id);
   }
+
+  postUser(data: any){
+    return this.http.post<any>("http://localhost:3000/users/", data);
+  }
   
 }

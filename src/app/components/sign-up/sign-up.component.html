@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="headings mb-2">
+        <a routerLink="/login" class="h-login switch_to_text"><h2>Login</h2></a>
+        <h2 class="activeText">Sign Up</h2>
+    </div>
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()" >
+
+        <mat-form-field appearance="outline">
+            <mat-label>User Name</mat-label>
+            <input formControlName="name" matInput placeholder="username" required/>
+            <mat-error *ngIf="name?.errors?.['required']">Username is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="mt-2">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput placeholder="example@gmail.com" required/>
+            <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
+            <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="mt-2">
+            <mat-label>Password</mat-label>
+            <input formControlName="password" minlength="5" type="password" matInput placeholder="enter your password" required/>
+            <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
+            <mat-error *ngIf="password?.errors?.['minlength']">Password must be at least 5 characters long</mat-error>
+        </mat-form-field>
+        
+        <button [disabled]="!signUpForm.valid" mat-flat-button color="accent" type="submit" class="btn-large mt-2">Sign Up</button>
+    </form>
+</div>

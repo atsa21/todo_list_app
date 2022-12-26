@@ -34,13 +34,17 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { LoginComponent } from './components/login/login.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
     DialogTodoComponent,
-    HeaderComponent
+    HeaderComponent,
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

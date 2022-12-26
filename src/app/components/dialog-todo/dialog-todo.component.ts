@@ -6,7 +6,6 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { DateAdapter } from '@angular/material/core';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-dialog-todo',
