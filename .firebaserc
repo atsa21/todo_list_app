@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "todo-list-app-45cf7": {
+      "hosting": {
+        "todo_list_app": [
+          "todo-list-app-45cf7"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "todo-list-app-45cf7"
+  }
+}

@@ -30,6 +30,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
 
 @NgModule({
   declarations: [
@@ -63,7 +67,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatProgressBarModule,
     MatSidenavModule,
     MatDatepickerModule,
-    MatNativeDateModule 
+    MatNativeDateModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()) 
   ],
   providers: [
     MatDatepickerModule,
