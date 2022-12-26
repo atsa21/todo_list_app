@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient, private db: AngularFireDatabase) { }
 
   postTodo(data: any){
     return this.http.post<any>("http://localhost:3000/todoList/", data);
@@ -28,8 +29,4 @@ export class ApiService {
     return this.http.delete<any>("http://localhost:3000/todoList/" + id);
   }
 
-  postUser(data: any){
-    return this.http.post<any>("http://localhost:3000/users/", data);
-  }
-  
 }

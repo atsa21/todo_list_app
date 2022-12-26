@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from 'src/app/services/api.service';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,10 +12,11 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SignUpComponent implements OnInit {
 
   signUpForm !: FormGroup;
+  user: User = new User();
 
   constructor(
     private auth : AuthService,
-    private api: ApiService,
+    private userService: UsersService,
     private fb: FormBuilder
   ){}
 
@@ -41,7 +43,9 @@ export class SignUpComponent implements OnInit {
   signUp(){
     if(this.signUpForm.valid){
       this.auth.signUp(this.signUpForm.value.email, this.signUpForm.value.password);
-      this.api.postUser(this.signUpForm.value);
+      this.user.name = this.signUpForm.get('name')?.value;
+      this.user.email = this.signUpForm.get('email')?.value;
+      this.userService.createUser(this.user);
     }
   };
 

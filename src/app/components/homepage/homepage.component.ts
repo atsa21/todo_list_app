@@ -45,22 +45,22 @@ export class HomepageComponent implements OnInit {
 
   getAllTodo(){
     const id = 1;
-    this.api.getTodoById(id)
-    .subscribe({
-      next:(res)=>{
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.totalTodo = this.dataSource.data.length;
-        const toDo = this.dataSource.data.filter(el => el.checked);
-        this.readyTodo = toDo.length;
-        this.progress = (this.readyTodo / this.totalTodo) * 100;
-        this.notReadyTodo = this.totalTodo - this.readyTodo;
-      },
-      error:(err)=>{
-        this.snackbar.openSnackBar('Error while getting the todo', 'Close');
-      }
-    })
+    // this.api.getTodoById(id)
+    // .subscribe({
+    //   next:(res)=>{
+    //     this.dataSource = new MatTableDataSource(res);
+    //     this.dataSource.paginator = this.paginator;
+    //     this.dataSource.sort = this.sort;
+    //     this.totalTodo = this.dataSource.data.length;
+    //     const toDo = this.dataSource.data.filter(el => el.checked);
+    //     this.readyTodo = toDo.length;
+    //     this.progress = (this.readyTodo / this.totalTodo) * 100;
+    //     this.notReadyTodo = this.totalTodo - this.readyTodo;
+    //   },
+    //   error:(err)=>{
+    //     this.snackbar.openSnackBar('Error while getting the todo', 'Close');
+    //   }
+    // })
   }
 
   editTodo(row : any){

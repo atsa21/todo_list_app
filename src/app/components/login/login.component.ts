@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
   login(){
     if(typeof this.loginForm.value.email === 'string' && typeof this.loginForm.value.password === 'string'){
       this.auth.login(this.loginForm.value.email, this.loginForm.value.password);
-      this.api.postUser(this.loginForm.value);
     }
   }
 }

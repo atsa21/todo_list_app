@@ -2,18 +2,23 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { ApiService } from './api.service';
 import { SnackBarService } from './snack-bar.service';
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private userId: string = '';
+
   constructor(
     private fireAuth: AngularFireAuth,
     private router: Router,
-    private snackbar: SnackBarService
+    private snackbar: SnackBarService,
+    private userService: UsersService
   ) { }
 
   login(email: string, password: string) {
@@ -21,7 +26,14 @@ export class AuthService {
     .then(() => {
       localStorage.setItem('token', 'true');
       localStorage.setItem('email', email);
-      this.router.navigate(['todopage'])
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          this.userId = user.uid;
+          this.userService.getCurrentUser(this.userId);
+        }
+      });
+      this.router.navigate(['homepage']);
     }, err => {
       this.snackbar.openSnackBar('Error while login', 'Close');
       this.router.navigate(['/login']);
