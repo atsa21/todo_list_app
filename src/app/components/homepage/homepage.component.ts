@@ -6,6 +6,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ApiService } from 'src/app/services/api.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { getAuth } from 'firebase/auth';
+import { UsersService } from 'src/app/services/users.service';
 
 export interface todoList {
   category: string;
@@ -32,18 +35,29 @@ export class HomepageComponent implements OnInit {
   public notReadyTodo: number = 0;
   public progress: number = 0;
 
+  public data: any;
+
+  private userId: string | null = '';
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor( private dialog : MatDialog,
     private api : ApiService,
-    private snackbar : SnackBarService){}
+    private snackbar : SnackBarService,
+    private userService: UsersService
+  ){}
 
   ngOnInit(): void {
+    this.getUser();
     this.getAllTodo();
   }
 
-  getAllTodo(){
+  getUser() {
+    this.userId = localStorage.getItem('userId');
+  }
+
+  getAllTodo(): void {
     const id = 1;
     // this.api.getTodoById(id)
     // .subscribe({

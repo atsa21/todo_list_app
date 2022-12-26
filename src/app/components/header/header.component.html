@@ -1,8 +1,17 @@
 <mat-toolbar class="header">
-    <span>To-do list</span>
-    <div>
-      <button mat-mini-fab type="button" color="accent" (click)="openDialog()">
-        <mat-icon>add</mat-icon>
+  <span>Todo List App</span>
+  <div class="buttons_block">
+    <button mat-mini-fab [matMenuTriggerFor]="menu" class="btn-person me-2">
+      <mat-icon>person icon</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="logOut()">
+        <mat-icon>person icon</mat-icon>
+        <span>Logout</span>
       </button>
-    </div>
+    </mat-menu>
+    <button mat-mini-fab type="button" color="accent" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from 'src/app/services/auth.service';
 import { DialogTodoComponent } from '../dialog-todo/dialog-todo.component';
 import { HomepageComponent } from '../homepage/homepage.component';
 
@@ -10,8 +11,12 @@ import { HomepageComponent } from '../homepage/homepage.component';
 })
 export class HeaderComponent implements OnInit {
 
+  private userId: string | null = '';
+
   constructor(private dialog : MatDialog,
-    private todo: HomepageComponent) { }
+    private todo: HomepageComponent,
+    private auth: AuthService
+    ) { }
 
   ngOnInit(): void {
   }
@@ -24,6 +29,14 @@ export class HeaderComponent implements OnInit {
         this.todo.getAllTodo();
       }
     })
+  }
+
+  getUser() {
+    this.userId = localStorage.getItem('userId');
+  }
+
+  logOut() {
+    this.auth.logOut();
   }
 
 }

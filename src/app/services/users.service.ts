@@ -11,14 +11,12 @@ export class UsersService {
 
   constructor() {}
 
-  getCurrentUser(userId: string): void {
+  getCurrentUser(userId: string | null): any {
     const dbRef = ref(getDatabase());
-    get(child(dbRef, `users/${userId}`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-      } else {
-        console.log("No data available");
-      }
+    let data;
+    get(child(dbRef, `users/${userId}`)).then((res) => {
+      data = res.val();
+      return data;
     }).catch((error) => {
       console.error(error);
     });

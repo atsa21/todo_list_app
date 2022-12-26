@@ -31,6 +31,7 @@ export class AuthService {
         if (user) {
           this.userId = user.uid;
           this.userService.getCurrentUser(this.userId);
+          localStorage.setItem('userId', this.userId);
         }
       });
       this.router.navigate(['homepage']);
@@ -40,9 +41,10 @@ export class AuthService {
     })
   }
 
-  signUp(email: string, password: string) {
+  signUp(email: string, password: string, user: any) {
     this.fireAuth.createUserWithEmailAndPassword(email, password)
     .then (() => {
+      this.userService.createUser(user);
       this.snackbar.openSnackBar('Sign Up Successfull', 'Close');
       this.router.navigate(['/login']);
     }, err => {
