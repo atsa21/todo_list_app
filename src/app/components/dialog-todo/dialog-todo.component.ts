@@ -45,7 +45,7 @@ export class DialogTodoComponent implements OnInit {
     this.todoForm = this.formBuilder.group({
       category : new FormControl('', Validators.required),
       task : new FormControl('', [Validators.required, Validators.minLength(2)]),
-      date: new FormControl(''),
+      date: new FormControl('', Validators.required),
       tags : this.tagsList,
       authorId: this.userId,
       checked : false
@@ -102,7 +102,6 @@ export class DialogTodoComponent implements OnInit {
     if(!this.editData){
       if(this.todoForm.valid){
         this.tags?.setValue(this.tagsList);
-        console.log(this.todoForm.value);
         this.todoService.createTodo(this.todoForm.value, this.userId);
       }
     } else {

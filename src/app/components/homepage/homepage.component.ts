@@ -10,15 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { getAuth } from 'firebase/auth';
 import { UsersService } from 'src/app/services/users.service';
 import { TodoService } from 'src/app/services/todo.service';
-
-export interface todoList {
-  category: string;
-  task: string;
-  tags: string[];
-  date: string;
-  action: any;
-  checked: false;
-}
+import { map } from 'rxjs';
+import { Todo } from 'src/app/models/todo.model';
 
 @Component({
   selector: 'app-homepage',
@@ -28,7 +21,7 @@ export interface todoList {
 export class HomepageComponent implements OnInit {
 
   displayedColumns: string[] = [ 'checked', 'task',  'tags', 'date', 'action'];
-  dataSource!: MatTableDataSource<todoList>;
+  dataSource!: MatTableDataSource<any>;
   tableTags: any;
 
   public totalTodo: number = 0;
@@ -55,7 +48,17 @@ export class HomepageComponent implements OnInit {
   }
 
   getAllTodo(): void {
-    this.todoService.getAllTodo(this.userId);
+    this.todoService.getAll().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   editTodo(row : any){

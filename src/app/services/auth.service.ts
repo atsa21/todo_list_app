@@ -58,6 +58,7 @@ export class AuthService {
     .then (() => {
       localStorage.removeItem('token');
       localStorage.removeItem('email');
+      localStorage.removeItem('userId');
       this.router.navigate(['/login']);
     }, err => {
       this.snackbar.openSnackBar('Error while log out', 'Close');
