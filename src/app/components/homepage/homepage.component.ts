@@ -30,7 +30,6 @@ export class HomepageComponent implements OnInit {
   public progress: number = 0;
 
   public data: any;
-
   private userId: string | null = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -48,7 +47,7 @@ export class HomepageComponent implements OnInit {
   }
 
   getAllTodo(): void {
-    this.todoService.getAll().snapshotChanges().pipe(
+    this.todoService.getAllTodo().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })
@@ -58,6 +57,8 @@ export class HomepageComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.totalTodo = data.length;
+      this.setTotalTodo();
     });
   }
 
@@ -102,6 +103,10 @@ export class HomepageComponent implements OnInit {
         this.snackbar.openSnackBar('Error while deleting the todo', 'Close');
       }
     })
+  }
+
+  setTotalTodo() {
+    this.todoService.setTotalTodo(this.totalTodo);
   }
 
   search(event: Event) {

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
-import { getAuth } from 'firebase/auth';
-import { child, get, getDatabase, ref, set } from "firebase/database";
+import { child, getDatabase, push, ref, set } from "firebase/database";
 import { Todo } from '../models/todo.model';
 
 @Injectable({
@@ -11,44 +10,45 @@ export class TodoService {
 
   todo: any;
   totalTasks: number = 0;
-  tutorialsRef: AngularFireList<Todo>;
+  todoRef: AngularFireList<Todo>;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(
+    private db: AngularFireDatabase
+  ) {
     const userId = localStorage.getItem('userId');
-    this.getAllTodo(userId);
-    this.tutorialsRef = db.list(`todoList/${userId}/data`);
+    this.todoRef = db.list(`todoList/${userId}/data`);
   }
 
-  getAllTodo(userId: string | null): any {
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, `todoList/${userId}/data`)).then((res) => {
-      this.todo = res.val();
-      this.totalTasks = this.todo.length;
-      this.userTodo();
-    }).catch((error) => {
-      console.error(error);
-    });
+  getAllTodo(): AngularFireList<Todo> {
+    const userId = localStorage.getItem('userId');
+    this.todoRef = this.db.list(`todoList/${userId}/data`);
+    return this.todoRef;
   }
 
-  getAll(): AngularFireList<Todo> {
-    return this.tutorialsRef;
-  }
-
-  userTodo() {
-    return this.todo;
-  }
-
-  createTodo(todo: Todo, userId: string | null): void {
+  createTodo(todo: Todo, userId: string | null) {
     if(todo.date && typeof userId === 'string') {
       const db = getDatabase();
-      set(ref(db, 'todoList/' + userId + '/data/' + this.totalTasks ), {
+      const newPostKey = push(child(ref(db), 'posts')).key;
+      set(ref(db, 'todoList/' + userId), {
+        key: newPostKey,
         category: todo.category,
         task: todo.task,
         date: todo.date.toString(),
         tags: todo.tags,
         checked: false,
-        authorId: userId,
       });
     }
+  }
+
+  deleteTodo(): Promise<void> {
+    return this.todoRef.remove();
+  }
+
+  deleteAllTodo(): Promise<void> {
+    return this.todoRef.remove();
+  }
+
+  setTotalTodo(todo: any) {
+    this.totalTasks = todo;
   }
 }

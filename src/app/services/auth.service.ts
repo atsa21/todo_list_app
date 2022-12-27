@@ -30,11 +30,10 @@ export class AuthService {
       onAuthStateChanged(auth, (user) => {
         if (user) {
           this.userId = user.uid;
-          this.userService.getCurrentUser(this.userId);
           localStorage.setItem('userId', this.userId);
         }
+        this.router.navigate(['/homepage']);
       });
-      this.router.navigate(['homepage']);
     }, err => {
       this.snackbar.openSnackBar('Error while login', 'Close');
       this.router.navigate(['/login']);
