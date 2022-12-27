@@ -6,7 +6,7 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { DateAdapter } from '@angular/material/core';
-import * as moment from 'moment';
+import { TodoService } from 'src/app/services/todo.service';
 
 @Component({
   selector: 'app-dialog-todo',
@@ -23,13 +23,14 @@ export class DialogTodoComponent implements OnInit {
   todoForm !: FormGroup;
   dialogTitle : string = "Add Todo";
   actionBtn : string = "Submit";
-  userId: number = 1;
+  userId: string | null = '';
 
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   constructor( private formBuilder : FormBuilder,
     private api: ApiService,
+    private todoService: TodoService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     private dialogReg: MatDialogRef<DialogTodoComponent>,
     private snackbar: SnackBarService,
@@ -40,10 +41,11 @@ export class DialogTodoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem('userId');
     this.todoForm = this.formBuilder.group({
       category : new FormControl('', Validators.required),
       task : new FormControl('', [Validators.required, Validators.minLength(2)]),
-      date: new FormControl(''),
+      date: new FormControl('', Validators.required),
       tags : this.tagsList,
       authorId: this.userId,
       checked : false
@@ -100,16 +102,8 @@ export class DialogTodoComponent implements OnInit {
     if(!this.editData){
       if(this.todoForm.valid){
         this.tags?.setValue(this.tagsList);
-        this.api.postTodo(this.todoForm.value)
-        .subscribe({
-          next:(res)=>{
-            this.todoForm.reset();
-            this.dialogReg.close('save');
-          },
-          error:()=>{
-            this.snackbar.openSnackBar('Error while adding the todo', 'Close');
-          }
-        })
+        this.todoService.createTodo(this.todoForm.value, this.userId);
+        this.dialogReg.close();
       }
     } else {
       this.updateTodo();

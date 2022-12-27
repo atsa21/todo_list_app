@@ -6,15 +6,12 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ApiService } from 'src/app/services/api.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
-
-export interface todoList {
-  category: string;
-  task: string;
-  tags: string[];
-  date: string;
-  action: any;
-  checked: false;
-}
+import { AuthService } from 'src/app/services/auth.service';
+import { getAuth } from 'firebase/auth';
+import { UsersService } from 'src/app/services/users.service';
+import { TodoService } from 'src/app/services/todo.service';
+import { map } from 'rxjs';
+import { Todo } from 'src/app/models/todo.model';
 
 @Component({
   selector: 'app-homepage',
@@ -24,7 +21,7 @@ export interface todoList {
 export class HomepageComponent implements OnInit {
 
   displayedColumns: string[] = [ 'checked', 'task',  'tags', 'date', 'action'];
-  dataSource!: MatTableDataSource<todoList>;
+  dataSource!: MatTableDataSource<any>;
   tableTags: any;
 
   public totalTodo: number = 0;
@@ -32,35 +29,37 @@ export class HomepageComponent implements OnInit {
   public notReadyTodo: number = 0;
   public progress: number = 0;
 
+  public data: any;
+  private userId: string | null = '';
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor( private dialog : MatDialog,
     private api : ApiService,
-    private snackbar : SnackBarService){}
+    private snackbar : SnackBarService,
+    private todoService: TodoService
+  ){}
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem('userId');
     this.getAllTodo();
   }
 
-  getAllTodo(){
-    const id = 1;
-    this.api.getTodoById(id)
-    .subscribe({
-      next:(res)=>{
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.totalTodo = this.dataSource.data.length;
-        const toDo = this.dataSource.data.filter(el => el.checked);
-        this.readyTodo = toDo.length;
-        this.progress = (this.readyTodo / this.totalTodo) * 100;
-        this.notReadyTodo = this.totalTodo - this.readyTodo;
-      },
-      error:(err)=>{
-        this.snackbar.openSnackBar('Error while getting the todo', 'Close');
-      }
-    })
+  getAllTodo(): void {
+    this.todoService.getAllTodo().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.totalTodo = data.length;
+      this.setTotalTodo();
+    });
   }
 
   editTodo(row : any){
@@ -104,6 +103,10 @@ export class HomepageComponent implements OnInit {
         this.snackbar.openSnackBar('Error while deleting the todo', 'Close');
       }
     })
+  }
+
+  setTotalTodo() {
+    this.todoService.setTotalTodo(this.totalTodo);
   }
 
   search(event: Event) {

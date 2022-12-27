@@ -35,14 +35,12 @@
       "id": 3
     }
   ],
-  "comments": [
+  "users": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "name": "Anna",
+      "email": "anna@gmail.com",
+      "userId": 1,
+      "id": 1
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
