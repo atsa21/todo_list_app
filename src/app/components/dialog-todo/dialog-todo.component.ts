@@ -23,7 +23,7 @@ export class DialogTodoComponent implements OnInit {
   todoForm !: FormGroup;
   dialogTitle : string = "Add Todo";
   actionBtn : string = "Submit";
-  userId: number = 1;
+  userId: string | null = '';
 
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -41,6 +41,7 @@ export class DialogTodoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userId = localStorage.getItem('userId');
     this.todoForm = this.formBuilder.group({
       category : new FormControl('', Validators.required),
       task : new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -101,7 +102,8 @@ export class DialogTodoComponent implements OnInit {
     if(!this.editData){
       if(this.todoForm.valid){
         this.tags?.setValue(this.tagsList);
-        this.todoService.createTodo(this.todoForm);
+        console.log(this.todoForm.value);
+        this.todoService.createTodo(this.todoForm.value, this.userId);
       }
     } else {
       this.updateTodo();

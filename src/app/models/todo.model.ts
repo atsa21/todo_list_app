@@ -3,6 +3,6 @@ export interface Todo {
     task: string;
     date: string;
     tags: string;
+    cheched: boolean,
     authorId: string
-    cheched: boolean
 }

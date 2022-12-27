@@ -9,6 +9,7 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { getAuth } from 'firebase/auth';
 import { UsersService } from 'src/app/services/users.service';
+import { TodoService } from 'src/app/services/todo.service';
 
 export interface todoList {
   category: string;
@@ -45,36 +46,16 @@ export class HomepageComponent implements OnInit {
   constructor( private dialog : MatDialog,
     private api : ApiService,
     private snackbar : SnackBarService,
-    private userService: UsersService
+    private todoService: TodoService
   ){}
 
   ngOnInit(): void {
-    this.getUser();
+    this.userId = localStorage.getItem('userId');
     this.getAllTodo();
   }
 
-  getUser() {
-    this.userId = localStorage.getItem('userId');
-  }
-
   getAllTodo(): void {
-    const id = 1;
-    // this.api.getTodoById(id)
-    // .subscribe({
-    //   next:(res)=>{
-    //     this.dataSource = new MatTableDataSource(res);
-    //     this.dataSource.paginator = this.paginator;
-    //     this.dataSource.sort = this.sort;
-    //     this.totalTodo = this.dataSource.data.length;
-    //     const toDo = this.dataSource.data.filter(el => el.checked);
-    //     this.readyTodo = toDo.length;
-    //     this.progress = (this.readyTodo / this.totalTodo) * 100;
-    //     this.notReadyTodo = this.totalTodo - this.readyTodo;
-    //   },
-    //   error:(err)=>{
-    //     this.snackbar.openSnackBar('Error while getting the todo', 'Close');
-    //   }
-    // })
+    this.todoService.getAllTodo(this.userId);
   }
 
   editTodo(row : any){
