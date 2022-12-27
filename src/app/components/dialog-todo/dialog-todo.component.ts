@@ -24,12 +24,12 @@ export class DialogTodoComponent implements OnInit {
   dialogTitle : string = "Add Todo";
   actionBtn : string = "Submit";
   userId: string | null = '';
+  key: any;
 
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   constructor( private formBuilder : FormBuilder,
-    private api: ApiService,
     private todoService: TodoService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     private dialogReg: MatDialogRef<DialogTodoComponent>,
@@ -54,10 +54,12 @@ export class DialogTodoComponent implements OnInit {
     if(this.editData) {
       this.dialogTitle = "Edit Todo";
       this.actionBtn = "Save";
+      const date = new Date(this.editData.date);
       this.todoForm.controls['category'].setValue(this.editData.category);
       this.todoForm.controls['task'].setValue(this.editData.task);
-      this.todoForm.controls['date'].setValue(this.editData.date);
+      this.todoForm.controls['date'].setValue(date);
       this.tagsList = this.editData.tags;
+      this.key = this.editData.key;
     }
   }
 
@@ -111,15 +113,8 @@ export class DialogTodoComponent implements OnInit {
   }
 
   updateTodo(){
-    this.api.putTodo(this.todoForm.value, this.editData.id)
-    .subscribe({
-      next:(res)=>{
-        this.todoForm.reset();
-        this.dialogReg.close('update');
-      },
-      error:()=>{
-        this.snackbar.openSnackBar('Error while updating the todo', 'Close');
-      }
-    })
+    this.tags?.setValue(this.tagsList);
+    this.todoService.updateTodo(this.todoForm.value, this.key)
+    this.dialogReg.close();
   }
 }
