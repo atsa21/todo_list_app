@@ -28,8 +28,8 @@ export class TodoService {
   createTodo(todo: Todo, userId: string | null) {
     if(todo.date && typeof userId === 'string') {
       const db = getDatabase();
-      const newPostKey = push(child(ref(db), 'posts')).key;
-      set(ref(db, 'todoList/' + userId), {
+      const newPostKey = push(child(ref(db), 'todoList')).key;
+      set(ref(db, 'todoList/' + userId + '/data/' + newPostKey), {
         key: newPostKey,
         category: todo.category,
         task: todo.task,
