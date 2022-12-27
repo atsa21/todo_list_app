@@ -73,23 +73,13 @@ export class HomepageComponent implements OnInit {
     })
   }
 
-  checkTodo(row: any, id : number){
+  checkTodo(row: any, key : any){
     if (row.checked == false) {
       row.checked = true;
-      this.api.putTodo(row, id)
-      .subscribe({
-        next:(res)=>{
-          this.getAllTodo();
-        }
-      })
+      this.todoService.updateTodo(row, key);
     } else if (row.checked == true) {
       row.checked = false;
-      this.api.putTodo(row, id)
-      .subscribe({
-        next:(res)=>{
-          this.getAllTodo();
-        }
-      })
+      this.todoService.updateTodo(row, key);
     }
   }
 
