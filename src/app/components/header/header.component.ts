@@ -29,11 +29,7 @@ export class HeaderComponent implements OnInit {
   openDialog(): void {
     this.dialog.open(DialogTodoComponent, {
       width: '30%'
-    }).afterClosed().subscribe(val=>{
-      if(val === 'save'){
-        this.todo.getAllTodo();
-      }
-    })
+    });
   }
 
   getUser() {

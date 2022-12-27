@@ -103,6 +103,7 @@ export class DialogTodoComponent implements OnInit {
       if(this.todoForm.valid){
         this.tags?.setValue(this.tagsList);
         this.todoService.createTodo(this.todoForm.value, this.userId);
+        this.dialogReg.close();
       }
     } else {
       this.updateTodo();
