@@ -93,16 +93,8 @@ export class HomepageComponent implements OnInit {
     }
   }
 
-  deleteTodo(id: number){
-    this.api.deleteTodo(id)
-    .subscribe({
-      next:(res)=>{
-        this.getAllTodo();
-      },
-      error:()=>{
-        this.snackbar.openSnackBar('Error while deleting the todo', 'Close');
-      }
-    })
+  deleteTodo(key: any){
+    this.todoService.deleteTodo(key);
   }
 
   setTotalTodo() {

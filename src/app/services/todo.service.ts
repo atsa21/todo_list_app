@@ -40,8 +40,12 @@ export class TodoService {
     }
   }
 
-  deleteTodo(): Promise<void> {
-    return this.todoRef.remove();
+  updateTodo(todo: Todo, key: string): Promise<void> {
+    return this.todoRef.update(key, todo);
+  }
+
+  deleteTodo(key: any): Promise<void> {
+    return this.todoRef.remove(key);
   }
 
   deleteAllTodo(): Promise<void> {
