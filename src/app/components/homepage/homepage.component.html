@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="container">
+<div class="container" *ngIf="dataSource; else loading">
   <div class="container">
     <div class="todo-box">
       <mat-form-field appearance="standard" color="accent">
@@ -71,3 +71,8 @@
     </div>
   </div>
 </div>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
