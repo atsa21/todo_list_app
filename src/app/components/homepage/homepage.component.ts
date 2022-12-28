@@ -28,7 +28,8 @@ export class HomepageComponent implements OnInit {
   public readyTodo: number = 0;
   public notReadyTodo: number = 0;
   public progress: number = 0;
-  public categories: string[] = ['personal', 'work'];
+  public categories: string[] = ['All tasks', 'Personal', 'Work'];
+  public category = '';
 
   public data: any;
   private userId: string | null = '';
@@ -62,6 +63,20 @@ export class HomepageComponent implements OnInit {
       this.totalTodo = data.length;
       this.setTotalTodo();
     });
+  }
+
+  getTodoByCategory(category: string): void {
+    if(category !== 'All tasks') {
+      this.todoService.getTodoByCategory(category).pipe().subscribe( res => {
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalTodo = res.length;
+        this.setTotalTodo();
+      });
+    } else {
+      this.getAllTodo();
+    }
   }
 
   editTodo(row : any){

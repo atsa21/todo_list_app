@@ -11,9 +11,13 @@
               <input matInput (keyup)="search($event)" placeholder="enter the todo..." #input/>
             </mat-form-field>
             <mat-form-field appearance="outline" color="accent">
-              <mat-label>Search</mat-label>
-              <input matInput />
-            </mat-form-field>
+              <mat-label>Category</mat-label>
+              <mat-select [ngModel]="category" (ngModelChange)="getTodoByCategory($event)" required>
+                  <mat-option *ngFor="let category of categories" [value]="category" >
+                      <span>{{category}}</span>
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
           </div>
           <div class="table-box">
             <table mat-table [dataSource]="dataSource" matSort colspan="5">

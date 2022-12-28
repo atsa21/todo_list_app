@@ -14,3 +14,11 @@
         gap: 8px;
     }
 }
+
+.btn {
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--accent-hover);
+    }
+}
