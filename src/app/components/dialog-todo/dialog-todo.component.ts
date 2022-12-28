@@ -44,7 +44,7 @@ export class DialogTodoComponent implements OnInit {
     this.userId = localStorage.getItem('userId');
     this.todoForm = this.formBuilder.group({
       category : new FormControl('', Validators.required),
-      task : new FormControl('', [Validators.required, Validators.minLength(2)]),
+      task : new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
       date: new FormControl('', Validators.required),
       tags : this.tagsList,
       authorId: this.userId,
@@ -81,11 +81,11 @@ export class DialogTodoComponent implements OnInit {
 
   addTag(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-    if (value) {
+    if (value.length >= 2 && value.length <= 14) {
       this.tagsList.push(value);
+      this.checkTagLength();
+      event.chipInput!.clear();
     }
-    this.checkTagLength();
-    event.chipInput!.clear();
   }
 
   removeTag(tag: string): void {
