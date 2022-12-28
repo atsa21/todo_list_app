@@ -1,0 +1,31 @@
+.navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 200px;
+    height: 100%;
+    padding: 92px 0;
+    background-color: var(--white);
+
+    .btn {
+        display: flex;
+        align-items: center;
+        border: 0;
+        width: 100%;
+        height: 48px;
+        padding-left: 16px;
+        gap: 16px;
+        background-color: var(--white);
+        color: var(--black);
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--accent);
+            color: var(--white);
+        }
+
+        span {
+            font-size: 16px;
+        }
+    }
+}

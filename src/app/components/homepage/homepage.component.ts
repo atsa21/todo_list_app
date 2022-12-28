@@ -28,6 +28,8 @@ export class HomepageComponent implements OnInit {
   public readyTodo: number = 0;
   public notReadyTodo: number = 0;
   public progress: number = 0;
+  public categories: string[] = ['All tasks', 'Personal', 'Work'];
+  public category = '';
 
   public data: any;
   private userId: string | null = '';
@@ -44,6 +46,7 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId');
     this.getAllTodo();
+    const todo = this.todoService.getTodoByCategory('Personal');
   }
 
   getAllTodo(): void {
@@ -62,6 +65,20 @@ export class HomepageComponent implements OnInit {
     });
   }
 
+  getTodoByCategory(category: string): void {
+    if(category !== 'All tasks') {
+      this.todoService.getTodoByCategory(category).pipe().subscribe( res => {
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.totalTodo = res.length;
+        this.setTotalTodo();
+      });
+    } else {
+      this.getAllTodo();
+    }
+  }
+
   editTodo(row : any){
     this.dialog.open(DialogTodoComponent, {
       width: '30%',
@@ -74,13 +91,8 @@ export class HomepageComponent implements OnInit {
   }
 
   checkTodo(row: any, key : any){
-    if (row.checked == false) {
-      row.checked = true;
-      this.todoService.updateTodo(row, key);
-    } else if (row.checked == true) {
-      row.checked = false;
-      this.todoService.updateTodo(row, key);
-    }
+    row.checked === false ? row.checked = true : row.checked = false;
+    this.todoService.updateTodo(row, key);
   }
 
   deleteTodo(key: any){

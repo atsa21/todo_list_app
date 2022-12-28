@@ -3,8 +3,8 @@
   <ng-template #loading>
     <span></span>
   </ng-template>
-  <div class="buttons_block">
-    <button mat-mini-fab [matMenuTriggerFor]="menu" class="btn-person me-2">
+  <div class="header-right">
+    <button mat-mini-fab [matMenuTriggerFor]="menu" class="btn">
       <mat-icon>person icon</mat-icon>
     </button>
     <mat-menu #menu="matMenu" xPosition="before">
@@ -13,7 +13,7 @@
         <span>Logout</span>
       </button>
     </mat-menu>
-    <button mat-mini-fab type="button" color="accent" (click)="openDialog()">
+    <button class="btn" mat-mini-fab type="button" color="accent" (click)="openDialog()">
       <mat-icon>add</mat-icon>
     </button>
   </div>

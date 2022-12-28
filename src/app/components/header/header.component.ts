@@ -14,10 +14,8 @@ import { HomepageComponent } from '../homepage/homepage.component';
 export class HeaderComponent implements OnInit {
 
   public user: any = [];
-  private userId: string | null = '';
 
   constructor(private dialog : MatDialog,
-    private todo: HomepageComponent,
     private auth: AuthService,
     private userService: UsersService
   ) { }

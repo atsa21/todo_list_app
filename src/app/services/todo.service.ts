@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { child, getDatabase, push, ref, set } from "firebase/database";
+import { Observable, of } from 'rxjs';
 import { Todo } from '../models/todo.model';
 
 @Injectable({
@@ -23,6 +24,17 @@ export class TodoService {
     const userId = localStorage.getItem('userId');
     this.todoRef = this.db.list(`todoList/${userId}/data`);
     return this.todoRef;
+  }
+
+  getTodoByCategory(category: string): Observable<any> {
+    const userId = localStorage.getItem('userId');
+    const dbRef = this.db.database.ref(`todoList/${userId}/data`);
+    const todo: Object[] = [];
+
+    dbRef.orderByChild('category').equalTo(category).on("child_added", function(snapshot) {
+      todo.push(snapshot.val());
+    });
+    return of(todo);
   }
 
   createTodo(todo: Todo, userId: string | null) {
