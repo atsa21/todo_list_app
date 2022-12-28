@@ -1,5 +1,8 @@
 <mat-toolbar class="header">
-  <span>Welcome back, {{ user.username }}!</span>
+  <span *ngIf="user.username; else loading">Welcome back, {{ user.username }}!</span>
+  <ng-template #loading>
+    <span></span>
+  </ng-template>
   <div class="buttons_block">
     <button mat-mini-fab [matMenuTriggerFor]="menu" class="btn-person me-2">
       <mat-icon>person icon</mat-icon>
