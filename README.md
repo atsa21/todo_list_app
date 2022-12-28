@@ -5,7 +5,7 @@ This project was created to manage task.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
 Node version 16.10.0.
 
-## To-do app site
+## Site
 
 Navigate to `https://todo-list-app-45cf7--pr9-add-firebase-hosting-yphv14jm.web.app/login` to see deployed app.
 
