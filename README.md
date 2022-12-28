@@ -17,13 +17,19 @@ Angular CLI: 14.1.0
 Node: 16.10.0 to work.
 
 To switch in right node version, I recommend to download Node Version Manager.
+Steps to change Node version by Node Version Manager:
+1. Open Terminal as administrator.
+2. To install Node version 16.10.0 run `nvm install 16.10.0`.
+3. To see all available Node versions run `nvm list`.
+4. To set needed Node version run `nvm use 16.10.0`.
+
 In other case, you need to uninstall your Node and install Node 16.10.0.
 
 To install Angular run `npm install -g @angular/cli@14.1.0`
 If you have other installed Angular version you need to unistall it:
-1. Run `npm unistall -g @angular/cli`
-2. Run `npm cache clean --force`
-3. Run `npm install -g @angular/cli@14.1.0`
+1. To uninstall Angular run `npm unistall -g @angular/cli`.
+2. Run `npm cache clean --force`.
+3. To install needed Angular version run `npm install -g @angular/cli@14.1.0`.
 
 ## Code scaffolding
 
