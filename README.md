@@ -7,7 +7,7 @@ Node version 16.10.0.
 
 ## Site
 
-Navigate to `https://todo-list-app-45cf7--pr9-add-firebase-hosting-yphv14jm.web.app/login` to see deployed app.
+Navigate to `https://todo-list-app-45cf7.firebaseapp.com/login` to see deployed app.
 
 ## How to install
 
