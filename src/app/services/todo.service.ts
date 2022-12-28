@@ -25,6 +25,18 @@ export class TodoService {
     return this.todoRef;
   }
 
+  getTodoByCategory(category: string) {
+    const userId = localStorage.getItem('userId');
+    const dbRef = this.db.database.ref(`todoList/${userId}/data`);
+    const todo: Object[] = [];
+
+    dbRef.orderByChild('category').equalTo(category).once('child_added')
+    .then(function (snapshot) {
+      todo.push(snapshot.val());
+    })
+    return todo;
+  }
+
   createTodo(todo: Todo, userId: string | null) {
     if(todo.date && typeof userId === 'string') {
       const db = getDatabase();

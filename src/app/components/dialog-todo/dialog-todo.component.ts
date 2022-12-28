@@ -15,7 +15,7 @@ import { TodoService } from 'src/app/services/todo.service';
 })
 export class DialogTodoComponent implements OnInit {
 
-  taskCategories: string[] = ['Personal', 'Work'];
+  categories: string[] = ['personal', 'work'];
   tagsList: string[] = [];
   cantAddTag = false;
   minDate: Date;

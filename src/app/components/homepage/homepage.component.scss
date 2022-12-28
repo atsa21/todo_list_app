@@ -18,9 +18,15 @@
     .todo-box {
         width: 60%;
 
+        .inputs-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
         .mat-form-field {
             font-size: 14px;
-            width: 100%;
+            width: 40%;
         }
     }
 

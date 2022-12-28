@@ -11,8 +11,8 @@
         <mat-form-field appearance="outline" color="accent">
             <mat-label>Category</mat-label>
             <mat-select formControlName="category" required>
-                <mat-option *ngFor="let taskcategorie of taskCategories" [value]="taskcategorie">
-                    {{taskcategorie}}
+                <mat-option *ngFor="let categorie of categories" [value]="categorie">
+                    <span>{{categorie}}</span>
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="category?.errors?.['required']">Please select the category</mat-error>
