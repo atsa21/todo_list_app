@@ -35,7 +35,7 @@ export class AuthService {
         this.router.navigate(['/homepage']);
       });
     }, err => {
-      this.snackbar.openSnackBar('Error while login', 'Close');
+      this.snackbar.openSnackBar('The email or password is incorrect. Try again', 'Close');
       this.router.navigate(['/login']);
     })
   }

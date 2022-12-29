@@ -4,15 +4,15 @@
             <h1 class="activeText h-login">Login</h1>
             <a routerLink="/signup"><h1 class="switch-to-text">Sign Up</h1></a>
         </div>
-        
+
         <form [formGroup]="loginForm" class="form" (ngSubmit)="login()">
-            <mat-form-field appearance="outline" class="input" floatLabel="always">
+            <mat-form-field appearance="outline" color="accent" floatLabel="always">
                 <mat-label>Email</mat-label>
                 <input formControlName="email" matInput placeholder="example@gmail.com" required>
                 <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
                 <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline" class="input" floatLabel="always">
+            <mat-form-field appearance="outline" color="accent" floatLabel="always">
                 <mat-label>Password</mat-label>
                 <input formControlName="password" type="password" matInput placeholder="enter your password" required>
                 <mat-error *ngIf="email?.errors?.['required']">Password is required</mat-error>
