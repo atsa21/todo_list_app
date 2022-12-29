@@ -43,7 +43,6 @@ export class MainpageComponent implements OnInit {
 
   ngOnInit(): void {
     this.today = new Date(new Date().setHours(0,0,0,0)).toString();
-    console.log(this.today);
     this.userId = this.localStorService.getItem('userId');
     this.getAllTodo();
   }
@@ -91,10 +90,6 @@ export class MainpageComponent implements OnInit {
     this.dialog.open(DialogTodoComponent, {
       width: '30%',
       data:row
-    }).afterClosed().subscribe(val=>{
-      if(val === 'update'){
-        this.getAllTodo();
-      }
     })
   }
 
