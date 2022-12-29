@@ -24,11 +24,11 @@
             justify-content: space-between;
 
             .input-search {
-                width: 78%;
+                width: 54%;
             }
 
             .input-category {
-                width: 20%;
+                width: 26%;
             }
         }
 
@@ -130,6 +130,19 @@ ul {
 .unready-tag {
     color: var(--white);
     background-color: var(--accent);
+}
+
+.btn {
+    padding: 6px 12px;
+    margin-top: 3px;
+    margin-bottom: 26px;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        color: var(--white);
+        background-color: var(--accent-hover);
+        cursor: pointer;
+    }
 }
 
 .clear-btn {
