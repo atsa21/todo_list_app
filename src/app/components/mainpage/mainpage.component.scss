@@ -152,3 +152,35 @@ ul {
 .clear-btn:hover {
     color: var(--grey);
 }
+
+.critical-icon {
+    color: var(--danger);
+}
+
+.high-icon {
+    color: var(--warning);
+}
+
+.medium-icon {
+    color: var(--success);
+}
+
+.low-icon {
+    color: var(--neutral);
+}
+
+.priority {
+    display: flex;
+
+    .mat-icon {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        height: 20px;
+        width: 20px;
+    }
+}
+
+.p-priority {
+    font-size: 12px;
+}

@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { TodoService } from 'src/app/services/todo.service';
 import { map } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { Data } from '@angular/router';
 
 @Component({
   selector: 'app-mainpage',
@@ -15,7 +16,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 export class MainpageComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'checked', 'category', 'task',  'tags', 'date', 'action'];
+  displayedColumns: string[] = [ 'checked', 'category', 'task', 'date', 'priority', 'tags', 'action'];
   dataSource!: MatTableDataSource<any>;
   tableTags: any;
   todoReadyList: any;
@@ -24,10 +25,11 @@ export class MainpageComponent implements OnInit {
   public readyTodo: number = 0;
   public unreadyTodo: number = 0;
   public progress: number = 0;
-  public categories: string[] = ['All tasks', 'Personal', 'Work'];
+  public categories: string[] = ['All tasks', 'Work', 'Study', 'Home', 'Hobbies', 'Other'];
   public category = '';
 
   public data: any;
+  public today: any;
   private userId: string | null = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -40,6 +42,7 @@ export class MainpageComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
+    this.today = new Date(new Date().setHours(0,0,0,0)).toString();
     this.userId = this.localStorService.getItem('userId');
     this.getAllTodo();
   }
@@ -83,23 +86,19 @@ export class MainpageComponent implements OnInit {
     this.getReadyTodo();
   }
 
-  editTodo(row : any){
+  editTodo(row : any): void {
     this.dialog.open(DialogTodoComponent, {
       width: '30%',
       data:row
-    }).afterClosed().subscribe(val=>{
-      if(val === 'update'){
-        this.getAllTodo();
-      }
     })
   }
 
-  checkTodo(row: any, key : any){
+  checkTodo(row: any, key : any): void {
     row.checked === false ? row.checked = true : row.checked = false;
     this.todoService.updateTodo(row, key);
   }
 
-  deleteTodo(key: any){
+  deleteTodo(key: any): void {
     this.todoService.deleteTodo(key);
   }
 
@@ -109,12 +108,27 @@ export class MainpageComponent implements OnInit {
     });
   }
 
-  search(event: Event) {
+  search(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  getPriorityIcon(priority: string): string {
+    switch (priority) {
+      case 'Critical':
+        return 'critical-icon';
+      case 'High':
+        return 'high-icon';
+      case 'Medium':
+        return 'medium-icon';
+      case 'Low':
+        return 'low-icon';
+      default:
+        return 'error';
     }
   }
 

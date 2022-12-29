@@ -3,7 +3,8 @@ export class Todo {
     category?: string;
     task?: string[];
     date?: string;
-    tags?: string;
+    tags?: string[];
+    priopity?: string;
     cheched?: boolean;
     authorId?: string;
 }
