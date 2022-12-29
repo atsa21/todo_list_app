@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth'
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { ApiService } from './api.service';
+import { LocalStorageService } from './local-storage.service';
 import { SnackBarService } from './snack-bar.service';
 import { UsersService } from './users.service';
 
@@ -18,14 +18,15 @@ export class AuthService {
     private fireAuth: AngularFireAuth,
     private router: Router,
     private snackbar: SnackBarService,
-    private userService: UsersService
+    private userService: UsersService,
+    private localStorService: LocalStorageService
   ) { }
 
   login(email: string, password: string) {
     this.fireAuth.signInWithEmailAndPassword(email, password)
     .then(() => {
-      localStorage.setItem('token', 'true');
-      localStorage.setItem('email', email);
+      this.localStorService.setItem('token', 'true');
+      this.localStorService.setItem('email', email);
       const auth = getAuth();
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -55,9 +56,9 @@ export class AuthService {
   logOut() {
     this.fireAuth.signOut()
     .then (() => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('email');
-      localStorage.removeItem('userId');
+      this.localStorService.removeItem('token');
+      this.localStorService.removeItem('email');
+      this.localStorService.removeItem('userId');
       this.router.navigate(['/login']);
     }, err => {
       this.snackbar.openSnackBar('Error while log out', 'Close');

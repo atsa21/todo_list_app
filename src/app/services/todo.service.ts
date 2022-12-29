@@ -10,25 +10,23 @@ import { Todo } from '../models/todo.model';
 export class TodoService {
 
   todo: any;
-  totalTasks: number = 0;
   todoRef: AngularFireList<Todo>;
+  userId: any;
 
   constructor(
     private db: AngularFireDatabase
   ) {
-    const userId = localStorage.getItem('userId');
-    this.todoRef = db.list(`todoList/${userId}/data`);
+    this.userId = localStorage.getItem('userId');
+    this.todoRef = db.list(`todoList/${this.userId}/data`);
   }
 
   getAllTodo(): AngularFireList<Todo> {
-    const userId = localStorage.getItem('userId');
-    this.todoRef = this.db.list(`todoList/${userId}/data`);
+    this.todoRef = this.db.list(`todoList/${this.userId}/data`);
     return this.todoRef;
   }
 
   getTodoByCategory(category: string): Observable<any> {
-    const userId = localStorage.getItem('userId');
-    const dbRef = this.db.database.ref(`todoList/${userId}/data`);
+    const dbRef = this.db.database.ref(`todoList/${this.userId}/data`);
     const todo: Object[] = [];
 
     dbRef.orderByChild('category').equalTo(category).on("child_added", function(snapshot) {
@@ -37,11 +35,21 @@ export class TodoService {
     return of(todo);
   }
 
-  createTodo(todo: Todo, userId: string | null) {
-    if(todo.date && typeof userId === 'string') {
+  getReadyTodo(): Observable<any> {
+    const dbRef = this.db.database.ref(`todoList/${this.userId}/data`);
+    const todo: Object[] = [];
+
+    dbRef.orderByChild('checked').equalTo(true).on("child_added", function(snapshot) {
+      todo.push(snapshot.val());
+    });
+    return of(todo);
+  }
+
+  createTodo(todo: Todo) {
+    if(todo.date) {
       const db = getDatabase();
       const newPostKey = push(child(ref(db), 'todoList')).key;
-      set(ref(db, 'todoList/' + userId + '/data/' + newPostKey), {
+      set(ref(db, 'todoList/' + this.userId + '/data/' + newPostKey), {
         key: newPostKey,
         category: todo.category,
         task: todo.task,
@@ -62,9 +70,5 @@ export class TodoService {
 
   deleteAllTodo(): Promise<void> {
     return this.todoRef.remove();
-  }
-
-  setTotalTodo(todo: any) {
-    this.totalTasks = todo;
   }
 }

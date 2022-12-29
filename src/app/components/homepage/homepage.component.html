@@ -85,7 +85,7 @@
                 </div>
                 <span *ngIf="!totalTodo" class="paginator_text">You don't have any tasks</span>
               </div>
-              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+              <mat-paginator color="accent" [length]="totalTodo" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
             </div>
           </div>
         </div>

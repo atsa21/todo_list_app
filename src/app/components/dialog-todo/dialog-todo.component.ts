@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
-import { ApiService } from 'src/app/services/api.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -104,7 +103,7 @@ export class DialogTodoComponent implements OnInit {
     if(!this.editData){
       if(this.todoForm.valid){
         this.tags?.setValue(this.tagsList);
-        this.todoService.createTodo(this.todoForm.value, this.userId);
+        this.todoService.createTodo(this.todoForm.value);
         this.dialogReg.close();
       }
     } else {
@@ -116,5 +115,6 @@ export class DialogTodoComponent implements OnInit {
     this.tags?.setValue(this.tagsList);
     this.todoService.updateTodo(this.todoForm.value, this.key)
     this.dialogReg.close();
+    this.snackbar.openSnackBar('Updated', 'Close');
   }
 }
