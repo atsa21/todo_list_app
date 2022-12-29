@@ -21,15 +21,18 @@
                 <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
             </mat-form-field>
     
-            <mat-form-field appearance="outline" color="accent" floatLabel="always" focused="true">
+            <mat-form-field appearance="outline" color="accent" floatLabel="always">
                 <mat-label>Password</mat-label>
-                <input formControlName="password" minlength="5" type="password" matInput placeholder="enter your password" required/>
+                <input formControlName="password" minlength="5" [type]="hide ? 'password' : 'text'" matInput placeholder="enter your password" required/>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
                 <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
                 <mat-error *ngIf="password?.touched && password?.errors?.['minlength']">Password must be at least 6 characters long</mat-error>
                 <mat-error *ngIf="password?.touched && password?.errors?.['maxlength']">The length of password must be 128 characters or fewer</mat-error>
             </mat-form-field>
             
-            <button [disabled]="!signUpForm.valid" mat-flat-button color="accent" type="submit" class="btn-large mt-2">Sign Up</button>
+            <button [disabled]="!signUpForm.valid" mat-flat-button color="accent" type="submit" class="btn-large">Sign Up</button>
         </form>
     </div>
 </div>

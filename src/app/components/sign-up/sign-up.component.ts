@@ -13,6 +13,7 @@ export class SignUpComponent implements OnInit {
 
   signUpForm !: FormGroup;
   user: User = new User();
+  public hide = true;
 
   constructor(
     private auth : AuthService,
@@ -39,7 +40,7 @@ export class SignUpComponent implements OnInit {
     return this.signUpForm.get('password');
   }
 
-  signUp(){
+  public signUp(){
     if(this.signUpForm.valid){
       this.user.name = this.signUpForm.value.name;
       this.user.email = this.signUpForm.value.email;
