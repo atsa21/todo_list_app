@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { TodoService } from 'src/app/services/todo.service';
 import { map } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { Data } from '@angular/router';
 
 @Component({
   selector: 'app-mainpage',
@@ -15,7 +16,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 export class MainpageComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'checked', 'category', 'task',  'tags', 'date', 'action'];
+  displayedColumns: string[] = [ 'checked', 'category', 'task',  'tags', 'priority', 'date', 'action'];
   dataSource!: MatTableDataSource<any>;
   tableTags: any;
   todoReadyList: any;
@@ -24,10 +25,11 @@ export class MainpageComponent implements OnInit {
   public readyTodo: number = 0;
   public unreadyTodo: number = 0;
   public progress: number = 0;
-  public categories: string[] = ['All tasks', 'Personal', 'Work'];
+  public categories: string[] = ['All tasks', 'Work', 'Study', 'Home', 'Hobbies', 'Other'];
   public category = '';
 
   public data: any;
+  public today: any;
   private userId: string | null = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -40,6 +42,8 @@ export class MainpageComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
+    this.today = new Date(new Date().setHours(0,0,0,0)).toString();
+    console.log(this.today);
     this.userId = this.localStorService.getItem('userId');
     this.getAllTodo();
   }

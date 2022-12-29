@@ -35,6 +35,16 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="accent" floatLabel="always">
+            <mat-label>Priority</mat-label>
+            <mat-select formControlName="priority" placeholder="Select priority" required>
+                <mat-option *ngFor="let priority of priorities" [value]="priority">
+                    <span>{{priority}}</span>
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="category?.errors?.['required']">Please select the category</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="accent" floatLabel="always">
             <mat-label>Add tags</mat-label>
             <mat-chip-list #chipList aria-label="Tag selection">
                 <mat-chip *ngFor="let tag of tagsList" color="accent" (removed)="removeTag(tag)" selected>

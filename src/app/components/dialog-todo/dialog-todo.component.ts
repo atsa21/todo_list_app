@@ -14,7 +14,8 @@ import { TodoService } from 'src/app/services/todo.service';
 })
 export class DialogTodoComponent implements OnInit {
 
-  categories: string[] = ['Personal', 'Work'];
+  categories: string[] = ['Work', 'Study', 'Home', 'Hobbies', 'Other'];
+  priorities: string[] = ['Urgent', 'High', 'Medium', 'Low'];
   tagsList: string[] = [];
   cantAddTag = false;
   minDate: Date;
@@ -45,6 +46,7 @@ export class DialogTodoComponent implements OnInit {
       category : new FormControl('', Validators.required),
       task : new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
       date: new FormControl('', Validators.required),
+      priority: new FormControl('', Validators.required),
       tags : this.tagsList,
       authorId: this.userId,
       checked : false
@@ -57,6 +59,7 @@ export class DialogTodoComponent implements OnInit {
       this.todoForm.controls['category'].setValue(this.editData.category);
       this.todoForm.controls['task'].setValue(this.editData.task);
       this.todoForm.controls['date'].setValue(date);
+      this.todoForm.controls['priority'].setValue(this.editData.priority);
       this.tagsList = this.editData.tags;
       this.key = this.editData.key;
     }
@@ -68,6 +71,10 @@ export class DialogTodoComponent implements OnInit {
 
   get date(){
     return this.todoForm.get('date');
+  }
+
+  get priority(){
+    return this.todoForm.get('priority');
   }
 
   get task(){
