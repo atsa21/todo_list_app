@@ -20,7 +20,7 @@ import { Todo } from 'src/app/models/todo.model';
 })
 export class HomepageComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'checked', 'task',  'tags', 'date', 'action'];
+  displayedColumns: string[] = [ 'checked', 'category', 'task',  'tags', 'date', 'action'];
   dataSource!: MatTableDataSource<any>;
   tableTags: any;
 
@@ -46,7 +46,6 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId');
     this.getAllTodo();
-    const todo = this.todoService.getTodoByCategory('Personal');
   }
 
   getAllTodo(): void {

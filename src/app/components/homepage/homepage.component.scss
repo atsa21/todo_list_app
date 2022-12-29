@@ -18,15 +18,22 @@
     .todo-box {
         width: 60%;
 
-        .inputs-container {
+        .form {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+
+            .input-search {
+                width: 78%;
+            }
+
+            .input-category {
+                width: 20%;
+            }
         }
 
         .mat-form-field {
             font-size: 14px;
-            width: 40%;
         }
     }
 
@@ -53,6 +60,18 @@
                 width: 100%;
             }
         }
+    }
+}
+
+::ng-deep .form {
+    .mat-form-field {
+        .mat-form-field-label {
+            color: var(--black) !important;
+        }
+    }
+    
+    .mat-form-field-flex .mat-form-field-infix {
+        padding: 12px 0px !important;
     }
 }
 

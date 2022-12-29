@@ -1,5 +1,15 @@
-mat-form-field {
-    width: 100%;
+::ng-deep .form {
+    .mat-form-field {
+        width: 100%;
+
+        .mat-form-field-label {
+            color: var(--black) !important;
+        }
+    }
+    
+    .mat-form-field-flex .mat-form-field-infix {
+        padding: 12px 0px !important;
+    }
 }
 
 .header {
@@ -27,7 +37,7 @@ mat-form-field {
 
 .submit-btn {
     font-size: 16px;
-    padding: 12px 24px;
+    padding: 6px 16px;
 }
 
 textarea {
