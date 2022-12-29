@@ -86,19 +86,19 @@ export class MainpageComponent implements OnInit {
     this.getReadyTodo();
   }
 
-  editTodo(row : any){
+  editTodo(row : any): void {
     this.dialog.open(DialogTodoComponent, {
       width: '30%',
       data:row
     })
   }
 
-  checkTodo(row: any, key : any){
+  checkTodo(row: any, key : any): void {
     row.checked === false ? row.checked = true : row.checked = false;
     this.todoService.updateTodo(row, key);
   }
 
-  deleteTodo(key: any){
+  deleteTodo(key: any): void {
     this.todoService.deleteTodo(key);
   }
 
@@ -108,12 +108,27 @@ export class MainpageComponent implements OnInit {
     });
   }
 
-  search(event: Event) {
+  search(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  getPriorityIcon(priority: string): string {
+    switch (priority) {
+      case 'Critical':
+        return 'error';
+      case 'High':
+        return 'flag';
+      case 'Medium':
+        return 'star_border';
+      case 'Low':
+        return 'arrow_downward';
+      default:
+        return 'error';
     }
   }
 
