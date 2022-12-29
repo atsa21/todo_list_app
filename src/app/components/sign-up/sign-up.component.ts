@@ -13,6 +13,7 @@ export class SignUpComponent implements OnInit {
 
   signUpForm !: FormGroup;
   user: User = new User();
+  public hide = true;
 
   constructor(
     private auth : AuthService,
@@ -21,9 +22,9 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group ({
-      name : new FormControl('', (Validators.required)),
-      email : new FormControl('', [Validators.required, Validators.email]),
-      password : new FormControl('', [Validators.required, Validators.minLength(5)])
+      name : new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(46)]),
+      email : new FormControl('', [Validators.required, Validators.maxLength(62), Validators.email]),
+      password : new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(128)])
     });
   }
 
@@ -39,7 +40,7 @@ export class SignUpComponent implements OnInit {
     return this.signUpForm.get('password');
   }
 
-  signUp(){
+  public signUp(){
     if(this.signUpForm.valid){
       this.user.name = this.signUpForm.value.name;
       this.user.email = this.signUpForm.value.email;

@@ -1,32 +1,38 @@
 <div class="page-container">
     <div class="container">
-        <div class="headings mb-2">
-            <a routerLink="/login" class="h-login switch-to-text"><h2>Login</h2></a>
-            <h2 class="activeText">Sign Up</h2>
+        <div class="headings">
+            <a routerLink="/login" class="h-login switch-to-text"><h1>Login</h1></a>
+            <h1 class="activeText">Sign Up</h1>
         </div>
-        <form [formGroup]="signUpForm" (ngSubmit)="signUp()" >
+        <form [formGroup]="signUpForm" class="form" (ngSubmit)="signUp()">
     
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" color="accent" floatLabel="always">
                 <mat-label>User Name</mat-label>
                 <input formControlName="name" matInput placeholder="username" required/>
-                <mat-error *ngIf="name?.errors?.['required']">Username is required</mat-error>
+                <mat-error *ngIf="name?.errors?.['required']">Name is required</mat-error>
+                <mat-error *ngIf="name?.touched && name?.errors?.['minlength']">Name  must be at least 2 characters long</mat-error>
+                <mat-error *ngIf="name?.touched && name?.errors?.['maxlength']">The length of name must be 46 characters or fewer</mat-error>
             </mat-form-field>
     
-            <mat-form-field appearance="outline" class="mt-2">
+            <mat-form-field appearance="outline" color="accent" floatLabel="always">
                 <mat-label>Email</mat-label>
                 <input formControlName="email" matInput placeholder="example@gmail.com" required/>
                 <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
                 <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
             </mat-form-field>
     
-            <mat-form-field appearance="outline" class="mt-2">
+            <mat-form-field appearance="outline" color="accent" floatLabel="always">
                 <mat-label>Password</mat-label>
-                <input formControlName="password" minlength="5" type="password" matInput placeholder="enter your password" required/>
+                <input formControlName="password" minlength="5" [type]="hide ? 'password' : 'text'" matInput placeholder="enter your password" required/>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
                 <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
-                <mat-error *ngIf="password?.errors?.['minlength']">Password must be at least 5 characters long</mat-error>
+                <mat-error *ngIf="password?.touched && password?.errors?.['minlength']">Password must be at least 6 characters long</mat-error>
+                <mat-error *ngIf="password?.touched && password?.errors?.['maxlength']">The length of password must be 128 characters or fewer</mat-error>
             </mat-form-field>
             
-            <button [disabled]="!signUpForm.valid" mat-flat-button color="accent" type="submit" class="btn-large mt-2">Sign Up</button>
+            <button [disabled]="!signUpForm.valid" mat-flat-button color="accent" type="submit" class="btn-large">Sign Up</button>
         </form>
     </div>
 </div>

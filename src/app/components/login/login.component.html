@@ -1,24 +1,26 @@
 <div class="page-container">
     <div class="container">
         <div class="headings">
-            <h2 class="activeText h-login">Login</h2>
-            <a routerLink="/signup"><h2 class="switch-to-text">Sign Up</h2></a>
+            <h1 class="activeText h-login">Login</h1>
+            <a routerLink="/signup"><h1 class="switch-to-text">Sign Up</h1></a>
         </div>
-        <form [formGroup]="loginForm" (ngSubmit)="login()">
-    
-            <mat-form-field appearance="outline" class="mt-2">
+
+        <form [formGroup]="loginForm" class="form" (ngSubmit)="login()">
+            <mat-form-field appearance="outline" color="accent" floatLabel="always">
                 <mat-label>Email</mat-label>
                 <input formControlName="email" matInput placeholder="example@gmail.com" required>
                 <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
                 <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
             </mat-form-field>
-    
-            <mat-form-field appearance="outline" class="mt-2">
+            <mat-form-field appearance="outline" color="accent" floatLabel="always">
                 <mat-label>Password</mat-label>
-                <input formControlName="password" type="password" matInput placeholder="enter your password" required>
-                <mat-error *ngIf="email?.errors?.['required']">Password is required</mat-error>
+                <input formControlName="password" [type]="hide ? 'password' : 'text'" matInput placeholder="enter your password" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
             </mat-form-field>
-            <button [disabled]="!loginForm.valid" mat-flat-button color="accent" type="submit" class="btn-large mt-2">Login</button>
+            <button [disabled]="!loginForm.valid" mat-flat-button color="accent" type="submit" class="btn-large">Login</button>
         </form>
     </div>
 </div>
