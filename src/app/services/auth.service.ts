@@ -33,7 +33,7 @@ export class AuthService {
           this.userId = user.uid;
           localStorage.setItem('userId', this.userId);
         }
-        this.router.navigate(['/homepage']);
+        this.router.navigate(['/mainpage']);
       });
     }, err => {
       this.snackbar.openSnackBar('The email or password is incorrect. Try again', 'Close');

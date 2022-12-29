@@ -9,11 +9,11 @@ import { map } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
-  selector: 'app-homepage',
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.scss']
+  selector: 'app-mainpage',
+  templateUrl: './mainpage.component.html',
+  styleUrls: ['./mainpage.component.scss']
 })
-export class HomepageComponent implements OnInit {
+export class MainpageComponent implements OnInit {
 
   displayedColumns: string[] = [ 'checked', 'category', 'task',  'tags', 'date', 'action'];
   dataSource!: MatTableDataSource<any>;

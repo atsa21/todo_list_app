@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HomepageComponent } from './components/homepage/homepage.component';
 import { DialogTodoComponent } from './components/dialog-todo/dialog-todo.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
@@ -40,16 +39,17 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MainpageComponent } from './components/mainpage/mainpage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomepageComponent,
     DialogTodoComponent,
     HeaderComponent,
     LoginComponent,
     SignUpComponent,
-    SidebarComponent
+    SidebarComponent,
+    MainpageComponent
   ],
   imports: [
     BrowserModule,
