@@ -4,14 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { ApiService } from 'src/app/services/api.service';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { getAuth } from 'firebase/auth';
-import { UsersService } from 'src/app/services/users.service';
 import { TodoService } from 'src/app/services/todo.service';
 import { map } from 'rxjs';
-import { Todo } from 'src/app/models/todo.model';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-homepage',
@@ -23,10 +18,11 @@ export class HomepageComponent implements OnInit {
   displayedColumns: string[] = [ 'checked', 'category', 'task',  'tags', 'date', 'action'];
   dataSource!: MatTableDataSource<any>;
   tableTags: any;
+  todoReadyList: any;
 
   public totalTodo: number = 0;
   public readyTodo: number = 0;
-  public notReadyTodo: number = 0;
+  public unreadyTodo: number = 0;
   public progress: number = 0;
   public categories: string[] = ['All tasks', 'Personal', 'Work'];
   public category = '';
@@ -37,14 +33,14 @@ export class HomepageComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor( private dialog : MatDialog,
-    private api : ApiService,
-    private snackbar : SnackBarService,
-    private todoService: TodoService
+  constructor(
+    private dialog : MatDialog,
+    private todoService: TodoService,
+    private localStorService: LocalStorageService
   ){}
 
   ngOnInit(): void {
-    this.userId = localStorage.getItem('userId');
+    this.userId = this.localStorService.getItem('userId');
     this.getAllTodo();
   }
 
@@ -70,12 +66,21 @@ export class HomepageComponent implements OnInit {
     }
   }
 
+  getReadyTodo(): void {
+    this.todoService.getReadyTodo().pipe().subscribe( data => {
+      this.todoReadyList = data;
+      this.readyTodo = this.todoReadyList.length;
+      this.unreadyTodo = this.totalTodo - this.readyTodo;
+      this.progress = 100 / this.totalTodo * this.readyTodo;
+    })
+  }
+
   setData(data: any): void {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.totalTodo = data.length;
-    this.setTotalTodo();
+    this.getReadyTodo();
   }
 
   editTodo(row : any){
@@ -102,10 +107,6 @@ export class HomepageComponent implements OnInit {
     this.dialog.open(DialogTodoComponent, {
       width: '30%'
     });
-  }
-
-  setTotalTodo() {
-    this.todoService.setTotalTodo(this.totalTodo);
   }
 
   search(event: Event) {
