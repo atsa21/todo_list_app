@@ -56,32 +56,26 @@ export class HomepageComponent implements OnInit {
         )
       )
     ).subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.totalTodo = data.length;
-      this.setTotalTodo();
-    });
-  }
-
-  openDialog(): void {
-    this.dialog.open(DialogTodoComponent, {
-      width: '30%'
+      this.setData(data);
     });
   }
 
   getTodoByCategory(category: string): void {
     if(category !== 'All tasks') {
-      this.todoService.getTodoByCategory(category).pipe().subscribe( res => {
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.totalTodo = res.length;
-        this.setTotalTodo();
+      this.todoService.getTodoByCategory(category).pipe().subscribe( data => {
+        this.setData(data);
       });
     } else {
       this.getAllTodo();
     }
+  }
+
+  setData(data: any): void {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.totalTodo = data.length;
+    this.setTotalTodo();
   }
 
   editTodo(row : any){
@@ -102,6 +96,12 @@ export class HomepageComponent implements OnInit {
 
   deleteTodo(key: any){
     this.todoService.deleteTodo(key);
+  }
+
+  openDialog(): void {
+    this.dialog.open(DialogTodoComponent, {
+      width: '30%'
+    });
   }
 
   setTotalTodo() {
