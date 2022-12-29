@@ -6,11 +6,11 @@
 </div>
 <p class="mt-2">What you need to do?</p>
 <div mat-dialog-content>
-    <form [formGroup]="todoForm" (ngSubmit)="addTodo()">
+    <form [formGroup]="todoForm" class="form" (ngSubmit)="addTodo()">
 
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="accent" floatLabel="always">
             <mat-label>Category</mat-label>
-            <mat-select formControlName="category" required>
+            <mat-select formControlName="category" placeholder="Select category" required>
                 <mat-option *ngFor="let categorie of categories" [value]="categorie">
                     <span>{{categorie}}</span>
                 </mat-option>
@@ -18,23 +18,23 @@
             <mat-error *ngIf="category?.errors?.['required']">Please select the category</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="accent" floatLabel="always">
             <mat-label>Task description</mat-label>
-            <textarea formControlName="task" minlength="2" matInput placeholder="enter todo description..." required></textarea>
+            <textarea formControlName="task" minlength="2" matInput placeholder="Enter todo description" required></textarea>
             <mat-error *ngIf="task?.errors?.['required']">Description is required</mat-error>
             <mat-error *ngIf="task?.touched && task?.errors?.['minlength']">The length of task must be at least 2 characters long</mat-error>
             <mat-error *ngIf="task?.touched && task?.errors?.['maxlength']">The length of task must be 70 characters or fewer</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="accent" floatLabel="always">
             <mat-label>Choose a date</mat-label>
-            <input matInput [min]="minDate" [matDatepicker]="picker" formControlName="date" maxlength="10" required>
+            <input matInput [min]="minDate" [matDatepicker]="picker" formControlName="date" maxlength="10" placeholder="DD/MM/YYYY" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngIf="date?.errors?.['required']">Date is required</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="accent" floatLabel="always">
             <mat-label>Add tags</mat-label>
             <mat-chip-list #chipList aria-label="Tag selection">
                 <mat-chip *ngFor="let tag of tagsList" color="accent" (removed)="removeTag(tag)" selected>
@@ -43,7 +43,7 @@
                       <mat-icon>cancel</mat-icon>
                     </button>
                 </mat-chip>
-                <input placeholder="New tag..."
+                <input placeholder="Enter new tag"
                         *ngIf="!cantAddTag"
                         minlength="2"
                         maxlength="14"
