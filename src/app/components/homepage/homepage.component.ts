@@ -64,6 +64,12 @@ export class HomepageComponent implements OnInit {
     });
   }
 
+  openDialog(): void {
+    this.dialog.open(DialogTodoComponent, {
+      width: '30%'
+    });
+  }
+
   getTodoByCategory(category: string): void {
     if(category !== 'All tasks') {
       this.todoService.getTodoByCategory(category).pipe().subscribe( res => {

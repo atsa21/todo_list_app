@@ -24,11 +24,7 @@ export class HeaderComponent implements OnInit {
     this.getUser();
   }
 
-  openDialog(): void {
-    this.dialog.open(DialogTodoComponent, {
-      width: '30%'
-    });
-  }
+
 
   getUser() {
     this.userService.getUser().snapshotChanges().pipe(

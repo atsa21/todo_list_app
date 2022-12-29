@@ -2,7 +2,7 @@
   <app-header></app-header>
   <div class="body-container">
     <app-sidebar></app-sidebar>
-    <div class="container" *ngIf="!dataSource; else loading">
+    <div class="container" *ngIf="dataSource; else loading">
       <div class="container">
         <div class="todo-box">
           <div class="form">
@@ -18,6 +18,9 @@
                   </mat-option>
               </mat-select>
           </mat-form-field>
+          <button class="btn" mat-flat-button color="accent" type="button" (click)="openDialog()">
+            Add todo <mat-icon>add</mat-icon>
+          </button>
           </div>
           <div class="table-box">
             <table mat-table [dataSource]="dataSource" matSort colspan="5">
@@ -32,7 +35,7 @@
 
               <ng-container matColumnDef="category">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
-                <td mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : 'unready'"> {{row.category} </td>
+                <td mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : 'unready'"> {{row.category}} </td>
               </ng-container>
           
               <ng-container matColumnDef="task">
