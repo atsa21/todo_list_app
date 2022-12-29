@@ -1,19 +1,18 @@
 <div class="page-container">
     <div class="container">
         <div class="headings">
-            <h2 class="activeText h-login">Login</h2>
-            <a routerLink="/signup"><h2 class="switch-to-text">Sign Up</h2></a>
+            <h1 class="activeText h-login">Login</h1>
+            <a routerLink="/signup"><h1 class="switch-to-text">Sign Up</h1></a>
         </div>
-        <form [formGroup]="loginForm" (ngSubmit)="login()">
-    
-            <mat-form-field appearance="outline" class="mt-2">
+        
+        <form [formGroup]="loginForm" class="form" (ngSubmit)="login()">
+            <mat-form-field appearance="outline" class="input" floatLabel="always">
                 <mat-label>Email</mat-label>
                 <input formControlName="email" matInput placeholder="example@gmail.com" required>
                 <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
                 <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
             </mat-form-field>
-    
-            <mat-form-field appearance="outline" class="mt-2">
+            <mat-form-field appearance="outline" class="input" floatLabel="always">
                 <mat-label>Password</mat-label>
                 <input formControlName="password" type="password" matInput placeholder="enter your password" required>
                 <mat-error *ngIf="email?.errors?.['required']">Password is required</mat-error>

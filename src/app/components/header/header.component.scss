@@ -16,9 +16,10 @@
 }
 
 .btn {
-    cursor: pointer;
+    transition: all 0.4s;
 
     &:hover {
         background-color: var(--accent-hover);
+        cursor: pointer;
     }
 }

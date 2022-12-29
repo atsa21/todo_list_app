@@ -17,11 +17,12 @@
         gap: 16px;
         background-color: var(--white);
         color: var(--black);
-        cursor: pointer;
+        transition: all 0.4s;
 
         &:hover {
             background-color: var(--accent);
             color: var(--white);
+            cursor: pointer;
         }
 
         span {

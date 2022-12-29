@@ -3,14 +3,15 @@
     flex-direction: row;
     justify-content: center;
     width: 100%;
+    height: 100%;
 
     .container {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        width: 25%;
-        margin-top: 4%;
-        padding-top: 36px;
+        max-width: 420px;
+        height: 440px;
+        margin: auto 0;
+        padding-top: 48px;
         padding-bottom: 36px;
         background-color: white;
         text-align: center;
@@ -22,18 +23,28 @@
             flex-direction: row;
             justify-content: center;
             width: 100%;
-            margin-bottom: 24px;
+            margin-bottom: 8px;
         }
     }
 }
 
-mat-form-field {
-    width: 80%;
+::ng-deep .form {
+    .mat-form-field {
+        width: 80%;
+
+        .mat-form-field-label {
+            color: var(--black) !important;
+        }
+    }
+
+    .mat-form-field-flex .mat-form-field-infix {
+        padding: 12px 0px !important;
+    }
 }
 
 .btn-large {
     font-size: 16px;
-    padding: 12px 16px;
+    padding: 6px 16px;
     width: 80%;
 }
 
@@ -51,11 +62,31 @@ a {
 }
 
 .switch-to-text {
-    color: #ccc;
-    transition: all 0.3s;
+    color: var(--light-grey);
+    transition: all 0.4s;
 
     &:hover {
-        color: var(--accent-color);
+        color: var(--accent);
         cursor: pointer;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .page-container {
+        .container {
+            max-width: auto;
+            height: 440px;
+            margin: auto 16px;
+        }
+    }
+
+    .form {
+        .mat-form-field {
+            width: 90%;
+        }
+    }
+
+    .btn-large {
+        width: 90%;
     }
 }

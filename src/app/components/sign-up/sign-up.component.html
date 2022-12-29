@@ -1,25 +1,25 @@
 <div class="page-container">
     <div class="container">
-        <div class="headings mb-2">
-            <a routerLink="/login" class="h-login switch-to-text"><h2>Login</h2></a>
-            <h2 class="activeText">Sign Up</h2>
+        <div class="headings">
+            <a routerLink="/login" class="h-login switch-to-text"><h1>Login</h1></a>
+            <h1 class="activeText">Sign Up</h1>
         </div>
-        <form [formGroup]="signUpForm" (ngSubmit)="signUp()" >
+        <form [formGroup]="signUpForm" class="form" (ngSubmit)="signUp()">
     
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" floatLabel="always">
                 <mat-label>User Name</mat-label>
                 <input formControlName="name" matInput placeholder="username" required/>
                 <mat-error *ngIf="name?.errors?.['required']">Username is required</mat-error>
             </mat-form-field>
     
-            <mat-form-field appearance="outline" class="mt-2">
+            <mat-form-field appearance="outline" class="input" floatLabel="always">
                 <mat-label>Email</mat-label>
                 <input formControlName="email" matInput placeholder="example@gmail.com" required/>
                 <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
                 <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
             </mat-form-field>
     
-            <mat-form-field appearance="outline" class="mt-2">
+            <mat-form-field appearance="outline" class="input" floatLabel="always" focused="true">
                 <mat-label>Password</mat-label>
                 <input formControlName="password" minlength="5" type="password" matInput placeholder="enter your password" required/>
                 <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
