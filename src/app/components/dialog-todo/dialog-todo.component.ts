@@ -120,8 +120,10 @@ export class DialogTodoComponent implements OnInit {
 
   updateTodo(){
     this.tags?.setValue(this.tagsList);
+    const dateString = this.todoForm.value.date.toString();
+    this.date?.setValue(dateString);
     this.todoService.updateTodo(this.todoForm.value, this.key)
     this.dialogReg.close();
-    this.snackbar.openSnackBar('Updated', 'Close');
+    this.snackbar.openSnackBar('Task Updated', 'Close');
   }
 }

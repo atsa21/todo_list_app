@@ -16,7 +16,7 @@ import { Data } from '@angular/router';
 })
 export class MainpageComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'checked', 'category', 'task',  'tags', 'priority', 'date', 'action'];
+  displayedColumns: string[] = [ 'checked', 'category', 'task', 'date', 'priority', 'tags', 'action'];
   dataSource!: MatTableDataSource<any>;
   tableTags: any;
   todoReadyList: any;
@@ -120,13 +120,13 @@ export class MainpageComponent implements OnInit {
   getPriorityIcon(priority: string): string {
     switch (priority) {
       case 'Critical':
-        return 'error';
+        return 'critical-icon';
       case 'High':
-        return 'flag';
+        return 'high-icon';
       case 'Medium':
-        return 'star_border';
+        return 'medium-icon';
       case 'Low':
-        return 'arrow_downward';
+        return 'low-icon';
       default:
         return 'error';
     }

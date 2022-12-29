@@ -51,14 +51,19 @@
                   </td>
                 </ng-container>
 
-                <ng-container matColumnDef="priority">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority </th>
-                  <td mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : 'unready'"><mat-icon> {{ getPriorityIcon(row.priority) }} </mat-icon></td>
-                </ng-container>
-      
                 <ng-container matColumnDef="date">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                  <td mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : 'unready'"> {{ row.date === today ? 'Today' :  row.date | date }} </td>
+                  <td mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : 'unready'"> {{ row.date == today ? 'Today' :  row.date }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="priority">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Priority </th>
+                  <td mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : getPriorityIcon(row.priority)">
+                    <span class="priority">
+                      <mat-icon>arrow_upward</mat-icon>
+                      <span class="p-priority">{{row.priority}}</span>
+                    </span>
+                  </td>
                 </ng-container>
       
                 <ng-container matColumnDef="action" >
