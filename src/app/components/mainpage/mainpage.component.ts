@@ -90,7 +90,7 @@ export class MainpageComponent implements OnInit {
 
   editTodo(row : Todo): void {
     this.dialog.open(DialogTodoComponent, {
-      width: '30%',
+      width: '420px',
       data:row
     })
   }
@@ -106,7 +106,7 @@ export class MainpageComponent implements OnInit {
 
   openDialog(): void {
     this.dialog.open(DialogTodoComponent, {
-      width: '30%'
+      width: '420px'
     });
   }
 
