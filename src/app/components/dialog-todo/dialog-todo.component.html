@@ -8,7 +8,7 @@
 <div mat-dialog-content>
     <form [formGroup]="todoForm" class="form" (ngSubmit)="addTodo()">
 
-        <mat-form-field appearance="outline" color="accent" floatLabel="always">
+        <mat-form-field appearance="outline" color="primary" floatLabel="always">
             <mat-label>Category</mat-label>
             <mat-select formControlName="category" placeholder="Select category" required>
                 <mat-option *ngFor="let categorie of categories" [value]="categorie">
@@ -18,7 +18,7 @@
             <mat-error *ngIf="category?.errors?.['required']">Please select the category</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent" floatLabel="always">
+        <mat-form-field appearance="outline" color="primary" floatLabel="always">
             <mat-label>Task description</mat-label>
             <textarea formControlName="task" minlength="2" matInput placeholder="Enter todo description" required></textarea>
             <mat-error *ngIf="task?.errors?.['required']">Description is required</mat-error>
@@ -26,7 +26,7 @@
             <mat-error *ngIf="task?.touched && task?.errors?.['maxlength']">The length of task must be 70 characters or fewer</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent" floatLabel="always">
+        <mat-form-field appearance="outline" color="primary" floatLabel="always">
             <mat-label>Choose a date</mat-label>
             <input matInput [min]="minDate" [matDatepicker]="picker" formControlName="date" maxlength="10" placeholder="DD/MM/YYYY" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -34,7 +34,7 @@
             <mat-error *ngIf="date?.errors?.['required']">Date is required</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent" floatLabel="always">
+        <mat-form-field appearance="outline" color="primary" floatLabel="always">
             <mat-label>Priority</mat-label>
             <mat-select formControlName="priority" placeholder="Select priority" required>
                 <mat-option *ngFor="let priority of priorities" [value]="priority">
@@ -44,10 +44,10 @@
             <mat-error *ngIf="priority?.errors?.['required']">Please select the priority</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" color="accent" floatLabel="always">
+        <mat-form-field appearance="outline" color="primary" floatLabel="always">
             <mat-label>Add tags</mat-label>
             <mat-chip-list #chipList aria-label="Tag selection">
-                <mat-chip *ngFor="let tag of tagsList" color="accent" (removed)="removeTag(tag)" selected>
+                <mat-chip *ngFor="let tag of tagsList" color="accent" class="tag" (removed)="removeTag(tag)" selected>
                     {{tag}}
                     <button matChipRemove>
                       <mat-icon>cancel</mat-icon>
@@ -66,7 +66,7 @@
         </mat-form-field>
 
         <div mat-dialog-action [align]="'end'">
-            <button [disabled]="!todoForm.valid || !tagsList.length" mat-flat-button color="accent" type="submit" class="submit-btn">{{actionBtn}}</button>
+            <button [disabled]="!todoForm.valid || !tagsList.length" mat-flat-button type="submit" class="submit-btn btn-main">{{actionBtn}}</button>
         </div>
 
     </form>

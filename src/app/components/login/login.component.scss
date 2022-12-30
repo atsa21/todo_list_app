@@ -46,6 +46,12 @@
     font-size: 16px;
     padding: 6px 16px;
     width: 80%;
+    color: var(--white);
+    background-color: var(--accent);
+
+    &:hover {
+        background-color: var(--accent-hover);
+    }
 }
 
 a {

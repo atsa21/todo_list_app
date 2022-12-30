@@ -1,15 +1,25 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+  $primary: mat-palette($mat-indigo,100);
+  $accent: mat-palette($mat-deep-orange,300);
+
+  $theme: mat-light-theme($primary, $accent);
+
+@include angular-material-theme($theme);
+
 :root {
     --black: rgb(31, 31, 31);
     --grey: #7c7c7c;
     --medium-grey: #ccc;
     --light-grey: rgb(224, 224, 224);
     --light-accent: #ffe0ea;
-    --accent: #ff4081;
-    --accent-hover: #e73973;
+    --accent: #B5D6FF;
+    --accent-hover: #5B82B3;
     --danger: #F24535;
     --warning: #F29F05;
     --success: #35BF30;
     --neutral: #2999A6;
-    --yellow: rgb(247, 247, 177);
+    --yellow: #ffe6b6;
     --white: rgb(255, 255, 255);
 }

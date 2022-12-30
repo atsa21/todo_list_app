@@ -12,11 +12,29 @@
     }
 }
 
+::ng-deep .mat-chip.mat-standard-chip.mat-chip-selected.mat-accent {
+    color: var(--white);
+    background-color: var(--accent);
+}
+
 .header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.tag {
+    color: var(--white);
+}
+
+.btn-main {
+    color: var(--white);
+    background-color: var(--accent);
+
+    &:hover {
+        border-color: var(--accent-hover);
+    }
 }
 
 .close-btn {
