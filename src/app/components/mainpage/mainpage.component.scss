@@ -9,14 +9,20 @@
     z-index: 1;
 }
 
-.container {
+.cont {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 4%;
+    margin-top: 8%;
+}
+
+.cont-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 
     .todo-box {
-        width: 80%;
+        max-width: 70%;
 
         .form {
             display: flex;
@@ -81,8 +87,6 @@
     justify-content: center;
     margin-top: 10%;
     width: 100%;
-
-
 }
 
 .loading::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
@@ -90,12 +94,19 @@
 }
 
 .check-col {
-    display: flex;
     max-width: 60px;
 }
 
-.category-col {
-    display: flex;
+.date-col {
+    max-width: 100px;
+}
+
+.tags-col {
+    max-width: 140px;
+}
+
+.category-col,
+.priority-col {
     max-width: 90px;
 }
 
@@ -125,14 +136,13 @@ ul {
 
 .tags-box {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 4px;
 }
 
 .tag {
     border-radius: 12px;
-    padding: 4px 8px;
-
+    padding: 2px 8px;
 }
 
 .ready-tag {
@@ -196,4 +206,41 @@ ul {
 
 .p-priority {
     font-size: 12px;
+}
+
+@media only screen and (max-width: 1400px) {
+    .cont {
+        margin-top: 9%;
+
+        .cont-box {
+            .todo-box {
+                max-width: 100%;
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 990px) {
+    .cont {
+        margin-top: 11%;
+    }
+}
+
+@media only screen and (max-width: 620px) {
+    .cont {
+        margin-top: 14%;
+
+        .cont-box .todo-box {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+    }
+}
+
+@media only screen and (max-width: 620px) {
+    .cont {
+        margin-top: 14%;
+    }
 }
