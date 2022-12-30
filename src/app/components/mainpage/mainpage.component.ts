@@ -5,9 +5,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { TodoService } from 'src/app/services/todo.service';
-import { map } from 'rxjs';
+import { map, pipe, Subject, takeUntil } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { Data } from '@angular/router';
+import { Todo } from 'src/app/models/todo.model';
+
 
 @Component({
   selector: 'app-mainpage',
@@ -31,6 +32,7 @@ export class MainpageComponent implements OnInit {
   public data: any;
   public today: any;
   private userId: string | null = '';
+  private destroy: Subject<boolean> = new Subject<boolean>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -119,13 +121,28 @@ export class MainpageComponent implements OnInit {
 
   getPriorityIcon(priority: string): string {
     switch (priority) {
-      case 'Critical':
+      case 'critical':
+        return 'fa-solid fa-circle-exclamation';
+      case 'high':
+        return 'fa-solid fa-angles-up';
+      case 'medium':
+        return 'fa-solid fa-angle-up';
+      case 'low':
+        return 'fa-solid fa-angle-down';
+      default:
+        return 'error';
+    }
+  }
+
+  getPriorityClass(priority: string): string {
+    switch (priority) {
+      case 'critical':
         return 'critical-icon';
-      case 'High':
+      case 'high':
         return 'high-icon';
-      case 'Medium':
+      case 'medium':
         return 'medium-icon';
-      case 'Low':
+      case 'low':
         return 'low-icon';
       default:
         return 'error';

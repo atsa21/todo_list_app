@@ -98,7 +98,7 @@
 }
 
 .ready {
-    color: var(--light-grey);
+    color: var(--medium-grey);
 }
 
 .unready {
@@ -120,6 +120,7 @@ ul {
 .tag {
     border-radius: 12px;
     padding: 4px 8px;
+
 }
 
 .ready-tag {
@@ -128,8 +129,8 @@ ul {
 }
 
 .unready-tag {
-    color: var(--white);
-    background-color: var(--accent);
+    color: var(--black);
+    background-color: var(--yellow);
 }
 
 .btn {
@@ -146,7 +147,7 @@ ul {
 }
 
 .clear-btn {
-    color: var(--light-grey);
+    color: var(--medium-grey);
 }
 
 .clear-btn:hover {
@@ -172,7 +173,7 @@ ul {
 .priority {
     display: flex;
 
-    .mat-icon {
+    .fa-solid {
         display: flex;
         align-items: center;
         font-size: 16px;

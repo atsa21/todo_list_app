@@ -6,6 +6,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { DateAdapter } from '@angular/material/core';
 import { TodoService } from 'src/app/services/todo.service';
+import { Priority } from 'src/app/models/priority.model';
 
 @Component({
   selector: 'app-dialog-todo',
@@ -14,8 +15,14 @@ import { TodoService } from 'src/app/services/todo.service';
 })
 export class DialogTodoComponent implements OnInit {
 
-  categories: string[] = ['Work', 'Study', 'Home', 'Hobbies', 'Other'];
-  priorities: string[] = ['Critical', 'High', 'Medium', 'Low'];
+  categories: string[] = ['work', 'study', 'home', 'hobbies', 'other'];
+  priorities: Priority[] = [
+    {name: 'critical', id: 1},
+    {name: 'high', id: 2},
+    {name: 'medium', id: 3},
+    {name: 'low', id: 4}
+  ];
+  
   tagsList: string[] = [];
   cantAddTag = false;
   minDate: Date;
@@ -59,7 +66,7 @@ export class DialogTodoComponent implements OnInit {
       this.todoForm.controls['category'].setValue(this.editData.category);
       this.todoForm.controls['task'].setValue(this.editData.task);
       this.todoForm.controls['date'].setValue(date);
-      this.todoForm.controls['priority'].setValue(this.editData.priority);
+      this.todoForm.controls['priority'].setValue(this.editData.priority.name);
       this.tagsList = this.editData.tags;
       this.key = this.editData.key;
     }
