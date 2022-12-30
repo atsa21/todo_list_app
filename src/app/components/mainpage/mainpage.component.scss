@@ -16,7 +16,7 @@
     margin-top: 4%;
 
     .todo-box {
-        width: 60%;
+        width: 80%;
 
         .form {
             display: flex;
@@ -43,23 +43,23 @@
         table {
             width: 100%;
         }
+    }
+}
 
-        .paginator {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            background-color: var(--white);
-            padding-left: 18px;
+.paginator {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--white);
+    padding-left: 18px;
 
-            .paginator_text {
-                font-size: 12px;
-            }
+    .paginator_text {
+        font-size: 12px;
+    }
 
-            .progress {
-                width: 100%;
-            }
-        }
+    .progress {
+        width: 100%;
     }
 }
 
@@ -89,8 +89,20 @@
     stroke: var(--white);
 }
 
+.check-col {
+    display: flex;
+    max-width: 60px;
+}
+
+.category-col {
+    display: flex;
+    max-width: 90px;
+}
+
 .action-col {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 140px;
 
     .action-col-text {
         padding-right: 12px;
