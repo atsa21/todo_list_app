@@ -26,7 +26,7 @@ export class MainpageComponent implements OnInit {
   public readyTodo: number = 0;
   public unreadyTodo: number = 0;
   public progress: number = 0;
-  public categories: string[] = ['All tasks', 'Work', 'Study', 'Home', 'Hobbies', 'Other'];
+  public categories: string[] = ['all tasks', 'work', 'study', 'home', 'hobbies', 'other'];
   public category = '';
 
   public data: any;
@@ -62,7 +62,7 @@ export class MainpageComponent implements OnInit {
   }
 
   getTodoByCategory(category: string): void {
-    if(category !== 'All tasks') {
+    if(category !== 'all tasks') {
       this.todoService.getTodoByCategory(category).pipe().subscribe( data => {
         this.setData(data);
       });
@@ -88,7 +88,7 @@ export class MainpageComponent implements OnInit {
     this.getReadyTodo();
   }
 
-  editTodo(row : any): void {
+  editTodo(row : Todo): void {
     this.dialog.open(DialogTodoComponent, {
       width: '30%',
       data:row

@@ -13,7 +13,6 @@ export class TodoService {
   todo: any;
   todoRef: AngularFireList<Todo>;
   userId: any;
-  url: string;
 
   constructor(
     private db: AngularFireDatabase,
@@ -21,7 +20,6 @@ export class TodoService {
   ) {
     this.userId = localStorage.getItem('userId');
     this.todoRef = db.list(`todoList/${this.userId}/data`);
-    this.url = "https://todo-list-app-45cf7-default-rtdb.europe-west1.firebasedatabase.app";
   }
 
   getAllTodo(): AngularFireList<Todo> {
