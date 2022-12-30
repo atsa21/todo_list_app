@@ -32,7 +32,6 @@ export class MainpageComponent implements OnInit {
   public data: any;
   public today: any;
   private userId: string | null = '';
-  private destroy: Subject<boolean> = new Subject<boolean>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

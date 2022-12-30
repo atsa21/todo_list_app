@@ -23,17 +23,6 @@ export class UsersService {
     return this.userRef;
   }
 
-  // getCurrentUser(userId: string | null): any {
-  //   const dbRef = ref(getDatabase());
-  //   let data;
-  //   get(child(dbRef, `users/${userId}`)).then((res) => {
-  //     data = res.val();
-  //     return data;
-  //   }).catch((error) => {
-  //     console.error(error);
-  //   });
-  // }
-
   createUser(user: User): void {
     const db = getDatabase();
     const auth = getAuth();
@@ -46,17 +35,4 @@ export class UsersService {
       profile_picture : ''
     });
   }
-
-  // update(kei: string, value: any): Promise<void> {
-  //   return this.usersRef.update(key, value);
-  // }
-
-  // delete(id: string): Promise<void> {
-  //   return this.usersRef.remove(key);
-  // }
-
-  // deleteAll(): Promise<void> {
-  //   return this.usersRef.remove();
-  // }
-
 }

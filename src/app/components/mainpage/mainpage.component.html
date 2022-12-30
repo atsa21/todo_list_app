@@ -5,11 +5,11 @@
         <div class="cont-box">
           <div class="todo-box">
             <div class="form">
-              <mat-form-field class="input-search" appearance="outline" color="accent" floatLabel="always">
+              <mat-form-field class="input-search" appearance="outline" color="primary" floatLabel="always">
                 <mat-label>Search</mat-label>
                 <input matInput (keyup)="search($event)" placeholder="Enter value to search" #input/>
               </mat-form-field>
-              <mat-form-field class="input-category" appearance="outline" color="accent" floatLabel="always">
+              <mat-form-field class="input-category" appearance="outline" color="primary" floatLabel="always">
                 <mat-label>Category</mat-label>
                 <mat-select [ngModel]="category" (ngModelChange)="getTodoByCategory($event)" placeholder="Select category">
                     <mat-option *ngFor="let category of categories" [value]="category" >
@@ -17,7 +17,7 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <button class="btn" mat-flat-button color="accent" type="button" (click)="openDialog()">
+            <button class="btn" mat-flat-button type="button" (click)="openDialog()">
               Add todo <mat-icon>add</mat-icon>
             </button>
             </div>
@@ -27,7 +27,7 @@
                 <ng-container matColumnDef="checked">
                   <mat-header-cell *matHeaderCellDef class="check-col"></mat-header-cell>
                   <mat-cell *matCellDef="let row" class="check-col">
-                    <mat-checkbox [(ngModel)]="row.checked" (click)="checkTodo(row, row.key)">
+                    <mat-checkbox [(ngModel)]="row.checked" (click)="checkTodo(row, row.key)" color="primary">
                     </mat-checkbox> 
                   </mat-cell>
                 </ng-container>
@@ -88,7 +88,7 @@
               <div class="paginator">
                 <div>
                   <div *ngIf="totalTodo">
-                    <span class="paginator_text">You have done {{readyTodo}} task<span *ngIf="readyTodo > 1">s</span></span>
+                    <span class="paginator_text">You have {{unreadyTodo}} task<span *ngIf="unreadyTodo > 1">s</span> to do</span>
                     <mat-progress-bar class="progress" color="accent" mode="determinate" [value]="progress"></mat-progress-bar>
                   </div>
                   <span *ngIf="!totalTodo" class="paginator_text">You don't have any tasks</span>
