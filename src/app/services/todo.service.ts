@@ -54,6 +54,7 @@ export class TodoService {
         category: todo.category,
         task: todo.task,
         date: todo.date.toString(),
+        priority: todo.priopity,
         tags: todo.tags,
         checked: false,
       });
