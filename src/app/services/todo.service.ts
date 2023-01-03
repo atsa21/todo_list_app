@@ -15,8 +15,7 @@ export class TodoService {
   userId: any;
 
   constructor(
-    private db: AngularFireDatabase,
-    private http: HttpClient
+    private db: AngularFireDatabase
   ) {
     this.userId = localStorage.getItem('userId');
     this.todoRef = db.list(`todoList/${this.userId}/data`);
