@@ -32,6 +32,7 @@ export class MainpageComponent implements OnInit {
   public data: any;
   public today: any;
   private userId: string | null = '';
+  private destroy: Subject<boolean> = new Subject<boolean>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -62,7 +63,7 @@ export class MainpageComponent implements OnInit {
 
   getTodoByCategory(category: string): void {
     if(category !== 'all tasks') {
-      this.todoService.getTodoByCategory(category).pipe().subscribe( data => {
+      this.todoService.getTodoByCategory(category).pipe(takeUntil(this.destroy)).subscribe( data => {
         this.setData(data);
       });
     } else {
@@ -70,21 +71,15 @@ export class MainpageComponent implements OnInit {
     }
   }
 
-  getReadyTodo(): void {
-    this.todoService.getReadyTodo().pipe().subscribe( data => {
-      this.todoReadyList = data;
-      this.readyTodo = this.todoReadyList.length;
-      this.unreadyTodo = this.totalTodo - this.readyTodo;
-      this.progress = 100 / this.totalTodo * this.readyTodo;
-    })
-  }
-
   setData(data: any): void {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.totalTodo = data.length;
-    this.getReadyTodo();
+    this.todoReadyList = this.dataSource.data.filter(el => el.checked === true);
+    this.readyTodo = this.todoReadyList.length;
+    this.unreadyTodo = this.totalTodo - this.readyTodo;
+    this.progress = 100 / this.totalTodo * this.readyTodo;
   }
 
   editTodo(row : Todo): void {
