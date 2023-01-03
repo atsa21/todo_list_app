@@ -36,16 +36,6 @@ export class TodoService {
     return of(todo);
   }
 
-  getReadyTodo(): Observable<any> {
-    const dbRef = this.db.database.ref(`todoList/${this.userId}/data`);
-    const todo: Object[] = [];
-
-    dbRef.orderByChild('checked').equalTo(true).on("child_added", function(snapshot) {
-      todo.push(snapshot.val());
-    });
-    return of(todo);
-  }
-
   createTodo(todo: Todo) {
     if(todo.date) {
       const db = getDatabase();
