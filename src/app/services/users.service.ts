@@ -11,15 +11,14 @@ import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/datab
 export class UsersService {
 
   userRef: AngularFireList<User>;
+  userId: any;
 
   constructor(private db: AngularFireDatabase) {
-    const userId = localStorage.getItem('userId');
-    this.userRef = db.list(`users/${userId}`);
+    this.userId = localStorage.getItem('userId');
+    this.userRef = db.list(`users/${this.userId}`);
   }
 
   getUser(): AngularFireList<User> {
-    const userId = localStorage.getItem('userId');
-    this.userRef = this.db.list(`users/${userId}`);
     return this.userRef;
   }
 
@@ -31,8 +30,7 @@ export class UsersService {
     set(ref(db, 'users/' + userId + '/' + newPostKey), {
       key: newPostKey,
       username: user.name,
-      email: user.email,
-      profile_picture : ''
+      email: user.email
     });
   }
 }
