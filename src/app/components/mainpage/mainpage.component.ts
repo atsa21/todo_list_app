@@ -73,6 +73,7 @@ export class MainpageComponent implements OnInit {
 
   setData(data: any): void {
     this.dataSource = new MatTableDataSource(data);
+    this.dataSource.data = this.dataSource.data.sort((a, b) => a.priority.id - b.priority.id);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.totalTodo = data.length;
