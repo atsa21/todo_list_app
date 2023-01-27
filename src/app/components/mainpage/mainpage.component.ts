@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
 import { DialogTodoComponent } from '../dialog-todo/dialog-todo.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -35,12 +35,13 @@ export class MainpageComponent implements OnInit {
   private destroy: Subject<boolean> = new Subject<boolean>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort) sort!:  MatSort;
 
   constructor(
     private dialog : MatDialog,
     private todoService: TodoService,
-    private localStorService: LocalStorageService
+    private localStorService: LocalStorageService,
+    private cdr: ChangeDetectorRef,
   ){}
 
   ngOnInit(): void {
@@ -73,9 +74,10 @@ export class MainpageComponent implements OnInit {
 
   setData(data: any): void {
     this.dataSource = new MatTableDataSource(data);
-    this.dataSource.data = this.dataSource.data.sort((a, b) => a.priority.id - b.priority.id);
+    this.cdr.detectChanges();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.data = this.dataSource.data.sort((a, b) => a.priority.id - b.priority.id);
     this.totalTodo = data.length;
     this.todoReadyList = this.dataSource.data.filter(el => el.checked === true);
     this.readyTodo = this.todoReadyList.length;
