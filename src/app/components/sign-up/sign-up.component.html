@@ -1,8 +1,8 @@
 <div class="page-container">
     <div class="container">
         <div class="headings">
-            <a routerLink="/login" class="h-login switch-to-text"><h1>Login</h1></a>
-            <h1 class="activeText">Sign Up</h1>
+            <a routerLink="/login" class="h-login switch-to-text title"><h1>Login</h1></a>
+            <h1 class="activeText title">Sign Up</h1>
         </div>
         <form [formGroup]="signUpForm" class="form" (ngSubmit)="signUp()">
     
@@ -10,8 +10,8 @@
                 <mat-label>User Name</mat-label>
                 <input formControlName="name" matInput placeholder="username" required/>
                 <mat-error *ngIf="name?.errors?.['required']">Name is required</mat-error>
-                <mat-error *ngIf="name?.touched && name?.errors?.['maxlength']">The length of name must be 20 characters or fewer</mat-error>
-                <mat-error *ngIf="name?.touched && name?.errors?.['pattern']">Name allow alphanumeric characters and special symbol '-' between</mat-error>
+                <mat-error *ngIf="name?.touched && name?.errors?.['maxlength']">The length of name must be 30 characters or fewer</mat-error>
+                <mat-error *ngIf="name?.touched && !name?.errors?.['maxlength'] && name?.errors?.['pattern']">Name allow alphanumeric characters and special symbol '-' between</mat-error>
             </mat-form-field>
     
             <mat-form-field appearance="outline" color="primary" floatLabel="always">
@@ -30,7 +30,7 @@
                 <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
                 <mat-error *ngIf="password?.touched && password?.errors?.['minlength']">Password must be at least 6 characters long</mat-error>
                 <mat-error *ngIf="password?.touched && password?.errors?.['maxlength']">The length of password must be 128 characters or fewer</mat-error>
-                <mat-error *ngIf="password?.touched && password?.errors?.['pattern']">Password must contain at least one letter and one number</mat-error>
+                <mat-error *ngIf="password?.touched && !password?.errors?.['minlength'] && password?.errors?.['pattern']">Password must contain at least one letter and one number</mat-error>
             </mat-form-field>
             
             <button [disabled]="!signUpForm.valid" mat-flat-button type="submit" class="btn-large">Sign Up</button>
