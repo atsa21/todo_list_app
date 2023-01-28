@@ -9,7 +9,7 @@
         display: flex;
         flex-direction: column;
         max-width: 420px;
-        height: 440px;
+        height: 480px;
         margin: auto 0;
         padding-top: 48px;
         padding-bottom: 36px;
@@ -28,7 +28,18 @@
     }
 }
 
+.title {
+    font-size: 24px;
+    font-weight: 500;
+}
+
 ::ng-deep .form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 14px;
+
     .mat-form-field {
         width: 80%;
 
@@ -40,6 +51,10 @@
     .mat-form-field-flex .mat-form-field-infix {
         padding: 12px 0px !important;
     }
+}
+
+.mat-error {
+    font-size: 10px;
 }
 
 .btn-large {

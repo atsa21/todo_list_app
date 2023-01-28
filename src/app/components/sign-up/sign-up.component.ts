@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { Patterns } from 'src/assets/patterns/patterns';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,9 +22,9 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group ({
-      name : new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(46)]),
+      name : new FormControl('', [Validators.required, Validators.maxLength(20), Validators.pattern(Patterns.NamePattern)]),
       email : new FormControl('', [Validators.required, Validators.maxLength(62), Validators.email]),
-      password : new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(128)])
+      password : new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(128), Validators.pattern(Patterns.PasswordPattern)])
     });
   }
 
