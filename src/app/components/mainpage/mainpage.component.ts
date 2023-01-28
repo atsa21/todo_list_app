@@ -8,6 +8,7 @@ import { TodoService } from 'src/app/services/todo.service';
 import { map, pipe, Subject, takeUntil } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Todo } from 'src/app/models/todo.model';
+import { UsersService } from 'src/app/services/users.service';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class MainpageComponent implements OnInit {
 
   public data: any;
   public today: any;
+  public user: any;
   private userId: string | null = '';
   private destroy: Subject<boolean> = new Subject<boolean>();
 
@@ -41,13 +43,15 @@ export class MainpageComponent implements OnInit {
     private dialog : MatDialog,
     private todoService: TodoService,
     private localStorService: LocalStorageService,
-    private cdr: ChangeDetectorRef,
+    private userService: UsersService,
+    private cdr: ChangeDetectorRef
   ){}
 
   ngOnInit(): void {
     this.today = new Date(new Date().setHours(0,0,0,0)).toString();
     this.userId = this.localStorService.getItem('userId');
     this.getAllTodo();
+    this.getUser();
   }
 
   getAllTodo(): void {
@@ -83,6 +87,18 @@ export class MainpageComponent implements OnInit {
     this.readyTodo = this.todoReadyList.length;
     this.unreadyTodo = this.totalTodo - this.readyTodo;
     this.progress = 100 / this.totalTodo * this.readyTodo;
+  }
+
+  getUser(): void {
+    this.userService.getUser().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+      this.user = data[0];
+    });
   }
 
   editTodo(row : Todo): void {
