@@ -28,10 +28,10 @@ export class UsersService {
     const userId = auth.currentUser?.uid;
     const newPostKey = push(child(ref(db), 'users')).key;
     set(ref(db, 'users/' + userId + '/' + newPostKey), {
-      key: newPostKey,
       username: user.name,
       email: user.email,
-      profile_picture: ''
+      userId: newPostKey,
+      profile_photo: ''
     });
   }
 }

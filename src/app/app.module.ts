@@ -39,7 +39,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MainpageComponent } from './components/mainpage/mainpage.component';
-import { UserPageComponent } from './components/user-page/user-page.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,7 @@ import { UserPageComponent } from './components/user-page/user-page.component';
     LoginComponent,
     SignUpComponent,
     MainpageComponent,
-    UserPageComponent
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit} from '@angular/core';
 import { DialogTodoComponent } from '../dialog-todo/dialog-todo.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -16,7 +16,7 @@ import { UsersService } from 'src/app/services/users.service';
   templateUrl: './mainpage.component.html',
   styleUrls: ['./mainpage.component.scss']
 })
-export class MainpageComponent implements OnInit {
+export class MainpageComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = [ 'checked', 'category', 'task', 'date', 'priority', 'tags', 'action'];
   dataSource!: MatTableDataSource<any>;
@@ -54,6 +54,12 @@ export class MainpageComponent implements OnInit {
     this.getUser();
   }
 
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   getAllTodo(): void {
     this.todoService.getAllTodo().snapshotChanges().pipe(
       map(changes =>
@@ -78,9 +84,6 @@ export class MainpageComponent implements OnInit {
 
   setData(data: any): void {
     this.dataSource = new MatTableDataSource(data);
-    this.cdr.detectChanges();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     this.dataSource.data = this.dataSource.data.sort((a, b) => a.priority.id - b.priority.id);
     this.totalTodo = data.length;
     this.todoReadyList = this.dataSource.data.filter(el => el.checked === true);

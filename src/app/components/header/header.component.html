@@ -1,5 +1,5 @@
 <mat-toolbar class="header">
-  <span *ngIf="user.username; else loading">Welcome back, {{ user.username }}!</span>
+  <span *ngIf="user.username; else loading" routerLink="/mainpage">Welcome back, {{ user.username }}!</span>
   <ng-template #loading>
     <span></span>
   </ng-template>
@@ -8,6 +8,10 @@
       <mat-icon>person icon</mat-icon>
     </button>
     <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item routerLink="/profile">
+        <mat-icon>person icon</mat-icon>
+        <span>Profile</span>
+      </button>
       <button mat-menu-item (click)="logOut()">
         <mat-icon>person icon</mat-icon>
         <span>Logout</span>
