@@ -56,8 +56,12 @@ export class MainpageComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    if(this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
+    if(this.sort) {
+      this.dataSource.sort = this.sort;
+    }
   }
 
   getAllTodo(): void {

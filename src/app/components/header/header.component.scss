@@ -21,6 +21,10 @@ p {
     margin: 0;
 }
 
+.welcome-title {
+    cursor: pointer;
+}
+
 .btn {
     color: var(--white);
     background-color: var(--accent);

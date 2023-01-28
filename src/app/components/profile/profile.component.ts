@@ -10,7 +10,8 @@ import { map } from 'rxjs';
 })
 export class ProfileComponent implements OnInit {
 
-  user: User = {};
+  public user: User = {};
+  public edit: boolean = false;
 
   constructor(
     private userService: UsersService,

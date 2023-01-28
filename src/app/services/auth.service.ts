@@ -60,6 +60,7 @@ export class AuthService {
   logOut() {
     this.fireAuth.signOut()
     .then (() => {
+      window.localStorage.clear();
       this.localStorService.removeItem('token');
       this.localStorService.removeItem('email');
       this.localStorService.removeItem('userId');
