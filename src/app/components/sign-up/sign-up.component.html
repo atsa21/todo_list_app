@@ -4,7 +4,7 @@
             <a routerLink="/login" class="h-login switch-to-text title"><h1>Login</h1></a>
             <h1 class="activeText title">Sign Up</h1>
         </div>
-        <form [formGroup]="signUpForm" class="form" (ngSubmit)="signUp()">
+        <form [formGroup]="signUpForm" class="form">
     
             <mat-form-field appearance="outline" color="primary" floatLabel="always">
                 <mat-label>User Name</mat-label>
@@ -33,7 +33,7 @@
                 <mat-error *ngIf="password?.touched && !password?.errors?.['minlength'] && password?.errors?.['pattern']">Password must contain at least one letter and one number</mat-error>
             </mat-form-field>
             
-            <button [disabled]="!signUpForm.valid" mat-flat-button type="submit" class="btn-large">Sign Up</button>
+            <button [disabled]="!signUpForm.valid" mat-flat-button class="btn-large" (click)="signUp()">Sign Up</button>
         </form>
     </div>
 </div>

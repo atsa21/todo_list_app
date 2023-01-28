@@ -5,7 +5,7 @@
             <a routerLink="/signup"><h1 class="switch-to-text title">Sign Up</h1></a>
         </div>
 
-        <form [formGroup]="loginForm" class="form" (ngSubmit)="login()">
+        <form [formGroup]="loginForm" class="form">
             <mat-form-field appearance="outline" color="primary" floatLabel="always">
                 <mat-label>Email</mat-label>
                 <input formControlName="email" matInput placeholder="example@gmail.com" required>
@@ -20,7 +20,7 @@
                 </button>
                 <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
             </mat-form-field>
-            <button [disabled]="!loginForm.valid" mat-flat-button type="submit" class="btn-large">Login</button>
+            <button [disabled]="!loginForm.valid" mat-flat-button class="btn-large" (click)="login()">Login</button>
         </form>
     </div>
 </div>
