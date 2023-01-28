@@ -10,8 +10,8 @@
                 <mat-label>User Name</mat-label>
                 <input formControlName="name" matInput placeholder="username" required/>
                 <mat-error *ngIf="name?.errors?.['required']">Name is required</mat-error>
-                <mat-error *ngIf="name?.touched && name?.errors?.['minlength']">Name  must be at least 2 characters long</mat-error>
-                <mat-error *ngIf="name?.touched && name?.errors?.['maxlength']">The length of name must be 46 characters or fewer</mat-error>
+                <mat-error *ngIf="name?.touched && name?.errors?.['maxlength']">The length of name must be 20 characters or fewer</mat-error>
+                <mat-error *ngIf="name?.touched && name?.errors?.['pattern']">Name allow alphanumeric characters and special symbol '-' between</mat-error>
             </mat-form-field>
     
             <mat-form-field appearance="outline" color="primary" floatLabel="always">
@@ -23,13 +23,14 @@
     
             <mat-form-field appearance="outline" color="primary" floatLabel="always">
                 <mat-label>Password</mat-label>
-                <input formControlName="password" minlength="5" [type]="hide ? 'password' : 'text'" matInput placeholder="enter your password" required/>
+                <input formControlName="password" minlength="6" [type]="hide ? 'password' : 'text'" matInput placeholder="enter your password" required/>
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
                 <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
                 <mat-error *ngIf="password?.touched && password?.errors?.['minlength']">Password must be at least 6 characters long</mat-error>
                 <mat-error *ngIf="password?.touched && password?.errors?.['maxlength']">The length of password must be 128 characters or fewer</mat-error>
+                <mat-error *ngIf="password?.touched && password?.errors?.['pattern']">Password must contain at least one letter and one number</mat-error>
             </mat-form-field>
             
             <button [disabled]="!signUpForm.valid" mat-flat-button type="submit" class="btn-large">Sign Up</button>
