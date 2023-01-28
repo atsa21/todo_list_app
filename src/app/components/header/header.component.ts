@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, AfterViewInit } from '@angular/core';
 import { map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -8,29 +8,18 @@ import { UsersService } from 'src/app/services/users.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements AfterViewInit {
 
-  public user: any = [];
+  @Input() user: any;
 
   constructor(
     private auth: AuthService,
-    private userService: UsersService
+    private userService: UsersService,
+    private cdr: ChangeDetectorRef,
   ) { }
 
-  ngOnInit(): void {
-    this.getUser();
-  }
-
-  getUser() {
-    this.userService.getUser().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(data => {
-      this.user = data[0];
-    });
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
 
   logOut() {
