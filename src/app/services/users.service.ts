@@ -30,7 +30,8 @@ export class UsersService {
     set(ref(db, 'users/' + userId + '/' + newPostKey), {
       key: newPostKey,
       username: user.name,
-      email: user.email
+      email: user.email,
+      profile_picture: ''
     });
   }
 }
