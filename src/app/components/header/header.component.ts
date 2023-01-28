@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -8,7 +8,7 @@ import { UsersService } from 'src/app/services/users.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements AfterViewInit {
+export class HeaderComponent implements OnInit {
 
   public user: any = [];
 
@@ -17,7 +17,7 @@ export class HeaderComponent implements AfterViewInit {
     private userService: UsersService
   ) { }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.getUser();
   }
 
