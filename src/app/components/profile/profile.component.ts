@@ -74,7 +74,6 @@ export class ProfileComponent implements OnInit {
 
   imageCropped(event: ImageCroppedEvent): void {
     this.croppedImage = event.base64;
-    this.profile_photo.setValue(this.croppedImage);
   }
 
   imageLoaded(image: LoadedImage): void {

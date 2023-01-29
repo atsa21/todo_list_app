@@ -5,9 +5,14 @@
   </ng-template>
   <div class="header-right">
     <p *ngIf="user.username">{{ user.username }}</p>
-    <button mat-mini-fab [matMenuTriggerFor]="menu" class="btn">
-      <mat-icon>person icon</mat-icon>
-    </button>
+    <div>
+      <img *ngIf="user.profile_photo; else icon" class="user-photo" [src]="user.profile_photo" [matMenuTriggerFor]="menu"/>
+      <ng-template #icon>
+        <button mat-mini-fab [matMenuTriggerFor]="menu" class="btn">
+          <mat-icon>person icon</mat-icon>
+        </button>
+      </ng-template>
+    </div>
     <mat-menu #menu="matMenu" xPosition="before">
       <button mat-menu-item routerLink="/profile">
         <mat-icon>person icon</mat-icon>
