@@ -186,4 +186,19 @@ export class MainpageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  getTagsClass(priority: string): string {
+    switch (priority) {
+      case 'critical':
+        return 'critical-tag';
+      case 'high':
+        return 'high-tag';
+      case 'medium':
+        return 'medium-tag';
+      case 'low':
+        return 'low-tag';
+      default:
+        return 'error';
+    }
+  }
+
 }
