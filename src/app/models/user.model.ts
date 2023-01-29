@@ -1,6 +1,7 @@
 export class User {
     key?: string | null;
-    name?: string;
+    username?: string;
     email?: string;
     userId?: number;
+    profile_photo?: string;
 }

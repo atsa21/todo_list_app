@@ -14,7 +14,6 @@ export class HeaderComponent implements AfterViewInit {
 
   constructor(
     private auth: AuthService,
-    private userService: UsersService,
     private cdr: ChangeDetectorRef,
   ) { }
 

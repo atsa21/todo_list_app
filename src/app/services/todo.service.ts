@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
-import { child, getDatabase, orderByChild, push, query, ref, set } from "firebase/database";
+import { child, getDatabase, push, ref, set } from "firebase/database";
 import { Observable, of } from 'rxjs';
 import { Todo } from '../models/todo.model';
 
@@ -11,21 +10,25 @@ import { Todo } from '../models/todo.model';
 export class TodoService {
 
   todo: any;
-  todoRef: AngularFireList<Todo>;
   userId: any;
 
   constructor(
     private db: AngularFireDatabase
   ) {
+  }
+
+  getUserId(): void {
     this.userId = localStorage.getItem('userId');
-    this.todoRef = db.list(`todoList/${this.userId}/data`);
   }
 
   getAllTodo(): AngularFireList<Todo> {
-    return this.todoRef;
+    this.getUserId();
+    const todoRef: AngularFireList<Todo> = this.db.list(`todoList/${this.userId}/data`);
+    return todoRef;
   }
 
   getTodoByCategory(category: string): Observable<any> {
+    this.getUserId();
     const dbRef = this.db.database.ref(`todoList/${this.userId}/data`);
     const todo: Object[] = [];
 
@@ -36,6 +39,7 @@ export class TodoService {
   }
 
   createTodo(todo: Todo) {
+    this.getUserId();
     if(todo.date) {
       const db = getDatabase();
       const newPostKey = push(child(ref(db), `todoList/${this.userId}/data`)).key;
@@ -52,14 +56,20 @@ export class TodoService {
   }
 
   updateTodo(todo: Todo, key: string): Promise<void> {
-    return this.todoRef.update(key, todo);
+    this.getUserId();
+    const todoRef: AngularFireList<Todo> = this.db.list(`todoList/${this.userId}/data`);
+    return todoRef.update(key, todo);
   }
 
   deleteTodo(key: any): Promise<void> {
-    return this.todoRef.remove(key);
+    this.getUserId();
+    const todoRef: AngularFireList<Todo> = this.db.list(`todoList/${this.userId}/data`);
+    return todoRef.remove(key);
   }
 
   deleteAllTodo(): Promise<void> {
-    return this.todoRef.remove();
+    this.getUserId();
+    const todoRef: AngularFireList<Todo> = this.db.list(`todoList/${this.userId}/data`);
+    return todoRef.remove();
   }
 }

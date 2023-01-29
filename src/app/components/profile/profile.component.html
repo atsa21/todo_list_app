@@ -1,0 +1,41 @@
+<div class="profile-container">
+    <app-header [user]="user"></app-header>
+    <div class="profile-box">
+        <div class="profile">
+            <h1 class="text-center">Edit profile</h1>
+            <form [formGroup]="profileForm" class="form">
+                <div>
+                    <h3 class="h3 text-center">Select profile picture</h3>
+                    <div class="file-input" *ngIf="!croppedImage">
+                        <label class="btn-upload" for="upload-photo"><i class="fa-solid fa-plus"></i>Select image</label>
+                        <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+                    </div>
+                    <div class="cropper" *ngIf="imageChangedEvent">
+                        <image-cropper
+                        [imageChangedEvent]="imageChangedEvent"
+                        [maintainAspectRatio]="true"
+                        [aspectRatio]="1 / 1"
+                        format="png"
+                        (imageCropped)="imageCropped($event)"
+                        (cropperReady)="cropperReady($event)"
+                        (loadImageFailed)="loadImageFailed()"
+                        ></image-cropper>
+
+                        <img [src]="croppedImage"/>
+                    </div>
+                    <div class="buttons-box">
+                        <label *ngIf="croppedImage" class="btn fill-sec-btn text-center" for="upload-photo">Change photo</label>
+                        <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+                    </div>
+                </div>
+                <mat-form-field appearance="outline" color="primary" floatLabel="always">
+                    <mat-label>Name</mat-label>
+                    <input formControlName="username" matInput placeholder="example@gmail.com" required>
+                    <mat-error *ngIf="username?.errors?.['required']">Email is required</mat-error>
+                    <mat-error *ngIf="username?.errors?.['email']">Please enter a correct email format</mat-error>
+                </mat-form-field>
+                <button [disabled]="!profileForm.valid" mat-flat-button class="btn" (click)="submit()">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

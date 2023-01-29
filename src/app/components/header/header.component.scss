@@ -10,9 +10,19 @@
 
     .header-right {
         display: flex;
+        flex-direction: row;
         align-items: center;
-        gap: 8px;
+        gap: 16px;
     }
+}
+
+p {
+    font-size: 16px;
+    margin: 0;
+}
+
+.welcome-title {
+    cursor: pointer;
 }
 
 .btn {

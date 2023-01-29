@@ -1,15 +1,20 @@
-<mat-toolbar class="header">
-  <span *ngIf="user.username; else loading">Welcome back, {{ user.username }}!</span>
+<mat-toolbar class="header" *ngIf="user">
+  <span *ngIf="user.username; else loading" class="welcome-title" routerLink="/mainpage">Welcome back, {{ user.username }}!</span>
   <ng-template #loading>
     <span></span>
   </ng-template>
   <div class="header-right">
+    <p *ngIf="user.username">{{ user.username }}</p>
     <button mat-mini-fab [matMenuTriggerFor]="menu" class="btn">
       <mat-icon>person icon</mat-icon>
     </button>
     <mat-menu #menu="matMenu" xPosition="before">
-      <button mat-menu-item (click)="logOut()">
+      <button mat-menu-item routerLink="/profile">
         <mat-icon>person icon</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button mat-menu-item (click)="logOut()">
+        <mat-icon>logout</mat-icon>
         <span>Logout</span>
       </button>
     </mat-menu>

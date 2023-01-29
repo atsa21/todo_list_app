@@ -4,12 +4,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { AppComponent } from './app.component';
 import { DialogTodoComponent } from './components/dialog-todo/dialog-todo.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { MainpageComponent } from './components/mainpage/mainpage.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -38,7 +41,7 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MainpageComponent } from './components/mainpage/mainpage.component';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +50,8 @@ import { MainpageComponent } from './components/mainpage/mainpage.component';
     HeaderComponent,
     LoginComponent,
     SignUpComponent,
-    MainpageComponent
+    MainpageComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +80,7 @@ import { MainpageComponent } from './components/mainpage/mainpage.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
+    ImageCropperModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
