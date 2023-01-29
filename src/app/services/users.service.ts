@@ -33,4 +33,12 @@ export class UsersService {
       profile_photo: ''
     });
   }
+
+  changeUser(user: User): any {
+    if(typeof user.key == 'string') {
+      const id = localStorage.getItem('userId');
+      const todoRef: AngularFireList<User> = this.db.list(`users/${id}`);
+      return todoRef.update(user.key, user);
+    }
+  }
 }

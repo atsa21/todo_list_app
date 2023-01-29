@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users.service';
 import { map } from 'rxjs';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Patterns } from 'src/assets/patterns/patterns';
+import { Dimensions, ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,19 +16,29 @@ export class ProfileComponent implements OnInit {
 
   public user: User = {};
   public edit: boolean = false;
+  public profileForm: any;
 
-  profileForm = new FormGroup ({
-    username: new FormControl(this.user.username, [Validators.required, Validators.pattern(Patterns.NamePattern)]),
-    email: new FormControl(this.user.email, [Validators.required, Validators.email]),
-    photo: new FormControl('')
-  });
+  public imageChangedEvent: any = '';
+  public croppedImage: any = '';
+  public showCropper = false;
 
   constructor(
+    private fb: FormBuilder,
     private userService: UsersService,
+    private snackbar: SnackBarService
   ) { }
 
   ngOnInit(): void {
     this.getUser();
+    this.initForm();
+  }
+
+  initForm(): void {
+    this.profileForm = this.fb.group({
+      username: new FormControl('', [Validators.required, Validators.pattern(Patterns.NamePattern)]),
+      profile_photo: (''),
+      key: ('')
+    })
   }
 
   getUser(): void {
@@ -38,8 +50,9 @@ export class ProfileComponent implements OnInit {
       )
     ).subscribe(data => {
       this.user = data[0];
-      this.username?.setValue(this.user.username);
-      this.email?.setValue(this.user.email);
+      this.username.setValue(this.user.username);
+      this.profile_photo.setValue(this.user.profile_photo);
+      this.key.setValue(this.user.key);
     });
   }
 
@@ -47,12 +60,41 @@ export class ProfileComponent implements OnInit {
     return this.profileForm.get('username');
   }
 
-  get email(){
-    return this.profileForm.get('email');
+  get profile_photo(){
+    return this.profileForm.get('profile_photo');
+  }
+
+  get key(){
+    return this.profileForm.get('key');
+  }
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  } 
+
+  imageCropped(event: ImageCroppedEvent): void {
+    this.croppedImage = event.base64;
+    this.profile_photo.setValue(this.croppedImage);
+  }
+
+  imageLoaded(image: LoadedImage): void {
+    this.showCropper = true;
+  }
+
+  cropperReady(sourceImageDimensions: Dimensions): void {
+    console.log('Cropper ready', sourceImageDimensions);
+  }
+
+  loadImageFailed(): void {
+    this.snackbar.openSnackBar('Load image is failed', 'Close');
   }
 
   submit(): void {
-
+    if(this.profileForm.valid) {
+      this.profileForm.key = this.user.key;
+      this.profile_photo.setValue(this.croppedImage);
+      this.userService.changeUser(this.profileForm.value);
+    }
   }
 
 }

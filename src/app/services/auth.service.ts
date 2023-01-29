@@ -22,7 +22,7 @@ export class AuthService {
     private localStorService: LocalStorageService
   ) { }
 
-  login(email: string, password: string) {
+  login(email: string, password: string): void {
     this.fireAuth.signInWithEmailAndPassword(email, password)
     .then(() => {
       this.localStorService.setItem('token', 'true');
@@ -41,11 +41,11 @@ export class AuthService {
     })
   }
 
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  signUp(email: string, password: string, user: any) {
+  signUp(email: string, password: string, user: any): void {
     this.fireAuth.createUserWithEmailAndPassword(email, password)
     .then (() => {
       this.userService.createUser(user);
@@ -57,7 +57,7 @@ export class AuthService {
     })
   }
 
-  logOut() {
+  logOut(): void {
     this.fireAuth.signOut()
     .then (() => {
       window.localStorage.clear();
