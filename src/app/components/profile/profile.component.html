@@ -7,14 +7,14 @@
                 <div>
                     <h3 class="h3 text-center">Select profile picture</h3>
                     <div class="file-input" *ngIf="!croppedImage">
-                        <label class="btn-upload" for="upload-photo"><i class="fa-solid fa-plus"></i></label>
+                        <label class="btn-upload" for="upload-photo"><i class="fa-solid fa-plus"></i>Select image</label>
                         <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
                     </div>
                     <div class="cropper" *ngIf="imageChangedEvent">
                         <image-cropper
                         [imageChangedEvent]="imageChangedEvent"
                         [maintainAspectRatio]="true"
-                        [aspectRatio]="3 / 4"
+                        [aspectRatio]="1 / 1"
                         format="png"
                         (imageCropped)="imageCropped($event)"
                         (cropperReady)="cropperReady($event)"
