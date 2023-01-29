@@ -80,10 +80,6 @@ export class ProfileComponent implements OnInit {
     this.showCropper = true;
   }
 
-  cropperReady(sourceImageDimensions: Dimensions): void {
-    console.log('Cropper ready', sourceImageDimensions);
-  }
-
   loadImageFailed(): void {
     this.snackbar.openSnackBar('Load image is failed', 'Close');
   }

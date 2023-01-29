@@ -108,6 +108,12 @@ export class MainpageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  checkPastDate(date: string): boolean {
+    const now = new Date();
+    const dateToCheck = new Date(date);
+    return dateToCheck < now;
+  }
+
   editTodo(row : Todo): void {
     this.dialog.open(DialogTodoComponent, {
       width: '420px',
@@ -137,6 +143,17 @@ export class MainpageComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  getStyle(checked: boolean, date: string): string {
+    const isPast = this.checkPastDate(date);
+    if(checked) {
+      return 'ready';
+    }
+    if(!checked && isPast) {
+      return 'past';
+    }
+    return 'unready';
   }
 
   getPriorityIcon(priority: string): string {
