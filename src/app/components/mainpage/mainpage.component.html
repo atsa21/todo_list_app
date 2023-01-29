@@ -34,12 +34,12 @@
   
                 <ng-container matColumnDef="category">
                   <mat-header-cell *matHeaderCellDef mat-sort-header class="category-col"> Category </mat-header-cell>
-                  <mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : 'unready'" class="category-col"> {{row.category}} </mat-cell>
+                  <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="category-col"> {{row.category}} </mat-cell>
                 </ng-container>
             
                 <ng-container matColumnDef="task">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Task </mat-header-cell>
-                  <mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : 'unready'"> {{row.task}} </mat-cell>
+                  <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)"> {{row.task}} </mat-cell>
                 </ng-container>
       
                 <ng-container matColumnDef="tags">
@@ -53,7 +53,7 @@
 
                 <ng-container matColumnDef="date">
                   <mat-header-cell *matHeaderCellDef mat-sort-header class="date-col"> Date </mat-header-cell>
-                  <mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : 'unready'" class="date-col"> {{ row.date == today ? 'Today' :  row.date | date }} </mat-cell>
+                  <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="date-col"> {{ row.date == today ? 'Today' :  row.date | date }} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="priority">
