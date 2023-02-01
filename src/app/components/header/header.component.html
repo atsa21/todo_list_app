@@ -1,11 +1,11 @@
 <mat-toolbar class="header" *ngIf="user">
-  <span *ngIf="user.username; else loading" class="welcome-title" routerLink="/mainpage">Hello, {{ user.username }}!</span>
+  <span *ngIf="user.username; else loading" class="welcome-title" routerLink="/todo">Hello, {{ user.username }}!</span>
   <ng-template #loading>
     <span></span>
   </ng-template>
   <div>
-    <a routerLink="/todo">Todo list</a>
-    <a routerLink="/wish">Wish list</a>
+    <a routerLink="/mainpage">Todo list</a>
+    <a routerLink="wish">Wish list</a>
   </div>
   <div class="header-right">
     <p *ngIf="user.username">{{ user.username }}</p>
@@ -18,7 +18,7 @@
       </ng-template>
     </div>
     <mat-menu #menu="matMenu" xPosition="before">
-      <button mat-menu-item routerLink="/profile">
+      <button mat-menu-item routerLink="profile">
         <mat-icon>person icon</mat-icon>
         <span>Profile</span>
       </button>
