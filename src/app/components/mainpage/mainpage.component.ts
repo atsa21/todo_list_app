@@ -24,7 +24,7 @@ export class MainpageComponent implements OnInit, AfterViewInit {
   tableTags: any;
   todoReadyList: any;
   options: AnimationOptions = {
-    path: 'https://lottie.host/c4d75bab-030c-473b-a939-d8caa7331341/HofrRTMpJ7.json',
+    path: '/assets/animation/notask.json',
   };
 
   public totalTodo: number = 0;
