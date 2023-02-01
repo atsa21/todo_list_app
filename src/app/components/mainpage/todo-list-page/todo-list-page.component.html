@@ -1,1 +1,114 @@
-<p>todo-list-page works!</p>
+<!-- <div class="body-container">
+    <div class="cont" *ngIf="dataSource; else loading">
+      <div class="cont-box" *ngIf="totalTodo; else notask">
+        <div class="todo-box">
+          <div class="form">
+            <mat-form-field class="input-search" appearance="outline" color="primary" floatLabel="always">
+              <mat-label>Search</mat-label>
+              <input matInput (keyup)="search($event)" placeholder="Enter value to search" #input/>
+            </mat-form-field>
+            <mat-form-field class="input-category" appearance="outline" color="primary" floatLabel="always">
+              <mat-label>Category</mat-label>
+              <mat-select [ngModel]="category" (ngModelChange)="getTodoByCategory($event)" placeholder="Select category">
+                  <mat-option *ngFor="let category of categories" [value]="category" >
+                      <span>{{category}}</span>
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+          <button class="btn" mat-flat-button type="button" (click)="openDialog()">
+            Add todo <mat-icon>add</mat-icon>
+          </button>
+          </div>
+          <div class="table-box" class="mat-elevation-z8">
+            <mat-table mat-table [dataSource]="dataSource" matSort>
+    
+              <ng-container matColumnDef="checked">
+                <mat-header-cell *matHeaderCellDef class="check-col"></mat-header-cell>
+                <mat-cell *matCellDef="let row" class="check-col">
+                  <mat-checkbox [(ngModel)]="row.checked" (click)="checkTodo(row, row.key)" color="primary">
+                  </mat-checkbox> 
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="category">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="category-col"> Category </mat-header-cell>
+                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="category-col"> {{row.category}} </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="task">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Task </mat-header-cell>
+                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)"> {{row.task}} </mat-cell>
+              </ng-container>
+    
+              <ng-container matColumnDef="tags">
+                <mat-header-cell *matHeaderCellDef class="tags-col"> Tags </mat-header-cell>
+                <mat-cell *matCellDef="let row" class="tags-col">
+                  <ul class="tags-box">
+                    <li *ngFor="let tag of row.tags" class="tag" [class]="row.checked ? 'ready-tag' : getTagsClass(row.priority.name)">#{{tag}}</li>
+                  </ul>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="date">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="date-col"> Date </mat-header-cell>
+                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="date-col"> {{ row.date == today ? 'Today' :  row.date | date }} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="priority">
+                <mat-header-cell *matHeaderCellDef class="priority-col"> Priority </mat-header-cell>
+                <mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : getPriorityClass(row.priority.name)" class="priority-col">
+                  <span class="priority">
+                    <i [class]="getPriorityIcon(row.priority.name)"></i>
+                    <span class="p-priority">{{row.priority.name}}</span>
+                  </span>
+                </mat-cell>
+              </ng-container>
+    
+              <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef class="action-col"><span class="action-col-text">Action</span></mat-header-cell>
+                <mat-cell *matCellDef="let row" class="action-col">
+                  <button mat-button [class]="row.checked ? 'ready' : 'unready'" (click)="editTodo(row)" >Edit</button>
+                  <button mat-icon-button class="clear-btn" (click)="deleteTodo(row.key)">
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+          
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          
+              <div *ngIf="totalTodo">
+                <mat-header-row *matNoDataRow>
+                  <mat-row colspan="6">No data matching the filter "{{input.value}}"</mat-row>
+                </mat-header-row>
+              </div>
+            </mat-table>
+            <div class="paginator">
+              <div>
+                <div *ngIf="totalTodo">
+                  <span class="paginator-text">You have {{unreadyTodo}} task<span *ngIf="unreadyTodo > 1">s</span> to do</span>
+                  <mat-progress-bar class="progress" color="accent" mode="determinate" [value]="progress"></mat-progress-bar>
+                </div>
+              </div>
+              <mat-paginator color="accent" [length]="totalTodo" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #notask>
+        <div class="no-task-box">
+          <ng-lottie [options]="options"  width="500px" height="240px"></ng-lottie>
+          <p class="no-task-text">You don't have any tasks</p>
+          <button class="btn-add" mat-flat-button type="button" (click)="openDialog()">
+            Add todo <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </ng-template>
+    </div>
+
+    <ng-template #loading>
+      <div class="loading">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+  </div> -->

@@ -3,6 +3,10 @@
   <ng-template #loading>
     <span></span>
   </ng-template>
+  <div>
+    <a routerLink="/todo">Todo list</a>
+    <a routerLink="/wish">Wish list</a>
+  </div>
   <div class="header-right">
     <p *ngIf="user.username">{{ user.username }}</p>
     <div>
