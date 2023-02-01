@@ -22,5 +22,5 @@ export class HeaderComponent implements AfterViewInit {
   logOut() {
     this.auth.logOut();
   }
-
+  
 }

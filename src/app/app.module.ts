@@ -15,6 +15,9 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MainpageComponent } from './components/mainpage/mainpage.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { TodoListPageComponent } from './components/mainpage/todo-list-page/todo-list-page.component';
+import { ProfilePageComponent } from './components/mainpage/profile-page/profile-page.component';
+import { WishListPageComponent } from './components/mainpage/wish-list-page/wish-list-page.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -56,7 +59,10 @@ export function playerFactory() {
     LoginComponent,
     SignUpComponent,
     MainpageComponent,
-    ProfileComponent
+    ProfileComponent,
+    WishListPageComponent,
+    TodoListPageComponent,
+    ProfilePageComponent
   ],
   imports: [
     BrowserModule,

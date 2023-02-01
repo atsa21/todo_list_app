@@ -8,11 +8,11 @@ import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-profile-page',
+  templateUrl: './profile-page.component.html',
+  styleUrls: ['./profile-page.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfilePageComponent implements OnInit {
 
   public user: User = {};
   public edit: boolean = false;
