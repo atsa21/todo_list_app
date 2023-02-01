@@ -92,8 +92,7 @@ export function playerFactory() {
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     AngularFireDatabaseModule,
-    [LottieModule.forRoot({ player: playerFactory })
-  ]
+    [LottieModule.forRoot({ player: playerFactory })]
   ],
   providers: [
     MatDatepickerModule,
