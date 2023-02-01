@@ -19,6 +19,7 @@
 .cont-box {
     display: flex;
     justify-content: center;
+    align-content: center;
     width: 100%;
 
     .todo-box {
@@ -60,7 +61,7 @@
     background-color: var(--white);
     padding-left: 18px;
 
-    .paginator_text {
+    .paginator-text {
         font-size: 12px;
     }
 
@@ -78,6 +79,19 @@
     
     .mat-form-field-flex .mat-form-field-infix {
         padding: 12px 0px !important;
+    }
+}
+
+.no-task-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4%;
+    height: 100%;
+
+    .no-task-text {
+        margin-top: 16px;
+        font-size: 24px;
     }
 }
 
@@ -182,10 +196,25 @@ ul {
     color: var(--white);
     background-color: var(--accent);
     transition: all 0.4s ease-in-out;
+    cursor: pointer;
 
     &:hover {
         background-color: var(--accent-hover);
-        cursor: pointer;
+    }
+}
+
+.btn-add {
+    padding: 6px 12px;
+    margin-top: 12px;
+    width: 140px;
+    color: var(--black);
+    background-color: var(--white);
+    transition: all 0.4s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        color: var(--white);
+        background-color: var(--black);
     }
 }
 

@@ -2,7 +2,7 @@
     <app-header [user]="user"></app-header>
     <div class="body-container">
       <div class="cont" *ngIf="dataSource; else loading">
-        <div class="cont-box">
+        <div class="cont-box" *ngIf="totalTodo; else notask">
           <div class="todo-box">
             <div class="form">
               <mat-form-field class="input-search" appearance="outline" color="primary" floatLabel="always">
@@ -88,17 +88,26 @@
               <div class="paginator">
                 <div>
                   <div *ngIf="totalTodo">
-                    <span class="paginator_text">You have {{unreadyTodo}} task<span *ngIf="unreadyTodo > 1">s</span> to do</span>
+                    <span class="paginator-text">You have {{unreadyTodo}} task<span *ngIf="unreadyTodo > 1">s</span> to do</span>
                     <mat-progress-bar class="progress" color="accent" mode="determinate" [value]="progress"></mat-progress-bar>
                   </div>
-                  <span *ngIf="!totalTodo" class="paginator_text">You don't have any tasks</span>
                 </div>
                 <mat-paginator color="accent" [length]="totalTodo" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
               </div>
             </div>
           </div>
         </div>
+        <ng-template #notask>
+          <div class="no-task-box">
+            <ng-lottie [options]="options"  width="500px" height="240px"></ng-lottie>
+            <p class="no-task-text">You don't have any tasks</p>
+            <button class="btn-add" mat-flat-button type="button" (click)="openDialog()">
+              Add todo <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </ng-template>
       </div>
+
       <ng-template #loading>
         <div class="loading">
           <mat-spinner></mat-spinner>

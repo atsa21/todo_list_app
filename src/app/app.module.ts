@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
 
 import { AppComponent } from './app.component';
 import { DialogTodoComponent } from './components/dialog-todo/dialog-todo.component';
@@ -42,6 +44,9 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [
@@ -85,7 +90,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    [LottieModule.forRoot({ player: playerFactory })]
   ],
   providers: [
     MatDatepickerModule,

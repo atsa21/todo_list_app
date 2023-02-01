@@ -1,7 +1,5 @@
 import { ChangeDetectorRef, Component, Input, AfterViewInit } from '@angular/core';
-import { map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-header',
