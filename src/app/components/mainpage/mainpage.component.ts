@@ -9,6 +9,7 @@ import { map, pipe, Subject, takeUntil } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Todo } from 'src/app/models/todo.model';
 import { UsersService } from 'src/app/services/users.service';
+import { AnimationOptions } from 'ngx-lottie';
 
 
 @Component({
@@ -22,6 +23,9 @@ export class MainpageComponent implements OnInit, AfterViewInit {
   dataSource!: MatTableDataSource<any>;
   tableTags: any;
   todoReadyList: any;
+  options: AnimationOptions = {
+    path: 'https://lottie.host/c4d75bab-030c-473b-a939-d8caa7331341/HofrRTMpJ7.json',
+  };
 
   public totalTodo: number = 0;
   public readyTodo: number = 0;

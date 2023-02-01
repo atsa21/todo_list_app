@@ -1,5 +1,5 @@
 <mat-toolbar class="header" *ngIf="user">
-  <span *ngIf="user.username; else loading" class="welcome-title" routerLink="/mainpage">Welcome back, {{ user.username }}!</span>
+  <span *ngIf="user.username; else loading" class="welcome-title" routerLink="/mainpage">Hello, {{ user.username }}!</span>
   <ng-template #loading>
     <span></span>
   </ng-template>
