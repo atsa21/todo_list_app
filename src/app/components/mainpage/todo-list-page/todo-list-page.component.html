@@ -1,5 +1,5 @@
 <div class="body-container">
-    <div class="cont" *ngIf="dataSource; else loading">
+    <div class="cont mat-elevation-z0" *ngIf="dataSource; else loading">
       <div class="cont-box" *ngIf="totalTodo; else notask">
         <div class="todo-box">
           <div class="form">
@@ -19,7 +19,7 @@
             Add todo <mat-icon>add</mat-icon>
           </button>
           </div>
-          <div class="table-box" class="mat-elevation-z8">
+          <div class="table-box">
             <mat-table mat-table [dataSource]="dataSource" matSort>
     
               <ng-container matColumnDef="checked">
