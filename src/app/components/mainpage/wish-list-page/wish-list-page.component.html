@@ -1,6 +1,13 @@
-<p>wish-list-page works!</p>
-<p>wish-list-page works!</p>
-<p>wish-list-page works!</p>
-<p>wish-list-page works!</p>
-<p>wish-list-page works!</p>
-<p>wish-list-page works!</p>
+<div class="page-container">
+    <div class="wish-title">
+        <P>My Wish list</P>
+        <button class="btn">Add wish</button>
+    </div>
+    <div class="cards-container">
+        <div class="card" *ngFor="let wish of wishList">
+            <img [src]="wish.image"/>
+            <p>{{wish.name}}</p>
+            <p>{{wish.price}} Euro</p>
+        </div>
+    </div>
+</div>

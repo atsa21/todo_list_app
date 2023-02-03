@@ -46,12 +46,11 @@ h1 {
 }
 
 .btn {
-    padding: 6px 12px;
-    color: var(--white);
+    height: 50px;
+    padding: 0 18px;
     width: 240px;
+    color: var(--white);
     background-color: var(--accent);
-    cursor: pointer;
-    transition: all 0.4s ease-in-out;
 
     &:hover {
         background-color: var(--accent-hover);
@@ -96,6 +95,12 @@ h1 {
     border: 2px dashed var(--accent);
     color: var(--accent);
     cursor: pointer;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        color: var(--black);
+        border: 2px dashed var(--black);
+    }
 }
 
 .file-input {

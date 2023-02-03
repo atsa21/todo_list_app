@@ -1,0 +1,35 @@
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+    padding: 64px;
+    padding-top: 120px;
+    width: 100%;
+}
+
+.wish-title {
+    display: flex;
+}
+
+.cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+
+.card {
+    max-width: 400px;
+    padding: 24px;
+}
+
+.btn {
+    height: 50px;
+    padding: 0 18px;
+    color: var(--white);
+    background-color: var(--accent);
+
+    &:hover {
+        background-color: var(--accent-hover);
+    }
+}
