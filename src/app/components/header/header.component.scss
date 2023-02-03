@@ -35,18 +35,35 @@
 
         .nav-item-now {
             color: var(--black);
-            border-bottom: 2px solid var(--accent);
+            border-bottom: 2px solid var(--black);
             cursor: default;
         }
 
         .nav-item {
             color: var(--grey);
-            border-bottom: 0;
+            position: relative;
             transition: color 0.4s ease-in-out;
+
+            &:hover::after {
+                width: 100%;
+                left: 0;
+            }
 
             &:hover {
                 color: var(--black);
-                border-bottom: 2px solid var(--black);
+            }
+
+            &::after {
+                background: none repeat scroll 0 0 transparent;
+                bottom: 0;
+                content: "";
+                display: block;
+                height: 2px;
+                left: 50%;
+                position: absolute;
+                background: var(--accent);
+                transition: width 0.3s ease 0s, left 0.3s ease 0s;
+                width: 0;
             }
         }
     }
