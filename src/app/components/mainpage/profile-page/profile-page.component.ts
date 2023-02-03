@@ -88,7 +88,7 @@ export class ProfilePageComponent implements OnInit {
     if(this.profileForm.valid) {
       this.profileForm.key = this.user.key;
       this.profile_photo.setValue(this.croppedImage);
-      this.userService.changeUser(this.profileForm.value);
+      this.userService.updateUser(this.profileForm.value);
     }
   }
 

@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef, AfterViewInit} from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { TodoService } from 'src/app/services/todo.service';
-import { map, pipe, Subject, takeUntil } from 'rxjs';
+import { map, Subject, takeUntil } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Todo } from 'src/app/models/todo.model';
 import { UsersService } from 'src/app/services/users.service';
