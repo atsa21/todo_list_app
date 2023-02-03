@@ -5,7 +5,7 @@ import { TodoListPageComponent } from './todo-list-page/todo-list-page.component
 import { WishListPageComponent } from './wish-list-page/wish-list-page.component';
 
 const routesMainPage: Routes = [
-    { path: '',  component: TodoListPageComponent },
+    { path: 'todo',  component: TodoListPageComponent },
     { path: 'wish', component: WishListPageComponent },
     { path: 'profile', component: ProfilePageComponent}
 ];

@@ -1,12 +1,10 @@
 <mat-toolbar class="header" *ngIf="user">
-  <span *ngIf="user.username; else loading" class="welcome-title" routerLink="/todo">Hello, {{ user.username }}!</span>
-  <ng-template #loading>
-    <span></span>
-  </ng-template>
-  <div>
-    <a routerLink="/mainpage">Todo list</a>
-    <a routerLink="wish">Wish list</a>
-  </div>
+  <span class="welcome-title" routerLink="todo">Hello, {{ user.username }}!</span>
+  <ul class="nav-list">
+    <li class="list" *ngFor="let nav of navList" [routerLink]="nav.link" (click)="getPageLink()">
+        <a [ngClass]="currentPage === nav.link ? 'nav-item-now' : 'nav-item'">{{nav.name}}</a>
+    </li>
+  </ul>
   <div class="header-right">
     <p *ngIf="user.username">{{ user.username }}</p>
     <div>
