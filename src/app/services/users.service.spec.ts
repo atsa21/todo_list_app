@@ -1,16 +1,18 @@
 import { TestBed } from '@angular/core/testing';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { environment } from 'src/environments/environment';
 
 import { UsersService } from './users.service';
 
 describe('UsersService', () => {
   let service: UsersService;
-  let fireDatabaseMock = { list: () => {}};
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        { provide: AngularFireDatabase, useValue: fireDatabaseMock }
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule
       ]
     });
     service = TestBed.inject(UsersService);

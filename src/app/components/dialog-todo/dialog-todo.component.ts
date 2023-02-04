@@ -36,7 +36,7 @@ export class DialogTodoComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
-  constructor( private formBuilder : FormBuilder,
+  constructor( private fb : FormBuilder,
     private todoService: TodoService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     private dialogReg: MatDialogRef<DialogTodoComponent>,
@@ -49,7 +49,7 @@ export class DialogTodoComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId');
-    this.todoForm = this.formBuilder.group({
+    this.todoForm = this.fb.group({
       category: new FormControl('', Validators.required),
       task: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
       date: new FormControl('', Validators.required),
@@ -66,7 +66,7 @@ export class DialogTodoComponent implements OnInit {
       this.todoForm.controls['category'].setValue(this.editData.category);
       this.todoForm.controls['task'].setValue(this.editData.task);
       this.todoForm.controls['date'].setValue(date);
-      this.todoForm.controls['priority'].setValue(this.editData.priority.name);
+      this.todoForm.controls['priority'].setValue(this.editData.priority);
       this.tagsList = this.editData.tags;
       this.key = this.editData.key;
     }

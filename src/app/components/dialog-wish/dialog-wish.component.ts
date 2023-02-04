@@ -28,7 +28,7 @@ export class DialogWishComponent implements OnInit {
 
   private key: string = '';
 
-  constructor( private formBuilder : FormBuilder,
+  constructor( private fb : FormBuilder,
     private wishListService: WishListService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     private dialogReg: MatDialogRef<DialogWishComponent>,
@@ -36,7 +36,7 @@ export class DialogWishComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.wishForm = this.formBuilder.group({
+    this.wishForm = this.fb.group({
       image: new FormControl(''),
       title: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
       price: new FormControl('', [Validators.required, Validators.min(0.01), Validators.max(100000000)]),
