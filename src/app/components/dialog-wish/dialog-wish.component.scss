@@ -1,3 +1,7 @@
+.dialog-container {
+    padding: 12px;
+}
+
 ::ng-deep .form {
     .mat-form-field {
         width: 100%;
@@ -10,11 +14,6 @@
     .mat-form-field-flex .mat-form-field-infix {
         padding: 12px 0px !important;
     }
-}
-
-::ng-deep .mat-chip.mat-standard-chip.mat-chip-selected.mat-accent {
-    color: var(--white);
-    background-color: var(--accent);
 }
 
 .header {
@@ -58,6 +57,63 @@
     padding: 6px 16px;
 }
 
-textarea {
-    resize: none;
+.img-crop-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.cropper {
+    display: flex;
+    flex-direction: column;
+    width: 330px;
+}
+
+.btn-upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 330px;
+    width: 330px;
+    border: 2px dashed var(--accent);
+    border-radius: 4px;
+    color: var(--accent);
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        color: var(--black);
+        border: 2px dashed var(--black);
+    }
+}
+
+.button-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    width: 330px;
+    border-radius: 4px;
+    color: var(--white);
+    background-color: var(--black);
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        background-color: var(--accent);
+    }
+
+    label {
+        cursor: pointer;
+    }
+}
+
+.file-input {
+    margin: 0 auto;
+}
+
+#upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
 }

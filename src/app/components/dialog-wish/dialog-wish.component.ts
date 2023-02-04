@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { WishListService } from 'src/app/services/wish-list.service';
 
@@ -11,11 +12,17 @@ import { WishListService } from 'src/app/services/wish-list.service';
 })
 export class DialogWishComponent implements OnInit {
 
-  wishForm !: FormGroup;
-  dialogTitle : string = "Add Wish";
-  actionBtn : string = "Submit";
-  userId: string | null = '';
-  key: any;
+  public wishForm !: FormGroup;
+  public dialogTitle : string = "Add Wish";
+  public actionBtn : string = "Submit";
+
+  public imageChangedEvent: any = '';
+  public croppedImage: any = '';
+  public showCropper = false;
+
+  private userId: string | null = '';
+  private key: any;
+
 
   constructor( private formBuilder : FormBuilder,
     private wishListService: WishListService,
@@ -41,6 +48,10 @@ export class DialogWishComponent implements OnInit {
       this.wishForm.controls['link'].setValue(this.editData.link);
       this.key = this.editData.key;
     }
+  }
+
+  get image() {
+    return this.wishForm.get('image');
   }
 
   get title(){
@@ -70,6 +81,23 @@ export class DialogWishComponent implements OnInit {
     this.wishListService.updateWish(this.wishForm.value, this.key);
     this.dialogReg.close();
     this.snackbar.openSnackBar('Wish Updated', 'Close');
+  }
+
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  } 
+
+  imageCropped(event: ImageCroppedEvent): void {
+    this.croppedImage = event.base64;
+    this.image?.setValue(this.croppedImage);
+  }
+
+  imageLoaded(image: LoadedImage): void {
+    this.showCropper = true;
+  }
+
+  loadImageFailed(): void {
+    this.snackbar.openSnackBar('Load image is failed', 'Close');
   }
 
 }
