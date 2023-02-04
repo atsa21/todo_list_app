@@ -16,7 +16,7 @@
     display: flex;
     flex-direction: column;
     width: 30%;
-    padding: 64px;
+    padding: 48px;
     background-color: #fff;
     border: 1px solid var(--light-grey);
 }
@@ -66,32 +66,21 @@ h1 {
         flex-direction: row;
         justify-content: center;
         gap: 16px;
-
-        .button-box {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 24px;
-            width: 24px;
-            border-radius: 12px;
-            color: var(--white);
-            background-color: var(--black);
-            cursor: pointer;
-        }
     }
 }
 
 .cropper {
     display: flex;
-    height: 140px;
+    flex-direction: column;
+    width: 240px;
 }
 
 .btn-upload {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 140px;
-    width: 140px;
+    height: 240px;
+    width: 240px;
     border: 2px dashed var(--accent);
     color: var(--accent);
     cursor: pointer;
@@ -100,6 +89,27 @@ h1 {
     &:hover {
         color: var(--black);
         border: 2px dashed var(--black);
+    }
+}
+
+.button-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    width: 240px;
+    border-radius: 4px;
+    color: var(--white);
+    background-color: var(--black);
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        background-color: var(--accent);
+    }
+
+    label {
+        cursor: pointer;
     }
 }
 
