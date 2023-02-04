@@ -51,10 +51,4 @@ export class WishListService {
     const wishRef: AngularFireList<Wish> = this.db.list(`wishList/${this.userId}/data`);
     return wishRef.remove(key);
   }
-
-  deleteAllWish(): Promise<void> {
-    this.getUserId();
-    const wishRef: AngularFireList<Wish> = this.db.list(`wishList/${this.userId}/data`);
-    return wishRef.remove();
-  }
 }

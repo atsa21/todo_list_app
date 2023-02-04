@@ -48,4 +48,8 @@ export class WishListPageComponent implements OnInit {
     })
   }
 
+  deleteWish(key: any): void {
+    this.wishService.deleteWish(key);
+  }
+
 }
