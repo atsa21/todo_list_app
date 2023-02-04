@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 24px;
-    padding: 16%;
+    padding: 14%;
     padding-top: 120px;
     width: 100%;
 }
@@ -11,22 +11,29 @@
 .wish-title {
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: flex-end;
 
     h1 {
         font-size: 36px;
+        font-weight: 500;
         margin: 0;
     }
 }
 
 .cards-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    gap: 36px;
 }
 
 .card {
-    max-width: 400px;
     padding: 24px;
+    max-width: 400px;
+
+    .img {
+        width: 100%;
+    }
 }
 
 .price {
@@ -70,6 +77,16 @@
     }
 }
 
+.btn-link {
+    color: var(--accent);
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        color: var(--black);
+    }
+}
+
 .btn {
     height: 50px;
     padding: 0 18px;
@@ -79,5 +96,11 @@
 
     &:hover {
         background-color: var(--accent-hover);
+    }
+}
+
+@media only screen and (max-width: 1600px) {
+    .page-container {
+        padding: 8%;
     }
 }
