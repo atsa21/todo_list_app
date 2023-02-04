@@ -41,4 +41,11 @@ export class WishListPageComponent implements OnInit {
     });
   }
 
+  editWish(row : Wish): void {
+    this.dialog.open(DialogWishComponent, {
+      width: '420px',
+      data:row
+    })
+  }
+
 }

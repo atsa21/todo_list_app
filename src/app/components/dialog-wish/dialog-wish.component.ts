@@ -50,6 +50,7 @@ export class DialogWishComponent implements OnInit {
       this.wishForm.controls['image'].setValue(this.editData.image);
       this.wishForm.controls['title'].setValue(this.editData.title);
       this.wishForm.controls['price'].setValue(this.editData.price);
+      this.wishForm.controls['currency'].setValue(this.editData.currency);
       this.wishForm.controls['link'].setValue(this.editData.link);
       this.key = this.editData.key;
     }
