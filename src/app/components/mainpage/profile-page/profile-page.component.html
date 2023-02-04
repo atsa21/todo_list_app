@@ -1,5 +1,4 @@
 <div class="profile-container">
-    <app-header [user]="user"></app-header>
     <div class="profile-box">
         <div class="profile">
             <h1 class="text-center">Edit profile</h1>
@@ -27,7 +26,7 @@
                         (imageLoaded)="imageLoaded($event)"
                         (loadImageFailed)="loadImageFailed()"
                         ></image-cropper>
-
+    
                         <img class="img-box" [src]="croppedImage"/>
                     </div>
                 </div>

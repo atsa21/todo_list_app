@@ -3,10 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-import { ImageCropperModule } from 'ngx-image-cropper';
-import { LottieModule } from 'ngx-lottie';
-import player from 'lottie-web';
 
 import { AppComponent } from './app.component';
 import { DialogTodoComponent } from './components/dialog-todo/dialog-todo.component';
@@ -14,26 +10,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MainpageComponent } from './components/mainpage/mainpage.component';
-import { ProfileComponent } from './components/profile/profile.component';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -42,11 +20,8 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
-export function playerFactory() {
-  return player;
-}
+import { MainpageModule } from './components/mainpage/mainpage.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -55,43 +30,20 @@ export function playerFactory() {
     HeaderComponent,
     LoginComponent,
     SignUpComponent,
-    MainpageComponent,
-    ProfileComponent
+    MainpageComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    MainpageModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatMenuModule,
-    MatTabsModule,
-    MatSnackBarModule,
-    MatChipsModule,
-    MatProgressBarModule,
-    MatSidenavModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatProgressSpinnerModule,
-    ImageCropperModule,
+    SharedModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
-    AngularFireDatabaseModule,
-    [LottieModule.forRoot({ player: playerFactory })]
+    AngularFireDatabaseModule
   ],
   providers: [
     MatDatepickerModule,

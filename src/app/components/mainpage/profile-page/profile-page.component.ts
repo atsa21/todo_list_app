@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users.service';
 import { map } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Patterns } from 'src/assets/patterns/patterns';
-import { Dimensions, ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
+import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-profile-page',
+  templateUrl: './profile-page.component.html',
+  styleUrls: ['./profile-page.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfilePageComponent implements OnInit {
 
   public user: User = {};
   public edit: boolean = false;
@@ -88,7 +88,7 @@ export class ProfileComponent implements OnInit {
     if(this.profileForm.valid) {
       this.profileForm.key = this.user.key;
       this.profile_photo.setValue(this.croppedImage);
-      this.userService.changeUser(this.profileForm.value);
+      this.userService.updateUser(this.profileForm.value);
     }
   }
 

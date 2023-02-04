@@ -1,0 +1,106 @@
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+    padding: 14%;
+    padding-top: 120px;
+    width: 100%;
+}
+
+.wish-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    h1 {
+        font-size: 36px;
+        font-weight: 500;
+        margin: 0;
+    }
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 36px;
+}
+
+.card {
+    padding: 24px;
+    max-width: 400px;
+
+    .img {
+        width: 100%;
+    }
+}
+
+.price {
+    font-weight: 600;
+}
+
+.btns-box {
+    display: flex;
+    position: absolute;
+    gap: 6px;
+    right: 24px;
+}
+
+.btn-round {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 28px;
+    width: 28px;
+    border-radius: 16px;
+    border: 0;
+}
+
+.btn-edit {
+    color: var(--white);
+    background-color: var(--accent);
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        background-color: var(--black);
+    }
+}
+
+.btn-delete {
+    color: var(--white);
+    background-color: var(--light-grey);
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        background-color: var(--grey);
+    }
+}
+
+.btn-link {
+    color: var(--accent);
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        color: var(--black);
+    }
+}
+
+.btn {
+    height: 50px;
+    padding: 0 18px;
+    color: var(--white);
+    background-color: var(--accent);
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        background-color: var(--accent-hover);
+    }
+}
+
+@media only screen and (max-width: 1600px) {
+    .page-container {
+        padding: 8%;
+    }
+}

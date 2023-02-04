@@ -1,8 +1,10 @@
 <mat-toolbar class="header" *ngIf="user">
-  <span *ngIf="user.username; else loading" class="welcome-title" routerLink="/mainpage">Hello, {{ user.username }}!</span>
-  <ng-template #loading>
-    <span></span>
-  </ng-template>
+  <span class="welcome-title" routerLink="todo">Hello, {{ user.username }}!</span>
+  <ul class="nav-list">
+    <li class="list" *ngFor="let nav of navList" [routerLink]="nav.link" (click)="getPageLink()">
+        <a [ngClass]="currentPage === nav.link ? 'nav-item-now' : 'nav-item'">{{nav.name}}</a>
+    </li>
+  </ul>
   <div class="header-right">
     <p *ngIf="user.username">{{ user.username }}</p>
     <div>
@@ -14,10 +16,6 @@
       </ng-template>
     </div>
     <mat-menu #menu="matMenu" xPosition="before">
-      <button mat-menu-item routerLink="/profile">
-        <mat-icon>person icon</mat-icon>
-        <span>Profile</span>
-      </button>
       <button mat-menu-item (click)="logOut()">
         <mat-icon>logout</mat-icon>
         <span>Logout</span>
