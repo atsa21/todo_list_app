@@ -6,10 +6,6 @@
                 <div class="img-crop-container">
                     <div class="title-box">
                         <h3 class="h3 text-center">Select profile picture</h3>
-                        <div class="button-box" *ngIf="croppedImage">
-                            <label for="upload-photo"><i class="fa-solid fa-rotate-right"></i></label>
-                            <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
-                        </div>
                     </div>
                     <div class="file-input" *ngIf="!croppedImage">
                         <label class="btn-upload" for="upload-photo">Select image</label>
@@ -26,12 +22,13 @@
                         (imageLoaded)="imageLoaded($event)"
                         (loadImageFailed)="loadImageFailed()"
                         ></image-cropper>
-    
-                        <img class="img-box" [src]="croppedImage"/>
+                        <div class="button-box" *ngIf="croppedImage">
+                            <label for="upload-photo">Change picture</label>
+                            <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+                        </div>
                     </div>
                 </div>
                 <div class="input-box">
-                    <h3 class="h3 text-center">Edit your name</h3>
                     <mat-form-field appearance="outline" color="primary" floatLabel="always">
                         <mat-label>Name</mat-label>
                         <input formControlName="username" matInput placeholder="example@gmail.com" required>

@@ -1,0 +1,69 @@
+<div class="dialog-container">
+    <div class="header">
+        <h1 class="fs-2 m-0">{{dialogTitle}}</h1>
+        <button mat-dialog-close class="close-btn">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+    <p class="mt-2">What you wish?</p>
+    <div mat-dialog-content>
+        <form [formGroup]="wishForm" class="form" (ngSubmit)="addWish()">
+            <div class="img-crop-container">
+                <div class="file-input" *ngIf="!croppedImage">
+                    <label class="btn-upload" for="upload-photo">Select image</label>
+                    <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+                </div>
+                <div class="cropper" *ngIf="imageChangedEvent">
+                    <image-cropper
+                    [imageChangedEvent]="imageChangedEvent"
+                    [maintainAspectRatio]="true"
+                    [aspectRatio]="1 / 1"
+                    [resizeToWidth]="480" 
+                    format="png"
+                    (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded($event)"
+                    (loadImageFailed)="loadImageFailed()"
+                    ></image-cropper>
+                    <div class="button-box" *ngIf="croppedImage">
+                        <label for="btn-reload">Change image</label>
+                        <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+                    </div>
+                </div>
+            </div>
+            <mat-form-field appearance="outline" color="primary" floatLabel="always">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title" minlength="2" placeholder="Enter wish title" required />
+                <mat-error *ngIf="title?.errors?.['required']">Title is required</mat-error>
+                <mat-error *ngIf="title?.touched && title?.errors?.['minlength']">The length of title must be at least 2 characters long</mat-error>
+                <mat-error *ngIf="title?.touched && title?.errors?.['maxlength']">The length of title must be 70 characters or fewer</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" color="primary" floatLabel="always">
+                <mat-label>Price</mat-label>
+                <input matInput type="number" class="input-price" formControlName="price" placeholder="Enter price" required />
+                <mat-error *ngIf="price?.errors?.['required']">Price is required</mat-error>
+                <mat-error *ngIf="price?.touched && price?.errors?.['min']">The price must be at least 0.01 $</mat-error>
+                <mat-error *ngIf="price?.touched && price?.errors?.['max']">The price must be 100 000 000 or fewer</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" color="primary" floatLabel="always">
+                <mat-label>Currency</mat-label>
+                <mat-select formControlName="currency" placeholder="Select currency" required>
+                    <mat-option *ngFor="let cur of currencyList" [value]="cur.value">
+                        <span>{{cur.name}}</span>
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="currency?.errors?.['required']">Please select the currency</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" color="primary" floatLabel="always">
+                <mat-label>Link</mat-label>
+                <input matInput formControlName="link" placeholder="Enter link" required />
+                <mat-error *ngIf="link?.errors?.['required']">Link is required</mat-error>
+                <mat-error *ngIf="link?.touched && link?.errors?.['minlength']">The length of title must be at least 2 characters long</mat-error>
+            </mat-form-field>
+    
+            <div mat-dialog-action [align]="'end'">
+                <button [disabled]="!wishForm.valid" mat-flat-button type="submit" class="submit-btn btn-main">{{actionBtn}}</button>
+            </div>
+    
+        </form>
+    </div>
+</div>

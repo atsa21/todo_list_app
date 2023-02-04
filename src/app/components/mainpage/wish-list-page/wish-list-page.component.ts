@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { map } from 'rxjs';
+import { Wish } from 'src/app/models/wish.model';
+import { WishListService } from 'src/app/services/wish-list.service';
+import { DialogWishComponent } from '../../dialog-wish/dialog-wish.component';
 
 @Component({
   selector: 'app-wish-list-page',
@@ -7,18 +12,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WishListPageComponent implements OnInit {
 
-  public wishList = [
-    { name: 'USD AEON 60 EQT - PINK', price: 299.99 , image: 'https://hedonskate.com/media/cache/usd-aeon-60-eqt-pink-5ae60da4d7c98938742fece6a6ca5b90.jpg' , link: 'https://hedonskate.com/p/skates-1/usd-284/usd-aeon-60-eqt-pink-187078?category%5B0%5D=1&filter-category-95%5B0%5D=aggressive-738&apply=true&category%5B0%5D=1&filter-category-95%5B0%5D=aggressive-738&page=8#.Y92Br3bP1PZ'},
-    { name: 'USD AEON 60 EQT - PINK', price: 299.99 , image: 'https://hedonskate.com/media/cache/usd-aeon-60-eqt-pink-5ae60da4d7c98938742fece6a6ca5b90.jpg' , link: 'https://hedonskate.com/p/skates-1/usd-284/usd-aeon-60-eqt-pink-187078?category%5B0%5D=1&filter-category-95%5B0%5D=aggressive-738&apply=true&category%5B0%5D=1&filter-category-95%5B0%5D=aggressive-738&page=8#.Y92Br3bP1PZ'},
-    { name: 'USD AEON 60 EQT - PINK', price: 299.99 , image: 'https://hedonskate.com/media/cache/usd-aeon-60-eqt-pink-5ae60da4d7c98938742fece6a6ca5b90.jpg' , link: 'https://hedonskate.com/p/skates-1/usd-284/usd-aeon-60-eqt-pink-187078?category%5B0%5D=1&filter-category-95%5B0%5D=aggressive-738&apply=true&category%5B0%5D=1&filter-category-95%5B0%5D=aggressive-738&page=8#.Y92Br3bP1PZ'},
-    { name: 'USD AEON 60 EQT - PINK', price: 299.99 , image: 'https://hedonskate.com/media/cache/usd-aeon-60-eqt-pink-5ae60da4d7c98938742fece6a6ca5b90.jpg' , link: 'https://hedonskate.com/p/skates-1/usd-284/usd-aeon-60-eqt-pink-187078?category%5B0%5D=1&filter-category-95%5B0%5D=aggressive-738&apply=true&category%5B0%5D=1&filter-category-95%5B0%5D=aggressive-738&page=8#.Y92Br3bP1PZ'},
-    { name: 'USD AEON 60 EQT - PINK', price: 299.99 , image: 'https://hedonskate.com/media/cache/usd-aeon-60-eqt-pink-5ae60da4d7c98938742fece6a6ca5b90.jpg' , link: 'https://hedonskate.com/p/skates-1/usd-284/usd-aeon-60-eqt-pink-187078?category%5B0%5D=1&filter-category-95%5B0%5D=aggressive-738&apply=true&category%5B0%5D=1&filter-category-95%5B0%5D=aggressive-738&page=8#.Y92Br3bP1PZ'},
-    { name: 'USD AEON 60 EQT - PINK', price: 299.99 , image: 'https://hedonskate.com/media/cache/usd-aeon-60-eqt-pink-5ae60da4d7c98938742fece6a6ca5b90.jpg' , link: 'https://hedonskate.com/p/skates-1/usd-284/usd-aeon-60-eqt-pink-187078?category%5B0%5D=1&filter-category-95%5B0%5D=aggressive-738&apply=true&category%5B0%5D=1&filter-category-95%5B0%5D=aggressive-738&page=8#.Y92Br3bP1PZ'}
-  ];
+  public wishList: Wish[] = [];
 
-  constructor() { }
+  constructor(
+    private dialog : MatDialog,
+    private wishService: WishListService
+  ) { }
 
   ngOnInit(): void {
+    this.getWishList();
+  }
+
+  private getWishList(): void {
+    this.wishService.getWish().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+      this.wishList = data;
+    });
+  }
+
+  openDialog(): void {
+    this.dialog.open(DialogWishComponent, {
+      width: '420px'
+    });
+  }
+
+  editWish(row : Wish): void {
+    this.dialog.open(DialogWishComponent, {
+      width: '420px',
+      data:row
+    })
+  }
+
+  deleteWish(key: any): void {
+    this.wishService.deleteWish(key);
   }
 
 }

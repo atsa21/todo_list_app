@@ -1,7 +1,8 @@
 export class Wish {
     key?: string | null;
-    name?: string;
-    price?: number;
     image?: string;
+    title?: string;
+    price?: number;
+    currency?: string;
     link?: string;
 }

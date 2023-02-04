@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { Wish } from '../models/wish.model';
-import { Observable, of } from 'rxjs';
 import { child, getDatabase, push, ref, set } from 'firebase/database';
 
 @Injectable({
@@ -27,14 +26,15 @@ export class WishListService {
     return wishRef;
   }
 
-  createWish(wish: Wish) {
+  createWish(wish: Wish): void {
     this.getUserId();
     const db = getDatabase();
     const newPostKey = push(child(ref(db), `wishList/${this.userId}/data`)).key;
     set(ref(db, 'wishList/' + this.userId + '/data/' + newPostKey), {
       key: newPostKey,
-      name: wish.name,
+      title: wish.title,
       price: wish.price,
+      currency: wish.currency,
       image: wish.image,
       link: wish.link
     });
@@ -50,11 +50,5 @@ export class WishListService {
     this.getUserId();
     const wishRef: AngularFireList<Wish> = this.db.list(`wishList/${this.userId}/data`);
     return wishRef.remove(key);
-  }
-
-  deleteAllWish(): Promise<void> {
-    this.getUserId();
-    const wishRef: AngularFireList<Wish> = this.db.list(`wishList/${this.userId}/data`);
-    return wishRef.remove();
   }
 }

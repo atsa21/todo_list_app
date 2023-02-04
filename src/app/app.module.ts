@@ -22,6 +22,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MainpageModule } from './components/mainpage/mainpage.module';
 import { SharedModule } from './shared/shared.module';
+import { DialogWishComponent } from './components/dialog-wish/dialog-wish.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SharedModule } from './shared/shared.module';
     HeaderComponent,
     LoginComponent,
     SignUpComponent,
-    MainpageComponent
+    MainpageComponent,
+    DialogWishComponent
   ],
   imports: [
     BrowserModule,
