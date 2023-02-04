@@ -26,7 +26,7 @@ export class WishListService {
     return wishRef;
   }
 
-  createWish(wish: Wish) {
+  createWish(wish: Wish): void {
     this.getUserId();
     const db = getDatabase();
     const newPostKey = push(child(ref(db), `wishList/${this.userId}/data`)).key;

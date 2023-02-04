@@ -10,8 +10,8 @@
                 <button class="btn-round btn-delete"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <img class="img" [src]="wish.image"/>
-            <h4>{{wish.name}} <span class="btn-link"><i class="fa-solid fa-link"></i></span></h4>
-            <p class="price">{{wish.price}} Euro</p>
+            <h4>{{ wish.title }} <span class="btn-link"><i class="fa-solid fa-link"></i></span></h4>
+            <p class="price">{{ wish.price }} {{ wish.currency }}</p>
         </div>
     </div>
 </div>

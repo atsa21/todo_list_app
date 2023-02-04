@@ -18,7 +18,7 @@
                     [imageChangedEvent]="imageChangedEvent"
                     [maintainAspectRatio]="true"
                     [aspectRatio]="1 / 1"
-                    [resizeToWidth]="300" 
+                    [resizeToWidth]="480" 
                     format="png"
                     (imageCropped)="imageCropped($event)"
                     (imageLoaded)="imageLoaded($event)"
@@ -46,7 +46,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" color="primary" floatLabel="always">
                 <mat-label>Currency</mat-label>
-                <mat-select formControlName="category" placeholder="Select category" required>
+                <mat-select formControlName="currency" placeholder="Select currency" required>
                     <mat-option *ngFor="let cur of currencyList" [value]="cur.value">
                         <span>{{cur.name}}</span>
                     </mat-option>

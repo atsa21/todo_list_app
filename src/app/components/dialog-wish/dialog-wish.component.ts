@@ -37,7 +37,7 @@ export class DialogWishComponent implements OnInit {
 
   ngOnInit(): void {
     this.wishForm = this.formBuilder.group({
-      image: new FormControl('', Validators.required),
+      image: new FormControl(''),
       title: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
       price: new FormControl('', [Validators.required, Validators.min(0.01), Validators.max(100000000)]),
       currency: new FormControl('', Validators.required),
