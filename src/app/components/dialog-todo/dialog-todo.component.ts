@@ -17,10 +17,10 @@ export class DialogTodoComponent implements OnInit {
 
   categories: string[] = ['work', 'study', 'home', 'hobbies', 'other'];
   priorities: Priority[] = [
-    {name: 'critical', id: 1},
-    {name: 'high', id: 2},
-    {name: 'medium', id: 3},
-    {name: 'low', id: 4}
+    { name: 'critical', id: 1 },
+    { name: 'high', id: 2 },
+    { name: 'medium', id: 3 },
+    { name: 'low', id: 4 }
   ];
   
   tagsList: string[] = [];
@@ -50,13 +50,13 @@ export class DialogTodoComponent implements OnInit {
   ngOnInit(): void {
     this.userId = localStorage.getItem('userId');
     this.todoForm = this.formBuilder.group({
-      category : new FormControl('', Validators.required),
-      task : new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
+      category: new FormControl('', Validators.required),
+      task: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
       date: new FormControl('', Validators.required),
       priority: new FormControl('', Validators.required),
-      tags : this.tagsList,
+      tags: this.tagsList,
       authorId: this.userId,
-      checked : false
+      checked: false
     });
 
     if(this.editData) {

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
+import { Currency } from 'src/app/models/currency.model';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { WishListService } from 'src/app/services/wish-list.service';
 
@@ -12,17 +13,20 @@ import { WishListService } from 'src/app/services/wish-list.service';
 })
 export class DialogWishComponent implements OnInit {
 
-  public wishForm !: FormGroup;
-  public dialogTitle : string = "Add Wish";
-  public actionBtn : string = "Submit";
+  public wishForm!: FormGroup;
+  public dialogTitle: string = "Add Wish";
+  public currencyList: Currency[] = [
+    { name: 'UAH - Ukrainian hryvnia', value: 'UAH' },
+    { name: 'USD - United States dollar', value: 'USD' },
+    { name: 'EUR - Euro', value: 'EUR' }
+  ]
+  public actionBtn: string = "Submit";
 
   public imageChangedEvent: any = '';
   public croppedImage: any = '';
   public showCropper = false;
 
-  private userId: string | null = '';
-  private key: any;
-
+  private key: string = '';
 
   constructor( private formBuilder : FormBuilder,
     private wishListService: WishListService,
@@ -34,8 +38,9 @@ export class DialogWishComponent implements OnInit {
   ngOnInit(): void {
     this.wishForm = this.formBuilder.group({
       image: new FormControl('', Validators.required),
-      title : new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
-      price : new FormControl('', [Validators.required, Validators.min(0.01), Validators.max(100000000)]),
+      title: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
+      price: new FormControl('', [Validators.required, Validators.min(0.01), Validators.max(100000000)]),
+      currency: new FormControl('', Validators.required),
       link : new FormControl('', [Validators.required])
     });
 
@@ -60,6 +65,10 @@ export class DialogWishComponent implements OnInit {
 
   get price(){
     return this.wishForm.get('price');
+  }
+
+  get currency(){
+    return this.wishForm.get('currency');
   }
 
   get link(){

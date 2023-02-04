@@ -34,6 +34,7 @@ export class WishListService {
       key: newPostKey,
       title: wish.title,
       price: wish.price,
+      currency: wish.currency,
       image: wish.image,
       link: wish.link
     });

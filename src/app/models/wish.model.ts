@@ -3,5 +3,6 @@ export class Wish {
     image?: string;
     title?: string;
     price?: number;
+    currency?: string;
     link?: string;
 }
