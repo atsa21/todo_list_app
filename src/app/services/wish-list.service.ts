@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { Wish } from '../models/wish.model';
-import { Observable, of } from 'rxjs';
 import { child, getDatabase, push, ref, set } from 'firebase/database';
 
 @Injectable({
@@ -33,7 +32,7 @@ export class WishListService {
     const newPostKey = push(child(ref(db), `wishList/${this.userId}/data`)).key;
     set(ref(db, 'wishList/' + this.userId + '/data/' + newPostKey), {
       key: newPostKey,
-      name: wish.name,
+      title: wish.title,
       price: wish.price,
       image: wish.image,
       link: wish.link
