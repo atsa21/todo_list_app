@@ -3,19 +3,25 @@
     flex-direction: column;
     justify-content: center;
     gap: 24px;
-    padding: 64px;
+    padding: 16%;
     padding-top: 120px;
     width: 100%;
 }
 
 .wish-title {
     display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+    h1 {
+        font-size: 36px;
+        margin: 0;
+    }
 }
 
 .cards-container {
     display: flex;
-    justify-content: center;
-    gap: 24px;
+    justify-content: space-between;
 }
 
 .card {
@@ -23,11 +29,53 @@
     padding: 24px;
 }
 
+.price {
+    font-weight: 600;
+}
+
+.btns-box {
+    display: flex;
+    position: absolute;
+    gap: 6px;
+    right: 24px;
+}
+
+.btn-round {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 28px;
+    width: 28px;
+    border-radius: 16px;
+    border: 0;
+}
+
+.btn-edit {
+    color: var(--white);
+    background-color: var(--accent);
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        background-color: var(--black);
+    }
+}
+
+.btn-delete {
+    color: var(--white);
+    background-color: var(--light-grey);
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        background-color: var(--grey);
+    }
+}
+
 .btn {
     height: 50px;
     padding: 0 18px;
     color: var(--white);
     background-color: var(--accent);
+    transition: all 0.4s ease-in-out;
 
     &:hover {
         background-color: var(--accent-hover);

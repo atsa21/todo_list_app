@@ -1,13 +1,17 @@
 <div class="page-container">
     <div class="wish-title">
-        <P>My Wish list</P>
+        <h1>Wish list</h1>
         <button class="btn">Add wish</button>
     </div>
     <div class="cards-container">
         <div class="card" *ngFor="let wish of wishList">
-            <img [src]="wish.image"/>
-            <p>{{wish.name}}</p>
-            <p>{{wish.price}} Euro</p>
+            <div class="btns-box">
+                <button class="btn-round btn-edit"><i class="fa-regular fa-pen-to-square"></i></button>
+                <button class="btn-round btn-delete"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <img class="img" [src]="wish.image"/>
+            <h4>{{wish.name}}</h4>
+            <p class="price">{{wish.price}} Euro</p>
         </div>
     </div>
 </div>
