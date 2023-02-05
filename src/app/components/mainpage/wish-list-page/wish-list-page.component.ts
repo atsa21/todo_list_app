@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AnimationOptions } from 'ngx-lottie';
 import { map } from 'rxjs';
 import { Wish } from 'src/app/models/wish.model';
 import { WishListService } from 'src/app/services/wish-list.service';
@@ -13,10 +12,7 @@ import { DialogWishComponent } from '../../dialog-wish/dialog-wish.component';
 })
 export class WishListPageComponent implements OnInit {
 
-  public wishList: Wish[] = [];
-  public options: AnimationOptions = {
-    path: '/assets/animation/notask.json',
-  };
+  public wishList: any;
 
   constructor(
     private dialog : MatDialog,
@@ -35,6 +31,7 @@ export class WishListPageComponent implements OnInit {
         )
       )
     ).subscribe(data => {
+      console.log(data);
       this.wishList = data;
     });
   }

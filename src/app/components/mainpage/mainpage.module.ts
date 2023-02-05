@@ -11,7 +11,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
-
 @NgModule({
   declarations: [
     TodoListPageComponent,

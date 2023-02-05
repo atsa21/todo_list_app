@@ -23,12 +23,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { LoaderComponent } from './loader/loader.component';
 
 export function playerFactory() {
   return player;
 }
 
 @NgModule({
+  declarations: [
+    LoaderComponent
+  ],
   imports: [
     MatToolbarModule,
     MatIconModule,
@@ -79,7 +83,8 @@ export function playerFactory() {
     MatNativeDateModule,
     MatProgressSpinnerModule,
     ImageCropperModule,
-    [LottieModule.forRoot({ player: playerFactory })]
+    [LottieModule.forRoot({ player: playerFactory })],
+    LoaderComponent
   ]
 })
 export class SharedModule { }
