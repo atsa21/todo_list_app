@@ -1,17 +1,28 @@
 <div class="page-container">
-    <div class="wish-title">
-        <h1>Wish list</h1>
-        <button class="btn" (click)="openDialog()">Add wish</button>
-    </div>
-    <div class="cards-container">
-        <div class="card" *ngFor="let wish of wishList">
-            <div class="btns-box">
-                <button class="btn-round btn-edit" (click)="editWish(wish)"><i class="fa-regular fa-pen-to-square"></i></button>
-                <button class="btn-round btn-delete" (click)="deleteWish(wish.key)"><i class="fa-solid fa-xmark"></i></button>
+    <div *ngIf="wishList.length; else nowish">
+        <div class="wish-title">
+            <h1>Wish list</h1>
+            <button class="btn btn-accent" (click)="openDialog()">Add wish<i class="fa-regular fa-plus"></i></button>
+        </div>
+        <div class="cards-container">
+            <div class="card" *ngFor="let wish of wishList">
+                <div class="btns-box">
+                    <button class="btn-round btn-edit" (click)="editWish(wish)"><i class="fa-regular fa-pen-to-square"></i></button>
+                    <button class="btn-round btn-delete" (click)="deleteWish(wish.key)"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <img class="img" [src]="wish.image"/>
+                <h4>{{ wish.title }} <a class="btn-link" [href]="wish.link" target="_blank"><i class="fa-solid fa-link"></i></a></h4>
+                <p class="price">{{ wish.price }} {{ wish.currency }}</p>
             </div>
-            <img class="img" [src]="wish.image"/>
-            <h4>{{ wish.title }} <a class="btn-link" [href]="wish.link" target="_blank"><i class="fa-solid fa-link"></i></a></h4>
-            <p class="price">{{ wish.price }} {{ wish.currency }}</p>
         </div>
     </div>
+    <ng-template #nowish>
+        <div class="no-wish-box">
+            <ng-lottie [options]="options"  width="500px" height="240px"></ng-lottie>
+            <p class="no-task-text">You don't have any tasks</p>
+            <button class="btn btn-white" type="button" (click)="openDialog()">
+              Add wish <i class="fa-regular fa-plus"></i>
+            </button>
+          </div>
+    </ng-template>
 </div>

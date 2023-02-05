@@ -18,11 +18,11 @@ import { DialogTodoComponent } from '../../dialog-todo/dialog-todo.component';
 })
 export class TodoListPageComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'checked', 'category', 'task', 'date', 'priority', 'tags', 'action'];
-  dataSource!: MatTableDataSource<any>;
-  tableTags: any;
-  todoReadyList: any;
-  options: AnimationOptions = {
+  public displayedColumns: string[] = [ 'checked', 'category', 'task', 'date', 'priority', 'tags', 'action'];
+  public dataSource!: MatTableDataSource<any>;
+  private tableTags: any;
+  public todoReadyList: any;
+  public options: AnimationOptions = {
     path: '/assets/animation/notask.json',
   };
 
