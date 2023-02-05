@@ -45,7 +45,7 @@ export class DialogWishComponent implements OnInit {
     });
 
     if(this.editData) {
-      this.dialogTitle = "Edit Todo";
+      this.dialogTitle = "Edit Wish";
       this.actionBtn = "Save";
       this.wishForm.controls['image'].setValue(this.editData.image);
       this.wishForm.controls['title'].setValue(this.editData.title);
@@ -60,23 +60,23 @@ export class DialogWishComponent implements OnInit {
     return this.wishForm.get('image');
   }
 
-  get title(){
+  get title() {
     return this.wishForm.get('title');
   }
 
-  get price(){
+  get price() {
     return this.wishForm.get('price');
   }
 
-  get currency(){
+  get currency() {
     return this.wishForm.get('currency');
   }
 
-  get link(){
+  get link() {
     return this.wishForm.get('link');
   }
 
-  addWish(): void {
+  public addWish(): void {
     if(!this.editData){
       if(this.wishForm.valid){
         this.wishListService.createWish(this.wishForm.value);
@@ -87,7 +87,7 @@ export class DialogWishComponent implements OnInit {
     }
   }
 
-  updateWish(){
+  private updateWish(): void {
     this.wishListService.updateWish(this.wishForm.value, this.key);
     this.dialogReg.close();
     this.snackbar.openSnackBar('Wish Updated', 'Close');

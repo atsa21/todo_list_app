@@ -7,15 +7,35 @@ export class LocalStorageService {
 
   constructor() { }
 
-  getItem(name: string): string | null {
-    return localStorage.getItem(name);
+  public getUserId(): string | null {
+    return localStorage.getItem('userId');
   }
 
-  setItem(name: string, value: string): void {
-    localStorage.setItem(name, value);
+  public setUserId(value: string): void {
+    localStorage.setItem('userId', value);
   }
 
-  removeItem(name: string): void {
-    localStorage.removeItem(name);
+  public setEmail(value: string): void {
+    localStorage.setItem('email', value);
+  }
+
+  public setToken(value: string): void {
+    localStorage.setItem('token', value);
+  }
+
+  public removeUserId(): void {
+    localStorage.removeItem('userId');
+  }
+
+  public removeEmail(): void {
+    localStorage.removeItem('email');
+  }
+
+  public removeToken(): void {
+    localStorage.removeItem('token');
+  }
+
+  public removeAll(): void {
+    localStorage.clear();
   }
 }

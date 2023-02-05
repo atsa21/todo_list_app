@@ -3,6 +3,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { environment } from 'src/environments/environment';
 
 import { TodoListPageComponent } from './todo-list-page.component';
@@ -14,6 +15,9 @@ class MatDialogMock {
     };
   }
 }
+
+const localStorServiceMock = jasmine.createSpyObj('localStorService', ['getUserId']);
+localStorServiceMock.getUserId = () => 'fakeId';
 
 describe('TodoListPageComponent', () => {
   let component: TodoListPageComponent;
@@ -28,6 +32,7 @@ describe('TodoListPageComponent', () => {
       ],
       providers: [
         { provide: MatDialog, useClass: MatDialogMock },
+        { provide: LocalStorageService, useValue: localStorServiceMock }
       ]
     })
     .compileComponents();
@@ -41,5 +46,18 @@ describe('TodoListPageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set user id onInit', () => {
+    component.ngOnInit();
+    expect((component as any).userId).toBe('fakeId');
+  });
+
+  it('should call all methods onInit', () => {
+    const spy1 = spyOn((component as any), 'getAllTodo');
+    const spy2 = spyOn((component as any), 'getUser');
+    component.ngOnInit();
+    expect(spy1).toHaveBeenCalled();
+    expect(spy2).toHaveBeenCalled();
   });
 });
