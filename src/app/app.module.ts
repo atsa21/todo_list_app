@@ -11,7 +11,6 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MainpageComponent } from './components/mainpage/mainpage.component';
 
-import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -36,7 +35,6 @@ import { DialogWishComponent } from './components/dialog-wish/dialog-wish.compon
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     MainpageModule,
     AppRoutingModule,
     BrowserAnimationsModule,

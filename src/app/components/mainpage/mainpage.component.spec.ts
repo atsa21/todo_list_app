@@ -5,6 +5,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { TodoService } from 'src/app/services/todo.service';
+import { environment } from 'src/environments/environment';
 
 import { MainpageComponent } from './mainpage.component';
 
@@ -18,7 +19,11 @@ describe('MainpageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ MainpageComponent ],
-      imports: [MatDialogModule],
+      imports: [
+        MatDialogModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule
+      ],
       providers: [
         { provide: TodoService, useValue: todoServiceMock },
         { provide: LocalStorageService, useValue: localStorServiceMock },
@@ -33,7 +38,7 @@ describe('MainpageComponent', () => {
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
