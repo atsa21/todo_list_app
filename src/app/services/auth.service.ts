@@ -25,13 +25,13 @@ export class AuthService {
   login(email: string, password: string): void {
     this.fireAuth.signInWithEmailAndPassword(email, password)
     .then(() => {
-      this.localStorService.setItem('token', 'true');
-      this.localStorService.setItem('email', email);
+      this.localStorService.setToken('true');
+      this.localStorService.setEmail(email);
       const auth = getAuth();
       onAuthStateChanged(auth, (user) => {
         if (user) {
           this.userId = user.uid;
-          localStorage.setItem('userId', this.userId);
+          this.localStorService.setUserId(this.userId);
         }
         this.router.navigate(['/mainpage/todo']);
       });
@@ -60,14 +60,10 @@ export class AuthService {
   logOut(): void {
     this.fireAuth.signOut()
     .then (() => {
-      window.localStorage.clear();
-      this.localStorService.removeItem('token');
-      this.localStorService.removeItem('email');
-      this.localStorService.removeItem('userId');
+      this.localStorService.removeAll();
       this.router.navigate(['/login']);
     }, err => {
       this.snackbar.openSnackBar('Error while log out', 'Close');
     })
   }
-
 }

@@ -3,16 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DateAdapter } from '@angular/material/core';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { environment } from 'src/environments/environment';
 
 import { DialogWishComponent } from './dialog-wish.component';
@@ -20,6 +16,19 @@ import { DialogWishComponent } from './dialog-wish.component';
 describe('DialogWishComponent', () => {
   let component: DialogWishComponent;
   let fixture: ComponentFixture<DialogWishComponent>;
+
+  const MatDialogRefMock = {
+    close: () => {}
+  };
+
+  const editDataMock = {
+    key: 'fakeKey',
+    image: 'fakeUrl',
+    title: 'fakeTitle',
+    price: 10,
+    currency: 'EUR',
+    link: 'fakeLink'
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -36,8 +45,8 @@ describe('DialogWishComponent', () => {
         BrowserAnimationsModule
       ],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: MatDialogRefMock },
+        { provide: MAT_DIALOG_DATA, useValue: editDataMock },
         { provide: SnackBarService, useValue: {} }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -53,5 +62,31 @@ describe('DialogWishComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should change data to edit data onInit', () => {
+    component.editData = editDataMock;
+    component.ngOnInit();
+    expect(component.dialogTitle).toBe('Edit Wish');
+    expect(component.actionBtn).toBe('Save');
+    expect(component.image?.value).toBe('fakeUrl');
+    expect(component.title?.value).toBe('fakeTitle');
+    expect(component.price?.value).toBe(10);
+    expect(component.currency?.value).toBe('EUR');
+    expect((component as any).key).toBe('fakeKey');
+  });
+
+  it('should not call updateWish method on addWish', () => {
+    const spy = spyOn((component as any), 'updateWish');
+    component.editData = null;
+    component.addWish();
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  it('should call updateWish method on addWish', () => {
+    const spy = spyOn((component as any), 'updateWish');
+    component.editData = editDataMock;
+    component.addWish();
+    expect(spy).toHaveBeenCalled();
   });
 });

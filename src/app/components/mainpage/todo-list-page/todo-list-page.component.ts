@@ -52,7 +52,7 @@ export class TodoListPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.today = new Date(new Date().setHours(0,0,0,0)).toString();
-    this.userId = this.localStorService.getItem('userId');
+    this.userId = this.localStorService.getUserId();
     this.getAllTodo();
     this.getUser();
   }
@@ -67,7 +67,7 @@ export class TodoListPageComponent implements OnInit {
     }
   }
 
-  getAllTodo(): void {
+  private getAllTodo(): void {
     this.todoService.getAllTodo().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -79,7 +79,7 @@ export class TodoListPageComponent implements OnInit {
     });
   }
 
-  getTodoByCategory(category: string): void {
+  public getTodoByCategory(category: string): void {
     if(category !== 'all tasks') {
       this.todoService.getTodoByCategory(category).pipe(takeUntil(this.destroy)).subscribe( data => {
         this.setData(data);
@@ -89,7 +89,7 @@ export class TodoListPageComponent implements OnInit {
     }
   }
 
-  setData(data: any): void {
+  private setData(data: any): void {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.data = this.dataSource.data.sort((a, b) => a.priority.id - b.priority.id);
     this.totalTodo = data.length;
@@ -99,7 +99,7 @@ export class TodoListPageComponent implements OnInit {
     this.progress = 100 / this.totalTodo * this.readyTodo;
   }
 
-  getUser(): void {
+  private getUser(): void {
     this.userService.getUser().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>

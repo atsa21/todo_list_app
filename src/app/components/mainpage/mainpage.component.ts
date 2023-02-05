@@ -20,7 +20,7 @@ export class MainpageComponent implements OnInit {
     this.getUser();
   }
 
-  getUser(): void {
+  private getUser(): void {
     this.userService.getUser().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
