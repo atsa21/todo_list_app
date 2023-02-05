@@ -20,11 +20,14 @@ export class TodoListPageComponent implements OnInit {
 
   public displayedColumns: string[] = [ 'checked', 'category', 'task', 'date', 'priority', 'tags', 'action'];
   public dataSource!: MatTableDataSource<any>;
-  private tableTags: any;
   public todoReadyList: any;
   public options: AnimationOptions = {
-    path: '/assets/animation/notask.json',
+    path: '/assets/animation/notask.json'
   };
+
+  // public options: AnimationOptions = {
+  //   path: '/assets/animation/notask.json',
+  // };
 
   public totalTodo: number = 0;
   public readyTodo: number = 0;
@@ -36,7 +39,6 @@ export class TodoListPageComponent implements OnInit {
   public data: any;
   public today: any;
   public user: any;
-  private userId: string | null = '';
   private destroy: Subject<boolean> = new Subject<boolean>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -52,7 +54,6 @@ export class TodoListPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.today = new Date(new Date().setHours(0,0,0,0)).toString();
-    this.userId = this.localStorService.getUserId();
     this.getAllTodo();
     this.getUser();
   }
