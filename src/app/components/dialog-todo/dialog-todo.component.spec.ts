@@ -3,27 +3,41 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatChipsModule } from '@angular/material/chips';
 import { DateAdapter } from '@angular/material/core';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { environment } from 'src/environments/environment';
+import { TodoListPageComponent } from '../mainpage/todo-list-page/todo-list-page.component';
 
-import { DialogWishComponent } from './dialog-wish.component';
+import { DialogTodoComponent } from './dialog-todo.component';
 
-describe('DialogWishComponent', () => {
-  let component: DialogWishComponent;
-  let fixture: ComponentFixture<DialogWishComponent>;
+describe('DialogTodoComponent', () => {
+  let component: DialogTodoComponent;
+  let fixture: ComponentFixture<DialogTodoComponent>;
+
+  const todoMock = {
+    category: 'work',
+    task: 'Some task',
+    priopity: 'low'
+  };
+
+  const MatDialogRefMock = {
+    close: () => {}
+  };
+
+  const dateAdapterMock = jasmine.createSpyObj('adapter', ['setLocale']);
+  dateAdapterMock.setLocale = () => of('en-GB');
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogWishComponent ],
+      declarations: [ DialogTodoComponent ],
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -33,12 +47,14 @@ describe('DialogWishComponent', () => {
         MatSelectModule,
         MatFormFieldModule,
         MatInputModule,
+        MatChipsModule,
         BrowserAnimationsModule
       ],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: SnackBarService, useValue: {} }
+        { provide: MatDialogRef, useValue: MatDialogRefMock },
+        { provide: MAT_DIALOG_DATA, useValue: todoMock },
+        { provide: SnackBarService, useValue: {} },
+        { provide: DateAdapter, useValue: dateAdapterMock }
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -46,9 +62,10 @@ describe('DialogWishComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DialogWishComponent);
+    fixture = TestBed.createComponent(DialogTodoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.editData = todoMock;
   });
 
   it('should create', () => {

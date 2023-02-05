@@ -1,33 +1,19 @@
 import { TestBed } from '@angular/core/testing';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import {Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 import { TodoService } from './todo.service';
 
 describe('TodoService', () => {
   let service: TodoService;
-  
-  let fireDatabaseMock = { list(query: string): any {
-    return {
-        valueChanges() {
-            return of([
-                {
-                    date: 12345,
-                    name: 'Hello World'
-                },
-                {
-                    date: 456779,
-                    name: 'Hola Mundo'
-                }
-            ])
-        }
-    }
-}};
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        { provide: AngularFireDatabase, useValue: fireDatabaseMock }
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireDatabaseModule
       ]
     });
     service = TestBed.inject(TodoService);

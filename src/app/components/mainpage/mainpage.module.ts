@@ -8,6 +8,8 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -21,6 +23,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     MainpageRoutingModule,
     SharedModule
+  ],
+  providers: [
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class MainpageModule { }
