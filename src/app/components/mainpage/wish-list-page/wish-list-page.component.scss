@@ -47,9 +47,27 @@
     margin-top: 4%;
     height: 100%;
 
-    .no-wish-text {
-        margin-top: 16px;
-        font-size: 24px;
+    .no-wish-image {
+        position: absolute;
+        left: 40%;
+        top: 104px;
+    }
+
+    .no-wish-descr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 280px;
+        gap: 12px;
+
+        .no-wish-text {
+            margin-top: 16px;
+            font-size: 24px;
+        }
+
+        .btn-nt {
+            width: 140px;
+        }
     }
 }
 

@@ -22,12 +22,8 @@ export class TodoListPageComponent implements OnInit {
   public dataSource!: MatTableDataSource<any>;
   public todoReadyList: any;
   public options: AnimationOptions = {
-    path: '/assets/animation/notask.json'
+    path: '/assets/animation/watchtv.json'
   };
-
-  // public options: AnimationOptions = {
-  //   path: '/assets/animation/notask.json',
-  // };
 
   public totalTodo: number = 0;
   public readyTodo: number = 0;

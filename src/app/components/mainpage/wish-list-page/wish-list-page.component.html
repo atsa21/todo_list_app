@@ -19,11 +19,15 @@
         </div>
         <ng-template #nowish>
             <div class="no-wish-box">
-                <p></p>
-                <p class="no-wish-text">You don't have any tasks</p>
-                <button class="btn btn-white" type="button" (click)="openDialog()">
-                  Add wish <i class="fa-regular fa-plus"></i>
-                </button>
+                <div class="no-wish-image">
+                    <ng-lottie [options]="options"  width="400px" height="400px"></ng-lottie>
+                  </div>
+                  <div class="no-wish-descr">
+                    <p class="no-wish-text">You don't have any wish</p>
+                    <button class="btn btn-white btn-nt" type="button" (click)="openDialog()">
+                      Add wish <i class="fa-regular fa-plus"></i>
+                    </button>
+                  </div>
             </div>
         </ng-template>
     </div>
