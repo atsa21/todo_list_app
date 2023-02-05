@@ -40,6 +40,62 @@
     font-weight: 600;
 }
 
+.no-wish-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4%;
+    height: 100%;
+
+    .no-wish-image {
+        position: absolute;
+        left: 40%;
+        top: 104px;
+    }
+
+    .no-wish-descr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 280px;
+        gap: 12px;
+
+        .no-wish-text {
+            margin-top: 16px;
+            font-size: 24px;
+        }
+
+        .btn-nt {
+            width: 140px;
+        }
+    }
+}
+
+.loading {
+    height: 300px;
+    width: 300px;
+    animation: rotation 3s infinite ease-in-out;
+}
+
+@keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
 .btns-box {
     display: flex;
     position: absolute;
@@ -84,18 +140,6 @@
 
     &:hover {
         color: var(--black);
-    }
-}
-
-.btn {
-    height: 50px;
-    padding: 0 18px;
-    color: var(--white);
-    background-color: var(--accent);
-    transition: all 0.4s ease-in-out;
-
-    &:hover {
-        background-color: var(--accent-hover);
     }
 }
 

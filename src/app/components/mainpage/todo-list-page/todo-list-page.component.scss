@@ -13,7 +13,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 8%;
+    height: 70%;
 }
 
 .cont-box {
@@ -21,6 +21,7 @@
     justify-content: center;
     align-content: center;
     width: 100%;
+    margin-top: 8%;
 
     .todo-box {
         width: 70%;
@@ -85,9 +86,26 @@
     margin-top: 4%;
     height: 100%;
 
-    .no-task-text {
-        margin-top: 16px;
-        font-size: 24px;
+    .no-task-image {
+        position: absolute;
+        top: 124px;
+    }
+
+    .no-task-descr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 392px;
+        gap: 12px;
+
+        .no-task-text {
+            margin-top: 16px;
+            font-size: 24px;
+        }
+
+        .btn-nt {
+            width: 140px;
+        }
     }
 }
 
@@ -95,7 +113,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 10%;
     width: 100%;
 }
 
@@ -128,6 +145,11 @@
     .action-col-text {
         padding-right: 12px;
     }
+}
+
+.btn-add {
+    margin-top: 3px;
+    height: 48px;
 }
 
 .ready {
@@ -185,35 +207,6 @@ ul {
     background-color: var(--neutral);
 }
 
-.btn {
-    padding: 6px 12px;
-    margin-top: 3px;
-    margin-bottom: 26px;
-    color: var(--white);
-    background-color: var(--accent);
-    transition: all 0.4s ease-in-out;
-    cursor: pointer;
-
-    &:hover {
-        background-color: var(--accent-hover);
-    }
-}
-
-.btn-add {
-    padding: 6px 12px;
-    margin-top: 12px;
-    width: 140px;
-    color: var(--black);
-    background-color: var(--white);
-    transition: all 0.4s ease-in-out;
-    cursor: pointer;
-
-    &:hover {
-        color: var(--white);
-        background-color: var(--black);
-    }
-}
-
 .clear-btn {
     color: var(--medium-grey);
 }
@@ -255,19 +248,19 @@ ul {
 }
 
 @media only screen and (max-width: 1400px) {
-    .cont {
+    .cont-box {
         margin-top: 9%;
     }
 }
 
 @media only screen and (max-width: 990px) {
-    .cont {
+    .cont-box {
         margin-top: 11%;
     }
 }
 
 @media only screen and (max-width: 620px) {
-    .cont {
+    .cont-box {
         margin-top: 14%;
     }
 }
