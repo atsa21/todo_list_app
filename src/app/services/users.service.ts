@@ -3,6 +3,7 @@ import { child, getDatabase, push, ref, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import { User } from '../models/user.model';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,13 @@ export class UsersService {
 
   id: any;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(
+    private db: AngularFireDatabase,
+    private localStoreService: LocalStorageService) {
   }
 
   getUser(): AngularFireList<User> {
-    this.id = localStorage.getItem('userId');
+    this.id = this.localStoreService.getUserId();
     const userRef: AngularFireList<User> = this.db.list(`users/${this.id}`);
     return userRef;
   }
