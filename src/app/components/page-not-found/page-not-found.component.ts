@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'app-page-not-found',
@@ -6,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-not-found.component.scss']
 })
 export class PageNotFoundComponent implements OnInit {
+
+  public options: AnimationOptions = {
+    path: '/assets/animation/nowish.json'
+  };
 
   constructor() { }
 
