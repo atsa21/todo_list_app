@@ -5,7 +5,7 @@
             <button class="btn-round btn-delete" (click)="deleteWish(wish.key)"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <img class="img" [src]="wish.image"/>
-        <h4>{{ wish.title }} <a class="btn-link" [href]="wish.link" target="_blank"><i class="fa-solid fa-link"></i></a></h4>
+        <h4 class="title">{{ wish.title }} <a class="btn-link" [href]="wish.link" target="_blank"><i class="fa-solid fa-link"></i></a></h4>
         <p class="price">{{ wish.price }} {{ wish.currency }}</p>
     </div>
 </div>

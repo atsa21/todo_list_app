@@ -35,7 +35,6 @@ export class WishListPageComponent implements OnInit {
         )
       )
     ).subscribe(data => {
-      console.log(data);
       this.wishList = data;
     });
   }
