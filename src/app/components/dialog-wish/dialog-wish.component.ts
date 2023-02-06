@@ -22,9 +22,11 @@ export class DialogWishComponent implements OnInit {
   ]
   public actionBtn: string = "Submit";
 
+  public imageEdit: string = '';
   public imageChangedEvent: any = '';
   public croppedImage: any = '';
   public showCropper = false;
+  public isEditImage: boolean = false;
 
   private key: string = '';
 
@@ -45,9 +47,10 @@ export class DialogWishComponent implements OnInit {
     });
 
     if(this.editData) {
+      this.isEditImage = true;
       this.dialogTitle = "Edit Wish";
       this.actionBtn = "Save";
-      this.wishForm.controls['image'].setValue(this.editData.image);
+      this.imageEdit = this.editData.image;
       this.wishForm.controls['title'].setValue(this.editData.title);
       this.wishForm.controls['price'].setValue(this.editData.price);
       this.wishForm.controls['currency'].setValue(this.editData.currency);
