@@ -1,0 +1,11 @@
+<div class="cards-container">
+    <div class="card" *ngFor="let wish of wishList">
+        <div class="btns-box">
+            <button class="btn-round btn-edit" (click)="editWish(wish)"><i class="fa-regular fa-pen-to-square"></i></button>
+            <button class="btn-round btn-delete" (click)="deleteWish(wish.key)"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <img class="img" [src]="wish.image"/>
+        <h4>{{ wish.title }} <a class="btn-link" [href]="wish.link" target="_blank"><i class="fa-solid fa-link"></i></a></h4>
+        <p class="price">{{ wish.price }} {{ wish.currency }}</p>
+    </div>
+</div>

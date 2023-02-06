@@ -46,15 +46,4 @@ export class WishListPageComponent implements OnInit {
     });
   }
 
-  editWish(row : Wish): void {
-    this.dialog.open(DialogWishComponent, {
-      width: '420px',
-      data:row
-    })
-  }
-
-  deleteWish(key: any): void {
-    this.wishService.deleteWish(key);
-  }
-
 }

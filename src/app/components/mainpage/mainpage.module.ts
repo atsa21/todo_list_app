@@ -10,12 +10,14 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { WishCardComponent } from './wish-list-page/wish-card/wish-card.component';
 
 @NgModule({
   declarations: [
     TodoListPageComponent,
     WishListPageComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    WishCardComponent
   ],
   imports: [
     CommonModule,
