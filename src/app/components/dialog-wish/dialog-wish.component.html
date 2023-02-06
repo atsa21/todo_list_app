@@ -5,13 +5,20 @@
             <mat-icon>clear</mat-icon>
         </button>
     </div>
-    <p class="mt-2">What you wish?</p>
+    <p *ngIf="!editData" class="mt-2">What you wish?</p>
     <div mat-dialog-content>
         <form [formGroup]="wishForm" class="form" (ngSubmit)="addWish()">
             <div class="img-crop-container">
-                <div class="file-input" *ngIf="!croppedImage">
+                <div class="file-input" *ngIf="!croppedImage && !isEditImage">
                     <label class="btn-upload" for="upload-photo">Select image</label>
                     <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+                </div>
+                <div class="file-input" *ngIf="!croppedImage && isEditImage">
+                    <img [src]="imageEdit" class="edit-img"/>
+                    <div class="button-box">
+                        <label for="upload-photo">Change image</label>
+                        <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+                    </div>
                 </div>
                 <div class="cropper" *ngIf="imageChangedEvent">
                     <image-cropper
@@ -26,7 +33,7 @@
                     ></image-cropper>
                     <div class="button-box" *ngIf="croppedImage">
                         <label for="btn-reload">Change image</label>
-                        <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+                        <input type="file" (change)="fileChangeEvent($event)" id="btn-reload"/>
                     </div>
                 </div>
             </div>

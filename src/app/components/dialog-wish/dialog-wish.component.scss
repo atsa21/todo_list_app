@@ -87,6 +87,11 @@
     }
 }
 
+.edit-img {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
 .button-box {
     display: flex;
     justify-content: center;
@@ -112,7 +117,8 @@
     margin: 0 auto;
 }
 
-#upload-photo {
+#upload-photo,
+#btn-reload {
     opacity: 0;
     position: absolute;
     z-index: -1;
