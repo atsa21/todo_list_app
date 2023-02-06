@@ -6,10 +6,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { DialogTodoComponent } from './components/dialog-todo/dialog-todo.component';
+import { DialogWishComponent } from './components/dialog-wish/dialog-wish.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { MainpageComponent } from './components/mainpage/mainpage.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -21,7 +23,6 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MainpageModule } from './components/mainpage/mainpage.module';
 import { SharedModule } from './shared/shared.module';
-import { DialogWishComponent } from './components/dialog-wish/dialog-wish.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DialogWishComponent } from './components/dialog-wish/dialog-wish.compon
     LoginComponent,
     SignUpComponent,
     MainpageComponent,
-    DialogWishComponent
+    DialogWishComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
