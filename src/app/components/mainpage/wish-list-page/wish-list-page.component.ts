@@ -35,7 +35,6 @@ export class WishListPageComponent implements OnInit {
         )
       )
     ).subscribe(data => {
-      console.log(data);
       this.wishList = data;
     });
   }
@@ -44,17 +43,6 @@ export class WishListPageComponent implements OnInit {
     this.dialog.open(DialogWishComponent, {
       width: '420px'
     });
-  }
-
-  editWish(row : Wish): void {
-    this.dialog.open(DialogWishComponent, {
-      width: '420px',
-      data:row
-    })
-  }
-
-  deleteWish(key: any): void {
-    this.wishService.deleteWish(key);
   }
 
 }

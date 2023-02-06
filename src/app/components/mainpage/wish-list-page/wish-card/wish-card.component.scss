@@ -1,0 +1,75 @@
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 36px;
+}
+
+.card {
+    padding: 24px;
+    max-width: 400px;
+
+    .img {
+        width: 100%;
+    }
+}
+
+.title {
+    font-size: 18px;
+    margin: 16px 0 6px 0;
+}
+
+.price {
+    font-weight: 600;
+    margin: 0;
+}
+
+.btns-box {
+    display: flex;
+    position: absolute;
+    gap: 6px;
+    right: 24px;
+    padding: 0 0 12px 12px;
+    border-radius: 0 0 0 5px;
+    background-color: var(--white);
+}
+
+.btn-round {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 28px;
+    width: 28px;
+    border-radius: 16px;
+    border: 0;
+}
+
+.btn-edit {
+    color: var(--white);
+    background-color: var(--accent);
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        background-color: var(--black);
+    }
+}
+
+.btn-delete {
+    color: var(--white);
+    background-color: var(--light-grey);
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        background-color: var(--grey);
+    }
+}
+
+.btn-link {
+    color: var(--accent);
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+
+    &:hover {
+        color: var(--black);
+    }
+}
