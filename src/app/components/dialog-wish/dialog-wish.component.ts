@@ -5,6 +5,7 @@ import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { Currency } from 'src/app/models/currency.model';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { WishListService } from 'src/app/services/wish-list.service';
+import { Patterns } from 'src/assets/patterns/patterns';
 
 @Component({
   selector: 'app-dialog-wish',
@@ -43,7 +44,7 @@ export class DialogWishComponent implements OnInit {
       title: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]),
       price: new FormControl('', [Validators.required, Validators.min(0.01), Validators.max(100000000)]),
       currency: new FormControl('', Validators.required),
-      link : new FormControl('', [Validators.required])
+      link : new FormControl('', [Validators.required, Validators.pattern(Patterns.LinkPattern)])
     });
 
     if(this.editData) {
