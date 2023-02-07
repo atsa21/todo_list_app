@@ -156,45 +156,45 @@ export class TodoListPageComponent implements OnInit {
     return 'unready';
   }
 
-  getPriorityIcon(priority: string): string {
+  getPriorityIcon(priority: number): string {
     switch (priority) {
-      case 'critical':
+      case 1:
         return 'fa-solid fa-circle-exclamation';
-      case 'high':
+      case 2:
         return 'fa-solid fa-angles-up';
-      case 'medium':
+      case 3:
         return 'fa-solid fa-angle-up';
-      case 'low':
+      case 4:
         return 'fa-solid fa-angle-down';
       default:
         return 'error';
     }
   }
 
-  getPriorityClass(priority: string): string {
+  getPriorityClass(priority: number): string {
     switch (priority) {
-      case 'critical':
+      case 1:
         return 'critical-icon';
-      case 'high':
+      case 2:
         return 'high-icon';
-      case 'medium':
+      case 3:
         return 'medium-icon';
-      case 'low':
+      case 4:
         return 'low-icon';
       default:
         return 'error';
     }
   }
 
-  getTagsClass(priority: string): string {
+  getTagsClass(priority: number): string {
     switch (priority) {
-      case 'critical':
+      case 1:
         return 'critical-tag';
-      case 'high':
+      case 2:
         return 'high-tag';
-      case 'medium':
+      case 3:
         return 'medium-tag';
-      case 'low':
+      case 4:
         return 'low-tag';
       default:
         return 'error';

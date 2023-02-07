@@ -38,7 +38,7 @@
             <mat-label>Priority</mat-label>
             <mat-select formControlName="priority" placeholder="Select priority" required>
                 <mat-option *ngFor="let priority of priorities" [value]="priority">
-                    <span>{{priority.name}}</span>
+                    <span>{{ priority | priority }}</span>
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="priority?.errors?.['required']">Please select the priority</mat-error>

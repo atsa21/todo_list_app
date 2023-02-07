@@ -6,7 +6,6 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { DateAdapter } from '@angular/material/core';
 import { TodoService } from 'src/app/services/todo.service';
-import { Priority } from 'src/app/models/priority.model';
 
 @Component({
   selector: 'app-dialog-todo',
@@ -16,12 +15,7 @@ import { Priority } from 'src/app/models/priority.model';
 export class DialogTodoComponent implements OnInit {
 
   categories: string[] = ['work', 'study', 'home', 'hobbies', 'other'];
-  priorities: Priority[] = [
-    { name: 'critical', id: 1 },
-    { name: 'high', id: 2 },
-    { name: 'medium', id: 3 },
-    { name: 'low', id: 4 }
-  ];
+  priorities: number[] = [ 1, 2 , 3, 4 ];
   
   tagsList: string[] = [];
   cantAddTag = false;

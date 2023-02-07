@@ -17,7 +17,7 @@ import { WishCardComponent } from './wish-list-page/wish-card/wish-card.componen
     TodoListPageComponent,
     WishListPageComponent,
     ProfilePageComponent,
-    WishCardComponent
+    WishCardComponent,
   ],
   imports: [
     CommonModule,
