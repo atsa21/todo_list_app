@@ -16,9 +16,6 @@ class MatDialogMock {
   }
 }
 
-const localStorServiceMock = jasmine.createSpyObj('localStorService', ['getUserId']);
-localStorServiceMock.getUserId = () => 'fakeId';
-
 describe('TodoListPageComponent', () => {
   let component: TodoListPageComponent;
   let fixture: ComponentFixture<TodoListPageComponent>;
@@ -31,8 +28,7 @@ describe('TodoListPageComponent', () => {
         AngularFireDatabaseModule
       ],
       providers: [
-        { provide: MatDialog, useClass: MatDialogMock },
-        { provide: LocalStorageService, useValue: localStorServiceMock }
+        { provide: MatDialog, useClass: MatDialogMock }
       ]
     })
     .compileComponents();

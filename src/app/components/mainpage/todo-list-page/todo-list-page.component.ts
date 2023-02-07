@@ -43,7 +43,6 @@ export class TodoListPageComponent implements OnInit {
   constructor(
     private dialog : MatDialog,
     private todoService: TodoService,
-    private localStorService: LocalStorageService,
     private userService: UsersService,
     private cdr: ChangeDetectorRef
   ){}
