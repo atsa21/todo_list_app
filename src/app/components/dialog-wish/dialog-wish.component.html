@@ -64,7 +64,7 @@
                 <mat-label>Link</mat-label>
                 <input matInput formControlName="link" placeholder="Enter link" required />
                 <mat-error *ngIf="link?.errors?.['required']">Link is required</mat-error>
-                <mat-error *ngIf="link?.touched && link?.errors?.['minlength']">The length of title must be at least 2 characters long</mat-error>
+                <mat-error *ngIf="link?.touched && link?.errors?.['pattern']">Link must start with 'https://'</mat-error>
             </mat-form-field>
     
             <div mat-dialog-action [align]="'end'">
