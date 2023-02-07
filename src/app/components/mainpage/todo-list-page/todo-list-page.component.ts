@@ -88,7 +88,7 @@ export class TodoListPageComponent implements OnInit {
 
   private setData(data: any): void {
     this.dataSource = new MatTableDataSource(data);
-    this.dataSource.data = this.dataSource.data.sort((a, b) => a.priority.id - b.priority.id);
+    this.dataSource.data = this.dataSource.data.sort((a, b) => a.priority - b.priority);
     this.totalTodo = data.length;
     this.todoReadyList = this.dataSource.data.filter(el => el.checked === true);
     this.readyTodo = this.todoReadyList.length;
