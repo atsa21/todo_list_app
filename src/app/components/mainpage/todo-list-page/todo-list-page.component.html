@@ -44,7 +44,7 @@
                 <mat-header-cell *matHeaderCellDef class="tags-col"> Tags </mat-header-cell>
                 <mat-cell *matCellDef="let row" class="tags-col">
                   <ul class="tags-box">
-                    <li *ngFor="let tag of row.tags" class="tag" [class]="row.checked ? 'ready-tag' : getTagsClass(row.priority.name)">#{{tag}}</li>
+                    <li *ngFor="let tag of row.tags" class="tag" [class]="row.checked ? 'ready-tag' : getTagsClass(row.priority)">#{{tag}}</li>
                   </ul>
                 </mat-cell>
               </ng-container>
@@ -56,10 +56,10 @@
 
               <ng-container matColumnDef="priority">
                 <mat-header-cell *matHeaderCellDef class="priority-col"> Priority </mat-header-cell>
-                <mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : getPriorityClass(row.priority.name)" class="priority-col">
+                <mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : getPriorityClass(row.priority)" class="priority-col">
                   <span class="priority">
-                    <i [class]="getPriorityIcon(row.priority.name)"></i>
-                    <span class="p-priority">{{row.priority.name}}</span>
+                    <i [class]="getPriorityIcon(row.priority)"></i>
+                    <span class="p-priority">{{ row.priority | priority }}</span>
                   </span>
                 </mat-cell>
               </ng-container>

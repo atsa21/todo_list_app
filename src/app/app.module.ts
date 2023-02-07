@@ -33,7 +33,7 @@ import { SharedModule } from './shared/shared.module';
     SignUpComponent,
     MainpageComponent,
     DialogWishComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

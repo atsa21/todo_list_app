@@ -24,6 +24,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { LoaderComponent } from './loader/loader.component';
+import { PriorityPipe } from '../pipe/priority.pipe';
 
 export function playerFactory() {
   return player;
@@ -31,7 +32,8 @@ export function playerFactory() {
 
 @NgModule({
   declarations: [
-    LoaderComponent
+    LoaderComponent,
+    PriorityPipe
   ],
   imports: [
     MatToolbarModule,
@@ -84,7 +86,8 @@ export function playerFactory() {
     MatProgressSpinnerModule,
     ImageCropperModule,
     [LottieModule.forRoot({ player: playerFactory })],
-    LoaderComponent
+    LoaderComponent,
+    PriorityPipe
   ]
 })
 export class SharedModule { }
