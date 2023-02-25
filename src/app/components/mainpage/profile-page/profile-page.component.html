@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="input-box">
-                    <mat-form-field appearance="outline" color="primary" floatLabel="always">
+                    <mat-form-field class="input" appearance="outline" color="primary" floatLabel="always">
                         <mat-label>Name</mat-label>
                         <input formControlName="username" matInput placeholder="example@gmail.com" required>
                         <mat-error *ngIf="username?.errors?.['required']">Email is required</mat-error>
