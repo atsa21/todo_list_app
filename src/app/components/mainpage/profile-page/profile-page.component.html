@@ -35,8 +35,8 @@
                         <mat-error *ngIf="username?.errors?.['required']">Email is required</mat-error>
                         <mat-error *ngIf="username?.errors?.['email']">Please enter a correct email format</mat-error>
                     </mat-form-field>
+                    <button [disabled]="!profileForm.valid" mat-flat-button class="btn" (click)="submit()">Submit</button>
                 </div>
-                <button [disabled]="!profileForm.valid" mat-flat-button class="btn" (click)="submit()">Submit</button>
             </form>
         </div>
     </div>

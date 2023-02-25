@@ -36,7 +36,7 @@ export class AuthService {
         this.router.navigate(['/mainpage/todo']);
       });
     }, err => {
-      this.snackbar.openSnackBar('The email or password is incorrect. Try again', 'Close');
+      this.snackbar.openSnackBar(err.message, 'Close');
       this.router.navigate(['/login']);
     })
   }
@@ -52,7 +52,7 @@ export class AuthService {
       this.snackbar.openSnackBar('Sign Up Successfull', 'Close');
       this.router.navigate(['/login']);
     }, err => {
-      alert (err.message);
+      this.snackbar.openSnackBar(err.message, 'Close');
       this.router.navigate(['/signup']);
     })
   }
