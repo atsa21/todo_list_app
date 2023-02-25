@@ -13,9 +13,9 @@ export class HeaderComponent implements AfterViewInit {
 
   public currentPage: string = '';
   public navList: any[] = [
-    {name: 'Todo list', link: '/mainpage/todo'},
-    {name: 'Wish list', link: '/mainpage/wish'},
-    {name: 'Profile', link: '/mainpage/profile'}
+    { name: 'Todo list', link: '/mainpage/todo', icon: 'check_circle_outline'},
+    { name: 'Wish list', link: '/mainpage/wish', icon: 'favorite_border' },
+    { name: 'Profile', link: '/mainpage/profile', icon: 'person_outline' }
   ];
 
   constructor(
