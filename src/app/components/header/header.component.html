@@ -16,9 +16,15 @@
       </ng-template>
     </div>
     <mat-menu #menu="matMenu" xPosition="before">
+      <div class="nav-list-mobile">
+        <div mat-menu-item class="list" *ngFor="let nav of navList" [routerLink]="nav.link" (click)="getPageLink()">
+          <mat-icon>{{ nav.icon }}</mat-icon>
+          <a class="nav-mobile">{{nav.name}}</a>
+        </div>
+      </div>
       <button mat-menu-item (click)="logOut()">
         <mat-icon>logout</mat-icon>
-        <span>Logout</span>
+        <span class="nav-mobile">Logout</span>
       </button>
     </mat-menu>
   </div>
