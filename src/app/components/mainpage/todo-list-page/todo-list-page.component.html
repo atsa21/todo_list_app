@@ -14,30 +14,31 @@
                       <span>{{category}}</span>
                   </mat-option>
               </mat-select>
-          </mat-form-field>
-          <button class="btn btn-accent btn-add" type="button" (click)="openDialog()">
-            Add todo <i class="fa-regular fa-plus"></i>
-          </button>
+            </mat-form-field>
+            <button class="btn btn-accent btn-add" type="button" (click)="openDialog()">
+              <span class="btn-text">Add todo</span>
+              <i class="fa-regular fa-plus"></i>
+            </button>
           </div>
-          <div class="table-box">
+          <section class="table-box">
             <mat-table mat-table [dataSource]="dataSource" matSort>
     
-              <ng-container matColumnDef="checked">
+              <ng-container matColumnDef="checked" sticky>
                 <mat-header-cell *matHeaderCellDef class="check-col"></mat-header-cell>
                 <mat-cell *matCellDef="let row" class="check-col">
                   <mat-checkbox [(ngModel)]="row.checked" (click)="checkTodo(row, row.key)" color="primary">
                   </mat-checkbox> 
                 </mat-cell>
               </ng-container>
+          
+              <ng-container matColumnDef="task" sticky>
+                <mat-header-cell *matHeaderCellDef> Task </mat-header-cell>
+                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)"> {{row.task}} </mat-cell>
+              </ng-container>
 
               <ng-container matColumnDef="category">
-                <mat-header-cell *matHeaderCellDef mat-sort-header class="category-col"> Category </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="category-col"> Category </mat-header-cell>
                 <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="category-col"> {{row.category}} </mat-cell>
-              </ng-container>
-          
-              <ng-container matColumnDef="task">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Task </mat-header-cell>
-                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)"> {{row.task}} </mat-cell>
               </ng-container>
     
               <ng-container matColumnDef="tags">
@@ -92,7 +93,7 @@
               </div>
               <mat-paginator color="accent" [length]="totalTodo" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
             </div>
-          </div>
+          </section>
         </div>
       </div>
       <ng-template #notask>
@@ -103,7 +104,8 @@
           <div class="no-task-descr">
             <p class="no-task-text">You don't have any tasks</p>
             <button class="btn btn-white btn-nt" type="button" (click)="openDialog()">
-              Add todo <i class="fa-regular fa-plus"></i>
+              <span>Add todo </span>
+              <i class="fa-regular fa-plus"></i>
             </button>
           </div>
         </div>

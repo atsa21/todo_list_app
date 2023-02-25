@@ -26,28 +26,24 @@
     .todo-box {
         width: 70%;
 
-        .form {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-
-            .input-search {
-                width: 54%;
-            }
-
-            .input-category {
-                width: 26%;
-            }
-        }
-
         .mat-form-field {
             font-size: 14px;
         }
     }
 
     .table-box {
+        width: 1200px;
+        max-width: 100%;
+        overflow: auto;
         border: 1px solid var(--light-grey);
     }
+}
+
+.form {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: 4fr 1fr 1fr;
+    column-gap: 18px;
 }
 
 .paginator {
@@ -65,6 +61,11 @@
     .progress {
         width: 100%;
     }
+}
+
+td.mat-column-task {
+    width: 20px;
+    padding-right: 8px;
 }
 
 ::ng-deep .form {
@@ -116,10 +117,6 @@
     width: 100%;
 }
 
-.loading::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
-    stroke: var(--white);
-}
-
 .check-col {
     max-width: 60px;
 }
@@ -148,8 +145,11 @@
 }
 
 .btn-add {
+    display: flex;
+    gap: 12px;
     margin-top: 3px;
     height: 48px;
+    min-width: 160px;
 }
 
 .ready {
@@ -249,18 +249,53 @@ ul {
 
 @media only screen and (max-width: 1400px) {
     .cont-box {
-        margin-top: 9%;
+        padding: 24px;
+        margin-top: 120px;
+
+        .todo-box {
+            width: 100%;
+        }
+    }
+
+    .form {
+        display: grid;
+        justify-content: space-between;
+        grid-template-columns: 3fr 1fr 1fr;
+        column-gap: 18px;
+        width: 100%;
     }
 }
 
-@media only screen and (max-width: 990px) {
+@media only screen and (max-width: 660px) {
     .cont-box {
-        margin-top: 11%;
+        margin-top: 88px;
+    }
+
+    .form {
+        display: flex;
+
+        .mat-form-field {
+            width: 180px;
+        }
+    }
+
+    .btn-add {
+        height: 48px;
+        width: 48px;
+        min-width: 48px;
+    }
+
+    .btn-text {
+        display: none;
     }
 }
 
-@media only screen and (max-width: 620px) {
+@media only screen and (max-width: 420px) {
     .cont-box {
-        margin-top: 14%;
+        padding: 16px;
+    }
+
+    .form .mat-form-field {
+        width: 120px;
     }
 }
