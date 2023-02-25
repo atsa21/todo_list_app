@@ -73,3 +73,9 @@
         color: var(--black);
     }
 }
+
+@media only screen and (max-width: 990px) {
+    .cards-container {
+        justify-content: center;
+    }
+}

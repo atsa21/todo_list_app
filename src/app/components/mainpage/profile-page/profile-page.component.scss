@@ -1,4 +1,7 @@
 .profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
     width: 100%;
 
@@ -141,6 +144,7 @@ h1 {
 
 @media only screen and (max-width: 1024px) {
     .profile-container .profile-box {
+        height: 100%;
         width: 100%;
         padding: 18px;
     }
