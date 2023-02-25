@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, Input, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NavigationList } from 'src/app/models/navigation-list';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class HeaderComponent implements AfterViewInit {
   @Input() user: any;
 
   public currentPage: string = '';
-  public navList: any[] = [
+  public navList: NavigationList[] = [
     { name: 'Todo list', link: '/mainpage/todo', icon: 'check_circle_outline'},
     { name: 'Wish list', link: '/mainpage/wish', icon: 'favorite_border' },
     { name: 'Profile', link: '/mainpage/profile', icon: 'person_outline' }
