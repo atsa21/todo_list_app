@@ -1,6 +1,6 @@
 <div class="page-container">
     <div *ngIf="wishList; else loading">
-        <div *ngIf="wishList.length; else nowish">
+        <div *ngIf="wishList.length; else nowish" class="wish-title-box">
             <div class="wish-title">
                 <h1>Wish list</h1>
                 <button class="btn btn-accent" (click)="openDialog()">Add wish<i class="fa-regular fa-plus"></i></button>
