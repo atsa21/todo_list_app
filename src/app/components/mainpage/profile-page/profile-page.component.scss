@@ -1,5 +1,6 @@
 .profile-container {
     height: 100%;
+    width: 100%;
 
     .profile-box {
         display: flex;
@@ -15,7 +16,8 @@
 .profile {
     display: flex;
     flex-direction: column;
-    width: 30%;
+    justify-content: center;
+    width: 400px;
     padding: 48px;
     background-color: #fff;
     border: 1px solid var(--light-grey);
@@ -26,16 +28,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
 
-    .input-box {
-        display: flex;
-        flex-direction: column;
-        margin-top: 24px;
+.input-box {
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+    width: 240px;
+
+    .input {
         width: 240px;
-
-        .input {
-            width: 240px;
-        }
     }
 }
 
@@ -129,4 +131,54 @@ h1 {
     opacity: 0;
     position: absolute;
     z-index: -1;
+}
+
+@media only screen and (max-width: 1600px) {
+    .profile {
+        padding: 36px;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .profile-container .profile-box {
+        width: 100%;
+        padding: 18px;
+    }
+
+    .profile {
+        padding: 24px;
+        width: 400px;
+    }
+
+    .btn-upload {
+        height: 180px;
+        width: 180px;
+    }
+
+    .button-box,
+    .cropper,
+    .btn {
+        width: 180px;
+    }
+
+    .input-box {
+        width: 180px;
+    
+        .input {
+            width: 180px;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .profile-container .profile-box {
+        align-items: flex-start;
+        padding-top: 88px;
+    }
+
+    .profile {
+        padding: 18px;
+        width: 100%;
+        height: 100%;
+    }
 }
