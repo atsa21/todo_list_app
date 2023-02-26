@@ -18,7 +18,7 @@ import { DialogTodoComponent } from '../../dialog-todo/dialog-todo.component';
 })
 export class TodoListPageComponent implements OnInit {
 
-  public displayedColumns: string[] = [ 'checked', 'task','category', 'date', 'priority', 'tags', 'action'];
+  public displayedColumns: string[] = [ 'checked', 'task','category', 'date', 'priority', 'tags', 'action', 'open'];
   public dataSource!: MatTableDataSource<any>;
   public todoReadyList: any;
   public options: AnimationOptions = {
@@ -35,6 +35,7 @@ export class TodoListPageComponent implements OnInit {
   public data: any;
   public today: any;
   public user: any;
+  public menuOpen = false;
   private destroy: Subject<boolean> = new Subject<boolean>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -121,8 +122,12 @@ export class TodoListPageComponent implements OnInit {
   }
 
   checkTodo(row: Todo, key : string): void {
-    row.checked = row.checked === false ? true : false;
+    row.checked = !row.checked;
     this.todoService.updateTodo(row, key);
+  }
+
+  openTodo(row: any, key : string): void {
+    row.open = !row.open;
   }
 
   deleteTodo(key: any): void {
@@ -138,6 +143,7 @@ export class TodoListPageComponent implements OnInit {
   search(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log(this.dataSource);
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();

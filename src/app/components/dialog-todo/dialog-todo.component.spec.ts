@@ -6,15 +6,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { DateAdapter } from '@angular/material/core';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { environment } from 'src/environments/environment';
-import { TodoListPageComponent } from '../mainpage/todo-list-page/todo-list-page.component';
 
 import { DialogTodoComponent } from './dialog-todo.component';
 
