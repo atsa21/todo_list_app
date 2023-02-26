@@ -63,6 +63,7 @@
     width: 80%;
     color: var(--white);
     background-color: var(--accent);
+    transition: all 0.4s;
 
     &:hover {
         background-color: var(--accent-hover);

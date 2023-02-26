@@ -5,6 +5,6 @@ export class Todo {
     date?: string;
     priority?: number;
     tags?: string[];
-    cheched?: boolean;
+    checked?: boolean;
     authorId?: string;
 }

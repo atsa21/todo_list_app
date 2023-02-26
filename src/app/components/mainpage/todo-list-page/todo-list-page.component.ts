@@ -120,8 +120,8 @@ export class TodoListPageComponent implements OnInit {
     })
   }
 
-  checkTodo(row: any, key : any): void {
-    row.checked === false ? row.checked = true : row.checked = false;
+  checkTodo(row: Todo, key : string): void {
+    row.checked = row.checked === false ? true : false;
     this.todoService.updateTodo(row, key);
   }
 

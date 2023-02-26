@@ -32,18 +32,35 @@
               </ng-container>
           
               <ng-container matColumnDef="task">
-                <mat-header-cell *matHeaderCellDef> Task </mat-header-cell>
-                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)"> {{row.task}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef>Task</mat-header-cell>
+                <mat-cell *matCellDef="let row" class="col-task" [class]="getStyle(row.checked, row.date)">
+                  <span class="task">{{row.task}}</span>
+                  <div class="mobile-description">
+                    <div class="mobile-text">
+                      <span>{{row.category}}</span>
+                      <span class="prior" [class]="row.checked ? 'ready' : getPriorityClass(row.priority)"> 
+                        <span class="priority">
+                          <i [class]="getPriorityIcon(row.priority)"></i>
+                          <span class="p-priority">{{ row.priority | priority }}</span>
+                        </span>
+                      </span>
+                      <span>{{ row.date == today ? 'Today' :  row.date | date }}</span>
+                    </div>
+                    <div class="mobile-tags">
+                      <span *ngFor="let tag of row.tags" class="tag-mobile" [class]="row.checked ? 'ready-tag' : getTagsClass(row.priority)">#{{tag}}</span>
+                    </div>
+                  </div>
+                </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="category">
-                <mat-header-cell *matHeaderCellDef class="category-col"> Category </mat-header-cell>
-                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="category-col"> {{row.category}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef class="category-col col-hide">Category</mat-header-cell>
+                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="category-col col-hide"> {{row.category}} </mat-cell>
               </ng-container>
     
               <ng-container matColumnDef="tags">
-                <mat-header-cell *matHeaderCellDef class="tags-col"> Tags </mat-header-cell>
-                <mat-cell *matCellDef="let row" class="tags-col">
+                <mat-header-cell *matHeaderCellDef class="tags-col col-hide">Tags</mat-header-cell>
+                <mat-cell *matCellDef="let row" class="tags-col col-hide">
                   <ul class="tags-box">
                     <li *ngFor="let tag of row.tags" class="tag" [class]="row.checked ? 'ready-tag' : getTagsClass(row.priority)">#{{tag}}</li>
                   </ul>
@@ -51,13 +68,13 @@
               </ng-container>
 
               <ng-container matColumnDef="date">
-                <mat-header-cell *matHeaderCellDef class="date-col"> Date </mat-header-cell>
-                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="date-col"> {{ row.date == today ? 'Today' :  row.date | date }} </mat-cell>
+                <mat-header-cell *matHeaderCellDef class="date-col col-hide"> Date </mat-header-cell>
+                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="date-col col-hide"> {{ row.date == today ? 'Today' :  row.date | date }} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="priority">
-                <mat-header-cell *matHeaderCellDef class="priority-col"> Priority </mat-header-cell>
-                <mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : getPriorityClass(row.priority)" class="priority-col">
+                <mat-header-cell *matHeaderCellDef class="priority-col col-hide"> Priority </mat-header-cell>
+                <mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : getPriorityClass(row.priority)" class="priority-col col-hide">
                   <span class="priority">
                     <i [class]="getPriorityIcon(row.priority)"></i>
                     <span class="p-priority">{{ row.priority | priority }}</span>
@@ -66,10 +83,12 @@
               </ng-container>
     
               <ng-container matColumnDef="action">
-                <mat-header-cell *matHeaderCellDef class="action-col"><span class="action-col-text">Action</span></mat-header-cell>
+                <mat-header-cell *matHeaderCellDef class="action-col"><span class="action-col-text col-hide">Action</span></mat-header-cell>
                 <mat-cell *matCellDef="let row" class="action-col">
-                  <button mat-button [class]="row.checked ? 'ready' : 'unready'" (click)="editTodo(row)" >Edit</button>
-                  <button mat-icon-button class="clear-btn" (click)="deleteTodo(row.key)">
+                  <button mat-icon-button class="edit-btn small-btn" [class]="row.checked ? 'ready' : 'unready'" (click)="editTodo(row)">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </button>
+                  <button mat-icon-button class="clear-btn small-btn" (click)="deleteTodo(row.key)">
                     <i class="fa-solid fa-xmark"></i>
                   </button>
                 </mat-cell>
