@@ -24,7 +24,8 @@
     margin-top: 8%;
 
     .todo-box {
-        width: 70%;
+        display: flex;
+        flex-direction: column;
 
         .mat-form-field {
             font-size: 14px;
@@ -34,18 +35,20 @@
     .table-box {
         width: 1200px;
         max-width: 100%;
-        overflow: auto;
         border: 1px solid var(--light-grey);
     }
 }
 
 .form {
-    display: grid;
+    display: flex;
     justify-content: space-between;
     width: 1200px;
     max-width: 100%;
-    grid-template-columns: 4fr 1fr 1fr;
-    column-gap: 18px;
+    gap: 18px;
+
+    .input-search {
+        flex-grow: 2;
+    }
 }
 
 .paginator {
@@ -258,14 +261,6 @@ ul {
             width: 100%;
         }
     }
-
-    .form {
-        display: grid;
-        justify-content: space-between;
-        grid-template-columns: 3fr 1fr 1fr;
-        column-gap: 18px;
-        width: 100%;
-    }
 }
 
 @media only screen and (max-width: 660px) {
@@ -274,7 +269,6 @@ ul {
     }
 
     .form {
-        display: flex;
 
         .mat-form-field {
             width: 180px;
