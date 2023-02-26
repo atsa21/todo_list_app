@@ -41,6 +41,8 @@
 
 .form {
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: space-between;
     width: 1200px;
     max-width: 100%;
