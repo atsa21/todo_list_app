@@ -13,7 +13,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 70%;
+    height: 100%;
 }
 
 .cont-box {
@@ -24,7 +24,8 @@
     margin-top: 8%;
 
     .todo-box {
-        width: 70%;
+        display: flex;
+        flex-direction: column;
 
         .mat-form-field {
             font-size: 14px;
@@ -34,18 +35,23 @@
     .table-box {
         width: 1200px;
         max-width: 100%;
-        overflow: auto;
         border: 1px solid var(--light-grey);
+        overflow-y: auto;
     }
 }
 
 .form {
-    display: grid;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: space-between;
     width: 1200px;
     max-width: 100%;
-    grid-template-columns: 4fr 1fr 1fr;
-    column-gap: 18px;
+    gap: 18px;
+
+    .input-search {
+        flex-grow: 2;
+    }
 }
 
 .paginator {
@@ -63,11 +69,6 @@
     .progress {
         width: 100%;
     }
-}
-
-td.mat-column-task {
-    width: 20px;
-    padding-right: 8px;
 }
 
 ::ng-deep .form {
@@ -184,6 +185,14 @@ ul {
     font-size: 11px;
 }
 
+.tag-mobile,
+.mobile-description {
+    display: none;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
 .ready-tag {
     color: var(--white);
     background-color: var(--light-grey);
@@ -209,12 +218,21 @@ ul {
     background-color: var(--neutral);
 }
 
-.clear-btn {
-    color: var(--medium-grey);
+.edit-btn {
+    transition: color 0.4s;
+
+    &:hover {
+        color: var(--accent);
+    }
 }
 
-.clear-btn:hover {
-    color: var(--grey);
+.clear-btn {
+    color: var(--medium-grey);
+    transition: color 0.4s;
+
+    &:hover {
+        color: var(--danger);
+    }
 }
 
 .critical-icon {
@@ -258,14 +276,6 @@ ul {
             width: 100%;
         }
     }
-
-    .form {
-        display: grid;
-        justify-content: space-between;
-        grid-template-columns: 3fr 1fr 1fr;
-        column-gap: 18px;
-        width: 100%;
-    }
 }
 
 @media only screen and (max-width: 660px) {
@@ -274,7 +284,6 @@ ul {
     }
 
     .form {
-        display: flex;
 
         .mat-form-field {
             width: 180px;
@@ -293,11 +302,80 @@ ul {
 }
 
 @media only screen and (max-width: 420px) {
+
     .cont-box {
         padding: 16px;
     }
 
     .form .mat-form-field {
         width: 120px;
+    }
+
+    .col-task {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 12px;
+        padding: 8px 0;
+        gap: 4px;
+    }
+
+    .check-col {
+        max-width: 48px;
+        padding-left: 18px;
+    }
+
+    .action-col {
+        display: flex;
+        flex-direction: column;
+        max-width: 76px;
+        padding-right: 18px;
+    }
+
+    .col-hide {
+        display: none;
+    }
+
+    .mat-header-cell, 
+    .col-text,
+    .task {
+        font-size: 14px;
+    }
+
+    .tag-mobile,
+    .mobile-description {
+        display: flex;
+    }
+
+    .mobile-description {
+        flex-direction: column;
+        font-size: 11px;
+        width: 100%;
+        padding: 0;
+        padding-right: 4px;
+        gap: 8px;
+
+        .mobile-text {
+            display: flex;
+            justify-content: space-between;
+
+            .prior {
+                display: flex;
+                gap: 8px;
+            }
+        }
+
+        .mobile-tags {
+            display: flex;
+            gap: 4px;
+        }
+    }
+
+    .small-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 34px;
+        height: 34px;
     }
 }
