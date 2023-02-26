@@ -34,17 +34,25 @@
               <ng-container matColumnDef="task">
                 <mat-header-cell *matHeaderCellDef>Task</mat-header-cell>
                 <mat-cell *matCellDef="let row" class="col-task" [class]="getStyle(row.checked, row.date)">
-                  <span class="task">{{row.task}}</span>
-                  <div class="mobile-description">
+                  <div class="task">
+                    <span>{{row.task}}</span>
+                    <div class="small-text-task">
+                      <p>{{row.category}}</p>
+                      <span class="circle">&#9679;</span>
+                      <span class="icon-text-box">
+                        <i class="fa-regular fa-calendar"></i>
+                        <p>{{ row.date == today ? 'Today' :  row.date | date }}</p>
+                      </span>
+                    </div>
+                  </div>
+                  <div *ngIf="row.open" class="mobile-description">
                     <div class="mobile-text">
-                      <span>{{row.category}}</span>
                       <span class="prior" [class]="row.checked ? 'ready' : getPriorityClass(row.priority)"> 
                         <span class="priority">
                           <i [class]="getPriorityIcon(row.priority)"></i>
-                          <span class="p-priority">{{ row.priority | priority }}</span>
+                          <span class="p-priority">{{ row.priority | priority }} priority</span>
                         </span>
                       </span>
-                      <span>{{ row.date == today ? 'Today' :  row.date | date }}</span>
                     </div>
                     <div class="mobile-tags">
                       <span *ngFor="let tag of row.tags" class="tag-mobile" [class]="row.checked ? 'ready-tag' : getTagsClass(row.priority)">#{{tag}}</span>
@@ -54,13 +62,13 @@
               </ng-container>
 
               <ng-container matColumnDef="category">
-                <mat-header-cell *matHeaderCellDef class="category-col col-hide">Category</mat-header-cell>
-                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="category-col col-hide"> {{row.category}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef class="category-col col-hide-mobile">Category</mat-header-cell>
+                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="category-col col-hide-mobile"> {{row.category}} </mat-cell>
               </ng-container>
     
               <ng-container matColumnDef="tags">
-                <mat-header-cell *matHeaderCellDef class="tags-col col-hide">Tags</mat-header-cell>
-                <mat-cell *matCellDef="let row" class="tags-col col-hide">
+                <mat-header-cell *matHeaderCellDef class="tags-col col-hide-mobile">Tags</mat-header-cell>
+                <mat-cell *matCellDef="let row" class="tags-col col-hide-mobile">
                   <ul class="tags-box">
                     <li *ngFor="let tag of row.tags" class="tag" [class]="row.checked ? 'ready-tag' : getTagsClass(row.priority)">#{{tag}}</li>
                   </ul>
@@ -68,13 +76,13 @@
               </ng-container>
 
               <ng-container matColumnDef="date">
-                <mat-header-cell *matHeaderCellDef class="date-col col-hide"> Date </mat-header-cell>
-                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="date-col col-hide"> {{ row.date == today ? 'Today' :  row.date | date }} </mat-cell>
+                <mat-header-cell *matHeaderCellDef class="date-col col-hide-mobile"> Date </mat-header-cell>
+                <mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="date-col col-hide-mobile"> {{ row.date == today ? 'Today' :  row.date | date }} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="priority">
-                <mat-header-cell *matHeaderCellDef class="priority-col col-hide"> Priority </mat-header-cell>
-                <mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : getPriorityClass(row.priority)" class="priority-col col-hide">
+                <mat-header-cell *matHeaderCellDef class="priority-col col-hide-mobile"> Priority </mat-header-cell>
+                <mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : getPriorityClass(row.priority)" class="priority-col col-hide-mobile">
                   <span class="priority">
                     <i [class]="getPriorityIcon(row.priority)"></i>
                     <span class="p-priority">{{ row.priority | priority }}</span>
@@ -83,8 +91,8 @@
               </ng-container>
     
               <ng-container matColumnDef="action">
-                <mat-header-cell *matHeaderCellDef class="action-col"><span class="action-col-text col-hide">Action</span></mat-header-cell>
-                <mat-cell *matCellDef="let row" class="action-col">
+                <mat-header-cell *matHeaderCellDef class="action-col"><span class="action-col-text col-hide-mobile">Action</span></mat-header-cell>
+                <mat-cell *matCellDef="let row" class="action-col col-hide-mobile">
                   <button mat-icon-button class="edit-btn small-btn" [class]="row.checked ? 'ready' : 'unready'" (click)="editTodo(row)">
                     <i class="fa-regular fa-pen-to-square"></i>
                   </button>
@@ -93,15 +101,36 @@
                   </button>
                 </mat-cell>
               </ng-container>
+
+              <ng-container matColumnDef="open">
+                <mat-header-cell *matHeaderCellDef class="open-col"></mat-header-cell>
+                <mat-cell *matCellDef="let row" class="open-col">
+                  <button mat-icon-button class="mobile-icon small-btn" (click)="row.open = !row.open">
+                    <i class="fa-solid fa-angle-down"></i>
+                  </button>
+                  <button mat-icon-button class="mobile-icon small-btn" [matMenuTriggerFor]="menu">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </button>
+                  <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item class="nav-btn" (click)="editTodo(row)">
+                      <mat-icon class="fa-regular fa-pen-to-square"></mat-icon>
+                      <span class="nav-mobile">Edit</span>
+                    </button>
+                    <button mat-menu-item class="nav-btn" (click)="deleteTodo(row.key)">
+                      <mat-icon class="fa-solid fa-xmark"></mat-icon>
+                      <span class="nav-mobile">Delete</span>
+                    </button>
+                  </mat-menu>
+                </mat-cell>
+              </ng-container>
           
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-          
-              <div *ngIf="totalTodo">
-                <mat-header-row *matNoDataRow>
-                  <mat-row colspan="6">No data matching the filter "{{input.value}}"</mat-row>
-                </mat-header-row>
-              </div>
+
+              <tr class="mat-row no-data" *matNoDataRow>
+                <td class="mat-cell no-data" colspan="6">No data matching the filter "{{input.value}}"</td>
+              </tr>
+              
             </mat-table>
             <div class="paginator">
               <div>
