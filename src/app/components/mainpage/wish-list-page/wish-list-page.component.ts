@@ -15,7 +15,16 @@ export class WishListPageComponent implements OnInit {
 
   public wishList: any;
   public options: AnimationOptions = {
-    path: '/assets/animation/house.json'
+    path: '/assets/animation/house.json',
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+      className: "lottie-svg-class"
+    }
+  };
+
+  public styles: Partial<CSSStyleDeclaration> = {
+    maxWidth: '400px',
+    maxHeight: '400px',
   };
 
   constructor(

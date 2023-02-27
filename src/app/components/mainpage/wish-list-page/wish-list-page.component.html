@@ -1,5 +1,5 @@
 <div class="page-container">
-    <div *ngIf="wishList; else loading">
+    <div *ngIf="wishList; else loading" class="page-box">
         <div *ngIf="wishList.length; else nowish" class="wish-title-box">
             <div class="wish-title">
                 <h1>Wish list</h1>
@@ -10,7 +10,7 @@
         <ng-template #nowish>
             <div class="no-wish-box">
                 <div class="no-wish-image">
-                    <ng-lottie [options]="options"  width="400px" height="400px"></ng-lottie>
+                    <ng-lottie [options]="options"  width="320px" height="320px" [styles]="styles"></ng-lottie>
                   </div>
                   <div class="no-wish-descr">
                     <p class="no-wish-text">You don't have any wish</p>
