@@ -12,8 +12,8 @@ export class LoginComponent implements OnInit {
   public hide = true;
 
   loginForm = new FormGroup ({
-    email : new FormControl('test@gmail.com', [Validators.required, Validators.email]),
-    password : new FormControl('123456', [Validators.required, Validators.minLength(6)])
+    email : new FormControl('', [Validators.required, Validators.email]),
+    password : new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
   constructor(
