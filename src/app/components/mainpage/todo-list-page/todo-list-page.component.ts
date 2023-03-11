@@ -5,7 +5,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { TodoService } from 'src/app/services/todo.service';
 import { map, Subject, takeUntil } from 'rxjs';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Todo } from 'src/app/models/todo.model';
 import { UsersService } from 'src/app/services/users.service';
 import { AnimationOptions } from 'ngx-lottie';
