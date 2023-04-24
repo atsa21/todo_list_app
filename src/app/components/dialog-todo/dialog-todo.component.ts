@@ -88,7 +88,8 @@ export class DialogTodoComponent implements OnInit {
 
   addTag(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-    if (value.length >= 2 && value.length <= 14) {
+    const isValidTag = value.length >= 2 && value.length <= 14 && !this.tagsList.includes(value);
+    if (isValidTag) {
       this.tagsList.push(value);
       this.checkTagLength();
       event.chipInput!.clear();
@@ -111,8 +112,9 @@ export class DialogTodoComponent implements OnInit {
     if(!this.editData){
       if(this.todoForm.valid){
         this.tags?.setValue(this.tagsList);
-        this.todoService.createTodo(this.todoForm.value);
-        this.dialogReg.close();
+        this.todoService.createTodo(this.todoForm.value).then(() => {
+          this.dialogReg.close();
+        });
       }
     } else {
       this.updateTodo();

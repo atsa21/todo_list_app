@@ -23,12 +23,12 @@ export class UsersService {
     return userRef;
   }
 
-  createUser(user: User): void {
+  createUser(user: User): Promise<void> {
     const db = getDatabase();
     const auth = getAuth();
     const id = auth.currentUser?.uid;
     const newPostKey = push(child(ref(db), 'users')).key;
-    set(ref(db, 'users/' + id + '/' + newPostKey), {
+    return set(ref(db, 'users/' + id + '/' + newPostKey), {
       key: newPostKey,
       userId: id,
       username: user.username,
