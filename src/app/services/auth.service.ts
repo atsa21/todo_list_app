@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
-import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { LocalStorageService } from './local-storage.service';
@@ -49,8 +48,8 @@ export class AuthService {
     this.fireAuth.createUserWithEmailAndPassword(email, password)
     .then (() => {
       this.userService.createUser(user);
+      this.login(email, password);
       this.snackbar.openSnackBar('Sign Up Successfull', 'Close');
-      this.router.navigate(['/login']);
     }, err => {
       this.snackbar.openSnackBar(err.message, 'Close');
       this.router.navigate(['/signup']);
