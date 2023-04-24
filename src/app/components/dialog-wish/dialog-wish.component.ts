@@ -94,7 +94,7 @@ export class DialogWishComponent implements OnInit {
   private updateWish(): void {
     this.wishListService.updateWish(this.wishForm.value, this.key);
     this.dialogReg.close();
-    this.snackbar.openSnackBar('Wish Updated', 'Close');
+    this.snackbar.openSnackBar('Wish Updated', 'success', 'Close');
   }
 
   fileChangeEvent(event: any): void {
@@ -111,7 +111,7 @@ export class DialogWishComponent implements OnInit {
   }
 
   loadImageFailed(): void {
-    this.snackbar.openSnackBar('Load image is failed', 'Close');
+    this.snackbar.openSnackBar('Load image is failed', 'error', 'Close');
   }
 
 }

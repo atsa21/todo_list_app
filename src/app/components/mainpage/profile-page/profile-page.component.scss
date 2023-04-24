@@ -20,6 +20,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    max-height: 80vh;
     width: 400px;
     padding: 48px;
     background-color: var(--white);
@@ -69,6 +70,7 @@ h1 {
 .img-crop-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     .title-box {
         display: flex;
@@ -81,15 +83,23 @@ h1 {
 .cropper {
     display: flex;
     flex-direction: column;
-    width: 240px;
+    align-items: center;
+    position: relative;
+    gap: 12px;
+    width: 140px;
+
+    .image-cropper-box {
+        max-height: 160px;
+        width: 140px;
+    }
 }
 
 .btn-upload {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 240px;
-    width: 240px;
+    height: 140px;
+    width: 140px;
     border: 2px dashed var(--accent);
     color: var(--accent);
     cursor: pointer;
@@ -101,15 +111,29 @@ h1 {
     }
 }
 
-.button-box {
+.edit-photo {
+    position: relative;
+
+    .prof-photo {
+        width: 140px;
+        border-radius: 50%;
+    }
+}
+
+.edit-photo-btn {
     display: flex;
+    position: absolute;
+    right: 12px;
+    bottom: 4px;
     justify-content: center;
     align-items: center;
-    padding: 12px;
-    width: 240px;
-    border-radius: 4px;
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    border: 0;
     color: var(--white);
     background-color: var(--black);
+    z-index: 99;
     cursor: pointer;
     transition: all 0.4s ease-in-out;
 
@@ -117,7 +141,7 @@ h1 {
         background-color: var(--accent);
     }
 
-    label {
+    .btn-round {
         cursor: pointer;
     }
 }

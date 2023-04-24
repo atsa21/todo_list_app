@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users.service';
 import { map } from 'rxjs';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Patterns } from 'src/assets/patterns/patterns';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
@@ -14,13 +14,13 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 })
 export class ProfilePageComponent implements OnInit {
 
-  public user: User = {};
-  public edit: boolean = false;
-  public profileForm: any;
+  user!: User;
+  edit: boolean = false;
+  profileForm: any;
 
-  public imageChangedEvent: any = '';
-  public croppedImage: any = '';
-  public showCropper = false;
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  showCropper = false;
 
   constructor(
     private fb: FormBuilder,
@@ -37,8 +37,10 @@ export class ProfilePageComponent implements OnInit {
     this.profileForm = this.fb.group({
       username: new FormControl('', [Validators.required, Validators.pattern(Patterns.NamePattern)]),
       profile_photo: (''),
-      key: ('')
-    })
+      key: (''),
+      image: new FormControl('')
+    });
+
   }
 
   getUser(): void {
@@ -56,6 +58,10 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
+  getControl(control: string): AbstractControl {
+    return this.profileForm.get(control);
+  }
+
   get username(){
     return this.profileForm.get('username');
   }
@@ -69,7 +75,12 @@ export class ProfilePageComponent implements OnInit {
   }
 
   fileChangeEvent(event: any): void {
-    this.imageChangedEvent = event;
+    const isImage = event.target.files[0].type === 'image/jpeg' || event.target.files[0].type === 'image/jpg' || event.target.files[0].type === 'image/png';
+    if(isImage) {
+      this.imageChangedEvent = event;
+    } else {
+      this.snackbar.openSnackBar('Invalid image format', 'error', 'Close');
+    }
   } 
 
   imageCropped(event: ImageCroppedEvent): void {
@@ -81,14 +92,18 @@ export class ProfilePageComponent implements OnInit {
   }
 
   loadImageFailed(): void {
-    this.snackbar.openSnackBar('Load image is failed', 'Close');
+    this.snackbar.openSnackBar('Load image is failed', 'error', 'Close');
   }
 
   submit(): void {
     if(this.profileForm.valid) {
       this.profileForm.key = this.user.key;
-      this.profile_photo.setValue(this.croppedImage);
-      this.userService.updateUser(this.profileForm.value);
+      if(this.croppedImage) {
+        this.profile_photo.setValue(this.croppedImage);
+      }
+      this.userService.updateUser(this.profileForm.value).then(() => {
+        this.snackbar.openSnackBar('Profile was updated', 'success', 'Close');
+      });
     }
   }
 

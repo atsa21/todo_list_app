@@ -35,7 +35,7 @@ export class AuthService {
         this.router.navigate(['/mainpage/todo']);
       });
     }, err => {
-      this.snackbar.openSnackBar(err.message, 'Close');
+      this.snackbar.openSnackBar(err.message, 'error', 'Close');
       this.router.navigate(['/login']);
     })
   }
@@ -49,9 +49,9 @@ export class AuthService {
     .then (() => {
       this.userService.createUser(user);
       this.login(email, password);
-      this.snackbar.openSnackBar('Sign Up Successfull', 'Close');
+      this.snackbar.openSnackBar('Sign Up Successfull', 'success', 'Close');
     }, err => {
-      this.snackbar.openSnackBar(err.message, 'Close');
+      this.snackbar.openSnackBar(err.message, 'error', 'Close');
       this.router.navigate(['/signup']);
     })
   }
@@ -62,7 +62,7 @@ export class AuthService {
       this.localStorService.removeAll();
       this.router.navigate(['/login']);
     }, err => {
-      this.snackbar.openSnackBar('Error while log out', 'Close');
+      this.snackbar.openSnackBar('Error while log out', 'error', 'Close');
     })
   }
 }
