@@ -5,7 +5,7 @@
             <form [formGroup]="profileForm" class="form">
                 <div class="img-crop-container">
                     <div class="title-box">
-                        <h3 class="h3 text-center">Select profile picture</h3>
+                        <h3 class="h3 text-center">Select profile picture (JPG/JPEG/PNG)</h3>
                     </div>
                     <div *ngIf="!croppedImage && profileForm.get('profile_photo').value" class="edit-photo">
                         <img [src]="profileForm.get('profile_photo').value" class="prof-photo"/>
