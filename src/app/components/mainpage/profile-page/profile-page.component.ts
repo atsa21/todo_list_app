@@ -78,6 +78,8 @@ export class ProfilePageComponent implements OnInit {
     const isImage = event.target.files[0].type === 'image/jpeg' || event.target.files[0].type === 'image/jpg' || event.target.files[0].type === 'image/png';
     if(isImage) {
       this.imageChangedEvent = event;
+    } else {
+      this.snackbar.openSnackBar('Invalid image format', 'error', 'Close');
     }
   } 
 
@@ -90,14 +92,18 @@ export class ProfilePageComponent implements OnInit {
   }
 
   loadImageFailed(): void {
-    this.snackbar.openSnackBar('Load image is failed', 'Close');
+    this.snackbar.openSnackBar('Load image is failed', 'error', 'Close');
   }
 
   submit(): void {
     if(this.profileForm.valid) {
       this.profileForm.key = this.user.key;
-      this.profile_photo.setValue(this.croppedImage);
-      this.userService.updateUser(this.profileForm.value);
+      if(this.croppedImage) {
+        this.profile_photo.setValue(this.croppedImage);
+      }
+      this.userService.updateUser(this.profileForm.value).then(() => {
+        this.snackbar.openSnackBar('Profile was updated', 'success', 'Close');
+      });
     }
   }
 

@@ -37,11 +37,13 @@ export class UsersService {
     });
   }
 
-  updateUser(user: User): any {
+  updateUser(user: User): Promise<void> {
     if(typeof user.key == 'string') {
       const id = localStorage.getItem('userId');
       const todoRef: AngularFireList<User> = this.db.list(`users/${id}`);
       return todoRef.update(user.key, user);
+    } else {
+      return Promise.reject('Invalid user key');
     }
   }
 }
