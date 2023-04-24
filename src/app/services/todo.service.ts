@@ -27,7 +27,7 @@ export class TodoService {
     return todoRef;
   }
 
-  getTodoByCategory(category: string): Observable<any> {
+  getTodoByCategory(category: string): Observable<Object[]> {
     this.getUserId();
     const dbRef = this.db.database.ref(`todoList/${this.userId}/data`);
     const todo: Object[] = [];
@@ -38,12 +38,12 @@ export class TodoService {
     return of(todo);
   }
 
-  createTodo(todo: Todo) {
+  createTodo(todo: Todo): Promise<void> {
     this.getUserId();
     if(todo.date) {
       const db = getDatabase();
       const newPostKey = push(child(ref(db), `todoList/${this.userId}/data`)).key;
-      set(ref(db, 'todoList/' + this.userId + '/data/' + newPostKey), {
+      return set(ref(db, 'todoList/' + this.userId + '/data/' + newPostKey), {
         key: newPostKey,
         category: todo.category,
         task: todo.task,
@@ -52,6 +52,8 @@ export class TodoService {
         tags: todo.tags,
         checked: false,
       });
+    } else {
+      return Promise.reject('Invalid todo date');
     }
   }
 
