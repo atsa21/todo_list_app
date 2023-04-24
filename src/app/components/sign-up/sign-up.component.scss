@@ -33,7 +33,7 @@
     font-weight: 500;
 }
 
-::ng-deep .form {
+:host ::ng-deep .form {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;

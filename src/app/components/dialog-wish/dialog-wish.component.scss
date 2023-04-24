@@ -2,7 +2,7 @@
     padding: 12px;
 }
 
-::ng-deep .form {
+:host ::ng-deep .form {
     .mat-form-field {
         width: 100%;
 
