@@ -9,17 +9,17 @@
 @include angular-material-theme($theme);
 
 :root {
-    --black: rgb(31, 31, 31);
-    --grey: #7c7c7c;
-    --medium-grey: #ccc;
-    --light-grey: rgb(224, 224, 224);
-    --light-accent: #ffe0ea;
-    --accent: #ecbee1;
-    --accent-hover: rgb(31, 31, 31);
-    --danger: #F24535;
-    --warning: #F29F05;
-    --success: #35BF30;
-    --neutral: #2999A6;
-    --yellow: #ffe6b6;
-    --white: rgb(255, 255, 255);
+  --black: rgb(31, 31, 31);
+  --grey: #7c7c7c;
+  --medium-grey: #ccc;
+  --light-grey: rgb(224, 224, 224);
+  --light-accent: #ffe0ea;
+  --accent: #ecbee1;
+  --accent-hover: rgb(31, 31, 31);
+  --danger: #F24535;
+  --warning: #F29F05;
+  --success: #35BF30;
+  --neutral: #2999A6;
+  --yellow: #ffe6b6;
+  --white: rgb(255, 255, 255);
 }

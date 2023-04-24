@@ -75,7 +75,7 @@ p {
     }
 }
 
-::ng-deep .form {
+:host ::ng-deep .form {
     .mat-form-field {
         .mat-form-field-label {
             color: var(--black) !important;

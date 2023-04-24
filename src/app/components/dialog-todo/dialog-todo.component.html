@@ -45,7 +45,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline" color="primary" floatLabel="always">
-            <mat-label>Add tags</mat-label>
+            <mat-label>Add tags*</mat-label>
             <mat-chip-list #chipList aria-label="Tag selection">
                 <mat-chip *ngFor="let tag of tagsList" color="accent" class="tag" (removed)="removeTag(tag)" selected>
                     {{tag}}

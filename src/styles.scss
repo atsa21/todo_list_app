@@ -69,3 +69,8 @@ body {
     color: var(--black);
   }
 }
+
+.mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+  color: var(--black);
+  background: var(--accent);
+}

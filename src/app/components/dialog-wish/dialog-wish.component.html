@@ -62,8 +62,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" color="primary" floatLabel="always">
                 <mat-label>Link</mat-label>
-                <input matInput formControlName="link" placeholder="Enter link" required />
-                <mat-error *ngIf="link?.errors?.['required']">Link is required</mat-error>
+                <input matInput formControlName="link" placeholder="Enter link"/>
                 <mat-error *ngIf="link?.touched && link?.errors?.['pattern']">Link must start with 'https://'</mat-error>
             </mat-form-field>
     
