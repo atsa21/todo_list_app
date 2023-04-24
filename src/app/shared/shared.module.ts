@@ -59,7 +59,7 @@ export function playerFactory() {
     MatNativeDateModule,
     MatProgressSpinnerModule,
     ImageCropperModule,
-    [LottieModule.forRoot({ player: playerFactory })]
+    LottieModule.forRoot({ player: playerFactory })
   ],
   exports: [
     MatToolbarModule,
