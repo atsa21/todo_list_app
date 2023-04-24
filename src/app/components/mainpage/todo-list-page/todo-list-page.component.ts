@@ -20,6 +20,7 @@ export class TodoListPageComponent implements OnInit {
   public displayedColumns: string[] = [ 'checked', 'task','category', 'date', 'priority', 'tags', 'action', 'open'];
   public dataSource!: MatTableDataSource<any>;
   public todoReadyList: any;
+  todoElements: number = 0;
   public options: AnimationOptions = {
     path: '/assets/animation/watchtv.json'
   };
@@ -72,6 +73,7 @@ export class TodoListPageComponent implements OnInit {
       )
     ).subscribe(data => {
       this.setData(data);
+      this.todoElements = data.length;
     });
   }
 
