@@ -14,7 +14,7 @@ import { SnackBarService } from 'src/app/services/snack-bar.service';
 })
 export class ProfilePageComponent implements OnInit {
 
-  public user: User = {};
+  public user!: User;
   public edit: boolean = false;
   public profileForm: any;
 
