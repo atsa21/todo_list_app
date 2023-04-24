@@ -91,6 +91,7 @@ export class DialogTodoComponent implements OnInit {
     const isValidTag = value.length >= 2 && value.length <= 14 && !this.tagsList.includes(value);
     if (isValidTag) {
       this.tagsList.push(value);
+      this.tags?.setValue(this.tagsList);
       this.checkTagLength();
       event.chipInput!.clear();
     }
@@ -100,6 +101,7 @@ export class DialogTodoComponent implements OnInit {
     const index = this.tagsList.indexOf(tag);
     if (index >= 0) {
       this.tagsList.splice(index, 1);
+      this.tags?.setValue(this.tagsList);
     }
     this.checkTagLength();
   }
@@ -111,7 +113,6 @@ export class DialogTodoComponent implements OnInit {
   addTodo(): void {
     if(!this.editData){
       if(this.todoForm.valid){
-        this.tags?.setValue(this.tagsList);
         this.todoService.createTodo(this.todoForm.value).then(() => {
           this.dialogReg.close();
         });
@@ -122,7 +123,6 @@ export class DialogTodoComponent implements OnInit {
   }
 
   updateTodo(){
-    this.tags?.setValue(this.tagsList);
     const dateString = this.todoForm.value.date.toString();
     this.date?.setValue(dateString);
     this.todoService.updateTodo(this.todoForm.value, this.key).then(() => {
