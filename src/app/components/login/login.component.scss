@@ -65,7 +65,7 @@
     background-color: var(--accent);
     transition: all 0.4s;
 
-    &:hover {
+    &:hover:enabled {
         background-color: var(--accent-hover);
     }
 }
@@ -76,6 +76,7 @@ a {
 
 .activeText {
     text-align: center;
+    cursor: default;
 }
 
 .h-login {

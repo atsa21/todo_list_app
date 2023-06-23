@@ -35,7 +35,7 @@ body {
   background-color: var(--accent);
   transition: all 0.4s ease-in-out;
 
-  &:hover {
+  &:hover:enabled {
     color: var(--white);
     background-color: var(--accent-hover);
   }
@@ -46,7 +46,7 @@ body {
   background-color: var(--white);
   transition: all 0.4s ease-in-out;
 
-  &:hover {
+  &:hover:enabled {
     color: var(--white);
     background-color: var(--accent-hover);
   }
