@@ -23,7 +23,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
-import { LoaderComponent } from './loader/loader.component';
+import { LoaderComponent } from './components/loader/loader.component';
 import { PriorityPipe } from '../pipe/priority.pipe';
 
 export function playerFactory() {
