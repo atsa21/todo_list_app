@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
-import { Wish } from '../models/wish.model';
+import { Wish } from '../../models/wish.model';
 import { child, getDatabase, push, ref, set } from 'firebase/database';
 
 @Injectable({

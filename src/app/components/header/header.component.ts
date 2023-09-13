@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavigationList } from 'src/app/models/navigation-list';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-header',

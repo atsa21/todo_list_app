@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
-import { UsersService } from 'src/app/services/users.service';
+import { UsersService } from 'src/app/services/users/users.service';
 import { map } from 'rxjs';
 import { AbstractControl, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Patterns } from 'src/assets/patterns/patterns';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { SnackBarService } from 'src/app/services/snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-profile-page',

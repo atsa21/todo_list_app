@@ -3,8 +3,8 @@ import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { Currency } from 'src/app/models/currency.model';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
-import { WishListService } from 'src/app/services/wish-list.service';
+import { SnackBarService } from 'src/app/services/snack-bar/snack-bar.service';
+import { WishListService } from 'src/app/services/wish-list/wish-list.service';
 import { Patterns } from 'src/assets/patterns/patterns';
 
 @Component({

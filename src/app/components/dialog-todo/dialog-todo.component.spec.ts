@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { SnackBarService } from 'src/app/services/snack-bar/snack-bar.service';
 import { environment } from 'src/environments/environment';
 
 import { DialogTodoComponent } from './dialog-todo.component';

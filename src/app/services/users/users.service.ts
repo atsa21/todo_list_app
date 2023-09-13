@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { child, getDatabase, push, ref, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
-import { User } from '../models/user.model';
+import { User } from '../../models/user.model';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
-import { LocalStorageService } from './local-storage.service';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 @Injectable({
   providedIn: 'root'

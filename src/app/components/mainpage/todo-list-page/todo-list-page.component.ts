@@ -3,10 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { TodoService } from 'src/app/services/todo.service';
+import { TodoService } from 'src/app/services/todo/todo.service';
 import { map, Subject, takeUntil } from 'rxjs';
 import { Todo } from 'src/app/models/todo.model';
-import { UsersService } from 'src/app/services/users.service';
+import { UsersService } from 'src/app/services/users/users.service';
 import { AnimationOptions } from 'ngx-lottie';
 import { DialogTodoComponent } from '../../dialog-todo/dialog-todo.component';
 

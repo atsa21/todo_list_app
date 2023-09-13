@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { SnackBarService } from 'src/app/services/snack-bar/snack-bar.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { DateAdapter } from '@angular/material/core';
-import { TodoService } from 'src/app/services/todo.service';
+import { TodoService } from 'src/app/services/todo/todo.service';
 
 @Component({
   selector: 'app-dialog-todo',

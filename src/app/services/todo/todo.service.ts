@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { child, getDatabase, push, ref, set } from "firebase/database";
 import { Observable, of } from 'rxjs';
-import { Todo } from '../models/todo.model';
+import { Todo } from '../../models/todo.model';
 
 @Injectable({
   providedIn: 'root'

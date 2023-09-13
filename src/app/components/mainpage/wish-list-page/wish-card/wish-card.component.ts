@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogWishComponent } from 'src/app/components/dialog-wish/dialog-wish.component';
 import { Wish } from 'src/app/models/wish.model';
-import { WishListService } from 'src/app/services/wish-list.service';
+import { WishListService } from 'src/app/services/wish-list/wish-list.service';
 
 @Component({
   selector: 'app-wish-card',

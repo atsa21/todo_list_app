@@ -3,7 +3,6 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { environment } from 'src/environments/environment';
 
 import { TodoListPageComponent } from './todo-list-page.component';
