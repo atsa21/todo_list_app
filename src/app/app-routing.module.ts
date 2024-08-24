@@ -1,18 +1,36 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { MainpageComponent } from './components/mainpage/mainpage.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { AuthGuardGuard } from './shared/auth-guard.guard';
+import { AuthGuard } from '@core/guards/auth/auth.guard';
+import { appRouts } from '@core/constants';
+
 
 const routes: Routes = [
-  { path:'', redirectTo:'login', pathMatch:'full' },
-  { path:'login', component: LoginComponent },
-  { path:'signup', component: SignUpComponent },
-  { path:'mainpage', component: MainpageComponent, canActivate: [AuthGuardGuard],
-    loadChildren: () => import('./components/mainpage/mainpage.module').then((mod) => mod.MainpageModule)},
-  { path: '**', component: PageNotFoundComponent }
+  {
+    path: '',
+    redirectTo: appRouts.main.routerPath,
+    pathMatch: 'full'
+  },
+  {
+    path: appRouts.main.routerPath,
+    loadChildren: () =>
+      import('./pages/main/main.module').then((mod) => mod.MainModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: appRouts.login.routerPath,
+    loadChildren: () =>
+      import('./pages/auth/login/login.module').then((mod) => mod.LoginModule),
+  },
+  {
+    path: appRouts.sign_up.routerPath,
+    loadChildren: () =>
+      import('./pages/auth/sign-up/sign-up.module').then((mod) => mod.SignUpModule),
+  },
+  {
+    path: '**',
+    loadChildren: () =>
+      import('./pages/page-not-found/page-not-found.module').then((mod) => mod.PageNotFoundModule),
+  }
 ];
 
 @NgModule({

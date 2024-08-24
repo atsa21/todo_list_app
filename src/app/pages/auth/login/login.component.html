@@ -1,0 +1,26 @@
+<div class="page-container">
+    <div class="container">
+        <div class="headings">
+            <h1 class="activeText h-login title">Login</h1>
+            <a routerLink="/sign_up"><h1 class="switch-to-text title">Sign Up</h1></a>
+        </div>
+
+        <form [formGroup]="loginForm" class="form">
+            <mat-form-field appearance="outline" color="primary" floatLabel="always">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput placeholder="example@gmail.com" required>
+                <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
+                <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" color="primary" floatLabel="always">
+                <mat-label>Password</mat-label>
+                <input formControlName="password" [type]="hide ? 'password' : 'text'" matInput placeholder="enter your password" required>
+                <button mat-icon-button matSuffix type="button" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" (click)="hide = !hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
+            </mat-form-field>
+            <button [disabled]="!loginForm.valid" mat-flat-button class="btn-large" (click)="login()">Login</button>
+        </form>
+    </div>
+</div>

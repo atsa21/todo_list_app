@@ -1,0 +1,29 @@
+<div class="page-container">
+  <div *ngIf="wishList; else loading" class="page-box">
+      <div *ngIf="wishList.length; else nowish" class="wish-title-box">
+          <div class="wish-title">
+              <h1>Wish list</h1>
+              <button class="btn btn-accent" (click)="openDialog()">Add wish<i class="fa-regular fa-plus"></i></button>
+          </div>
+          <app-wish-card [wishList]="wishList"></app-wish-card>
+      </div>
+      <ng-template #nowish>
+          <div class="no-wish-box">
+              <div class="no-wish-image">
+                  <ng-lottie [options]="options"  width="320px" height="320px" [styles]="styles"></ng-lottie>
+                </div>
+                <div class="no-wish-descr">
+                  <p class="no-wish-text">You don't have any wish</p>
+                  <button class="btn btn-white btn-nt" type="button" (click)="openDialog()">
+                    Add wish <i class="fa-regular fa-plus"></i>
+                  </button>
+                </div>
+          </div>
+      </ng-template>
+  </div>
+  <ng-template #loading>
+      <div class="loading">
+          <app-loader></app-loader>
+      </div>
+  </ng-template>
+</div>

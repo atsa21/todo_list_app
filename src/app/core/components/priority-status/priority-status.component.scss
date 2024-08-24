@@ -1,0 +1,15 @@
+.priority {
+  display: flex;
+
+  & .fa-solid {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    height: 20px;
+    width: 20px;
+  }
+
+  & .p-priority {
+    font-size: 12px;
+  }
+}
