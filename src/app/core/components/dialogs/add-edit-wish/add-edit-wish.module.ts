@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DialogWishComponent } from './dialog-wish.component';
+import { AddEditWishComponent } from './add-edit-wish.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -10,9 +10,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { AddEditWishFormService } from './services/add-edit-wish-form.service';
 
 @NgModule({
-  declarations: [DialogWishComponent],
+  declarations: [AddEditWishComponent],
   imports: [
     CommonModule,
     MatDialogModule,
@@ -25,6 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatSelectModule,
   ],
-  exports: [DialogWishComponent]
+  exports: [AddEditWishComponent],
+  providers: [AddEditWishFormService]
 })
-export class DialogWishModule { }
+export class AddEditWishModule { }

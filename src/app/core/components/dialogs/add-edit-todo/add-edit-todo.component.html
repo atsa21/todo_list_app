@@ -48,12 +48,15 @@
             <mat-form-field appearance="outline" color="primary" floatLabel="always">
                 <mat-label>Add tags*</mat-label>
                 <mat-chip-list #chipList aria-label="Tag selection">
-                    <mat-chip *ngFor="let tag of tagsList" color="accent" class="tag" (removed)="removeTag(tag)" selected>
-                        {{tag}}
-                        <button matChipRemove>
-                          <mat-icon>cancel</mat-icon>
-                        </button>
-                    </mat-chip>
+                    <ng-container *ngIf="tagsList && tagsList.value && tagsList?.value.length">
+                        <mat-chip *ngFor="let tag of tagsList.value" color="accent" class="tag" (removed)="removeTag(tag)" selected>
+                            {{ tag }}
+                            <button matChipRemove>
+                              <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip>
+                    </ng-container>
+
                     <input placeholder="Enter new tag"
                             *ngIf="!cantAddTag"
                             minlength="2"
@@ -67,7 +70,7 @@
             </mat-form-field>
     
             <div mat-dialog-action [align]="'end'">
-                <button [disabled]="!todoForm.valid || !tagsList.length" mat-flat-button type="submit" class="submit-btn btn-main">{{actionBtn}}</button>
+                <button [disabled]="todoForm.invalid || !tagsList.value.length" mat-flat-button type="submit" class="submit-btn btn-main">{{ actionBtn }}</button>
             </div>
     
         </form>

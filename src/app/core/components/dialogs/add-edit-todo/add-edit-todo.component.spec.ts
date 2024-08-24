@@ -14,12 +14,12 @@ import { of } from 'rxjs';
 import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
 import { environment } from 'src/environments/environment';
 
-import { DialogTodoComponent } from './dialog-todo.component';
+import { AddEditTodoComponent } from './add-edit-todo.component';
 import { PriorityPipeModule } from '@core/pipes/priority-pipe/priority.pipe.module';
 
-describe('DialogTodoComponent', () => {
-  let component: DialogTodoComponent;
-  let fixture: ComponentFixture<DialogTodoComponent>;
+describe('AddEditTodoComponent', () => {
+  let component: AddEditTodoComponent;
+  let fixture: ComponentFixture<AddEditTodoComponent>;
 
   const todoMock = {
     category: 'work',
@@ -36,7 +36,7 @@ describe('DialogTodoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogTodoComponent ],
+      declarations: [ AddEditTodoComponent ],
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -62,7 +62,7 @@ describe('DialogTodoComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DialogTodoComponent);
+    fixture = TestBed.createComponent(AddEditTodoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     component.editData = todoMock;

@@ -47,7 +47,7 @@
                   </div>
                   <div *ngIf="row.open" class="mobile-description">
                     <div class="mobile-text">
-                      <span class="prior" [class]="row.checked ? 'ready' : getPriorityClass(row.priority)"> 
+                      <span class="prior" [class]="row.checked ? 'ready' : (row.priority | priority)"> 
                         <app-priority-status [priority]="row.priority"></app-priority-status>
                       </span>
                     </div>
@@ -79,7 +79,7 @@
 
               <ng-container matColumnDef="priority">
                 <mat-header-cell *matHeaderCellDef class="priority-col col-hide-mobile"> Priority </mat-header-cell>
-                <mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : getPriorityClass(row.priority)" class="priority-col col-hide-mobile">
+                <mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : (row.priority | priority)" class="priority-col col-hide-mobile">
                   <app-priority-status [priority]="row.priority"></app-priority-status>
                 </mat-cell>
               </ng-container>

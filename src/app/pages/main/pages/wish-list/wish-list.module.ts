@@ -8,7 +8,7 @@ import player from 'lottie-web';
 import { WishListComponent } from './wish-list.component';
 import { WishCardComponent } from './wish-card/wish-card.component';
 import { MatIconModule } from '@angular/material/icon';
-import { DialogWishModule } from '@core/components/dialog-wish/dialog-wish.module';
+import { AddEditWishModule } from '@core/components/dialogs/add-edit-wish/add-edit-wish.module';
 import { MatButtonModule } from '@angular/material/button';
 
 export function playerFactory() {
@@ -30,7 +30,7 @@ const routes: Routes = [
     MatIconModule,
     LoaderModule,
     LottieModule.forRoot({ player: playerFactory }),
-    DialogWishModule,
+    AddEditWishModule,
     MatButtonModule,
   ]
 })

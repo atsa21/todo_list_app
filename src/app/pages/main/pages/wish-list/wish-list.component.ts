@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogWishComponent } from '@core/components/dialog-wish/dialog-wish.component';
+import { AddEditWishComponent } from '@core/components/dialogs/add-edit-wish/add-edit-wish.component';
 import { WishListService } from '@core/services/wish-list/wish-list.service';
 import { AnimationOptions } from 'ngx-lottie';
 import { map } from 'rxjs';
@@ -47,7 +47,7 @@ export class WishListComponent implements OnInit {
   }
 
   openDialog(): void {
-    this.dialog.open(DialogWishComponent, {
+    this.dialog.open(AddEditWishComponent, {
       width: '420px'
     });
   }

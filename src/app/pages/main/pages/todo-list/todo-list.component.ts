@@ -6,10 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { TodoService } from '@core/services/todo/todo.service';
 import { map, Subject, take, takeUntil } from 'rxjs';
 import { Todo } from 'src/app/core/models/todo.model';
-import { UsersService } from '@core/services/users/users.service';
 import { AnimationOptions } from 'ngx-lottie';
-import { DialogTodoComponent } from '@core/components/dialog-todo/dialog-todo.component';
-import { FormControl } from '@angular/forms';
+import { AddEditTodoComponent } from '@core/components/dialogs/add-edit-todo/add-edit-todo.component';
 
 @Component({
   selector: 'app-todo-list',
@@ -107,7 +105,7 @@ export class TodoListComponent implements OnInit {
   }
 
   editTodo(row : Todo): void {
-    this.dialog.open(DialogTodoComponent, {
+    this.dialog.open(AddEditTodoComponent, {
       width: '420px',
       data:row
     })
@@ -123,7 +121,7 @@ export class TodoListComponent implements OnInit {
   }
 
   openDialog(): void {
-    this.dialog.open(DialogTodoComponent, {
+    this.dialog.open(AddEditTodoComponent, {
       width: '420px'
     });
   }
@@ -140,21 +138,6 @@ export class TodoListComponent implements OnInit {
   getStyle(checked: boolean, date: string): string {
     const isPast = this.checkPastDate(date);
     return checked ? 'ready' : (isPast ? 'past' : 'unready');
-  }
-
-  getPriorityIcon(priority: number): string {
-    switch (priority) {
-      case 1:
-        return 'fa-circle-exclamation';
-      case 2:
-        return 'fa-angles-up';
-      case 3:
-        return 'fa-angle-up';
-      case 4:
-        return 'fa-angle-down';
-      default:
-        return 'error';
-    }
   }
 
   getPriorityClass(priority: number): string {

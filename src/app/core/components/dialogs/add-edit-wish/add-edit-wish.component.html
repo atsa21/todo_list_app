@@ -1,6 +1,6 @@
 <div *ngIf="wishForm" class="dialog-container">
     <div class="header">
-        <h1 class="fs-2 m-0">{{dialogTitle}}</h1>
+        <h1 class="fs-2 m-0">{{ dialogTitle }}</h1>
         <button mat-dialog-close class="close-btn">
             <mat-icon>clear</mat-icon>
         </button>
@@ -28,7 +28,7 @@
                     [resizeToWidth]="480" 
                     format="png"
                     (imageCropped)="imageCropped($event)"
-                    (imageLoaded)="imageLoaded($event)"
+                    (imageLoaded)="imageLoaded()"
                     (loadImageFailed)="loadImageFailed()"
                     ></image-cropper>
                     <div class="button-box" *ngIf="croppedImage">

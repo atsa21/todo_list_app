@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogWishComponent } from 'src/app/core/components/dialog-wish/dialog-wish.component';
+import { AddEditWishComponent } from '@core/components/dialogs/add-edit-wish/add-edit-wish.component';
 import { Wish } from 'src/app/core/models/wish.model';
 import { WishListService } from '@core/services/wish-list/wish-list.service';
 
@@ -18,7 +18,7 @@ export class WishCardComponent {
   ) { }
 
   editWish(row : Wish): void {
-    this.dialog.open(DialogWishComponent, {
+    this.dialog.open(AddEditWishComponent, {
       width: '420px',
       data:row
     })

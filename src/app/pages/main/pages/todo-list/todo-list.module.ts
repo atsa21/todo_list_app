@@ -14,12 +14,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { DialogTodoModule } from '@core/components/dialog-todo/dialog-todo.module';
+import { AddEditTodoModule } from '@core/components/dialogs/add-edit-todo/add-edit-todo.module';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PriorityStatusModule } from '@core/components/priority-status/priority-status.module';
+import { PriorityPipeModule } from '@core/pipes/priority-pipe/priority.pipe.module';
 
 export function playerFactory() {
   return player;
@@ -48,7 +49,8 @@ const routes: Routes = [
     MatPaginatorModule,
     MatProgressBarModule,
     MatSortModule,
-    DialogTodoModule,
+    AddEditTodoModule,
+    PriorityPipeModule,
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,

@@ -11,11 +11,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
 import { environment } from 'src/environments/environment';
 
-import { DialogWishComponent } from './dialog-wish.component';
+import { AddEditWishComponent } from './add-edit-wish.component';
 
-describe('DialogWishComponent', () => {
-  let component: DialogWishComponent;
-  let fixture: ComponentFixture<DialogWishComponent>;
+describe('AddEditWishComponent', () => {
+  let component: AddEditWishComponent;
+  let fixture: ComponentFixture<AddEditWishComponent>;
 
   const MatDialogRefMock = {
     close: () => {}
@@ -32,7 +32,7 @@ describe('DialogWishComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogWishComponent ],
+      declarations: [ AddEditWishComponent ],
       imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -56,7 +56,7 @@ describe('DialogWishComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DialogWishComponent);
+    fixture = TestBed.createComponent(AddEditWishComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -67,7 +67,6 @@ describe('DialogWishComponent', () => {
 
   it('should change data to edit data onInit', () => {
     component.editData = editDataMock;
-    fixture.detectChanges();
   
     component.ngOnInit();
     expect(component.dialogTitle).toBe('Edit Wish');
