@@ -1,6 +1,6 @@
 export enum EPriority {
   Critical = 'critical',
   High = 'high',
-  Medium = 'Medium',
+  Medium = 'medium',
   Low = 'low'
 }
