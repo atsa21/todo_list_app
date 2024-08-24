@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { DateAdapter } from '@angular/material/core';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -16,19 +16,26 @@ import { environment } from 'src/environments/environment';
 
 import { AddEditTodoComponent } from './add-edit-todo.component';
 import { PriorityPipeModule } from '@core/pipes/priority-pipe/priority.pipe.module';
+import { AddEditTodoFormService } from './services/add-edit-todo-form.service';
 
 describe('AddEditTodoComponent', () => {
   let component: AddEditTodoComponent;
   let fixture: ComponentFixture<AddEditTodoComponent>;
+  let formBuilder: FormBuilder;
 
   const todoMock = {
     category: 'work',
     task: 'Some task',
-    priopity: 'low'
+    priopity: 'low',
+    tags: ['test'],
   };
 
   const MatDialogRefMock = {
     close: () => {}
+  };
+
+  const addEditTodoFormServiceMock = {
+    createForm: (data: any) => {}
   };
 
   const dateAdapterMock = jasmine.createSpyObj('adapter', ['setLocale']);
@@ -54,7 +61,8 @@ describe('AddEditTodoComponent', () => {
         { provide: MatDialogRef, useValue: MatDialogRefMock },
         { provide: MAT_DIALOG_DATA, useValue: todoMock },
         { provide: SnackBarService, useValue: {} },
-        { provide: DateAdapter, useValue: dateAdapterMock }
+        { provide: DateAdapter, useValue: dateAdapterMock },
+        { provide: AddEditTodoFormService, useValue: addEditTodoFormServiceMock}
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -64,11 +72,48 @@ describe('AddEditTodoComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AddEditTodoComponent);
     component = fixture.componentInstance;
+    formBuilder = TestBed.inject(FormBuilder);
+
+    addEditTodoFormServiceMock.createForm = (data: any) => {
+      return formBuilder.group({
+        category: new FormControl(data?.category || null),
+        task: new FormControl(data?.task || null),
+        date: new FormControl(null),
+        priority: new FormControl(data?.priopity || null),
+        tags: new FormControl(data?.tags || []),
+        authorId: 1,
+        checked: false
+      })
+    };
+
     fixture.detectChanges();
-    component.editData = todoMock;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should data be add data onInit', () => {
+    component.editData = null;
+    fixture.detectChanges();
+
+    component.ngOnInit();
+    expect(component.category.value).toBeNull();
+    expect(component.task.value).toBeNull();
+    expect(component.priority.value).toBeNull();
+    expect(component.tagsList.value).toEqual([]);
+  });
+
+  it('should change data to edit data onInit', () => {
+    component.editData = todoMock;
+    fixture.detectChanges();
+  
+    component.ngOnInit();
+    expect(component.dialogTitle).toBe('Edit Todo');
+    expect(component.actionBtn).toBe('Save');
+    expect(component.category.value).toBe('work');
+    expect(component.task.value).toBe('Some task');
+    expect(component.priority.value).toBe('low');
+    expect(component.tagsList.value).toEqual(['test']);
   });
 });

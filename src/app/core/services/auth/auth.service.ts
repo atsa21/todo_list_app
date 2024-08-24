@@ -10,9 +10,6 @@ import { UsersService } from '../users/users.service';
   providedIn: 'root'
 })
 export class AuthService {
-
-  private userId: string = '';
-
   constructor(
     private fireAuth: AngularFireAuth,
     private router: Router,
@@ -21,7 +18,7 @@ export class AuthService {
     private localStorService: LocalStorageService
   ) { }
 
-  login(email: string, password: string): void {
+  public login(email: string, password: string): void {
     this.fireAuth.signInWithEmailAndPassword(email, password)
     .then(() => {
       this.localStorService.setToken('true');
@@ -29,8 +26,7 @@ export class AuthService {
       const auth = getAuth();
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          this.userId = user.uid;
-          this.localStorService.setUserId(this.userId);
+          this.localStorService.setUserId(user.uid);
         }
         this.router.navigate(['/main']);
       });
@@ -40,11 +36,11 @@ export class AuthService {
     })
   }
 
-  isLoggedIn(): boolean {
+  public isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  signUp(email: string, password: string, user: any): void {
+  public signUp(email: string, password: string, user: any): void {
     this.fireAuth.createUserWithEmailAndPassword(email, password)
     .then (() => {
       this.userService.createUser(user);
@@ -56,7 +52,7 @@ export class AuthService {
     })
   }
 
-  logOut(): void {
+  public logOut(): void {
     this.fireAuth.signOut()
     .then (() => {
       this.localStorService.removeAll();

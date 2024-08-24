@@ -43,16 +43,10 @@ describe('TodoListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set user id onInit', () => {
-    component.ngOnInit();
-    expect((component as any).userId).toBe('fakeId');
-  });
+  it('should call getAllTodo methods OnInit', () => {
+    const spy = spyOn((component as any), 'getAllTodo');
 
-  it('should call all methods onInit', () => {
-    const spy1 = spyOn((component as any), 'getAllTodo');
-    const spy2 = spyOn((component as any), 'getUser');
     component.ngOnInit();
-    expect(spy1).toHaveBeenCalled();
-    expect(spy2).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 });

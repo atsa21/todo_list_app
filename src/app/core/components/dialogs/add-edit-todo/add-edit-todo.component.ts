@@ -29,9 +29,9 @@ export class AddEditTodoComponent implements OnInit {
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   constructor(
-    private todoService: TodoService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
-    private dialogReg: MatDialogRef<AddEditTodoComponent>,
+    private todoService: TodoService,
+    private dialogRef: MatDialogRef<AddEditTodoComponent>,
     private snackbar: SnackBarService,
     private addEditTodoFormService: AddEditTodoFormService,
     private dateAdapter: DateAdapter<Date>
@@ -40,23 +40,23 @@ export class AddEditTodoComponent implements OnInit {
     this.minDate = new Date();
   }
 
-  get category(): FormControl {
+  public get category(): FormControl {
     return this.todoForm.get(EControlNames.Category) as FormControl;
   }
 
-  get date(): FormControl {
+  public get date(): FormControl {
     return this.todoForm.get(EControlNames.Date) as FormControl;
   }
 
-  get priority(): FormControl {
+  public get priority(): FormControl {
     return this.todoForm.get(EControlNames.Priority) as FormControl;
   }
 
-  get task(): FormControl {
+  public get task(): FormControl {
     return this.todoForm.get(EControlNames.Task) as FormControl;
   }
 
-  get tagsList(): FormControl {
+  public get tagsList(): FormControl {
     return this.todoForm.get(EControlNames.Tags) as FormControl;
   }
 
@@ -71,7 +71,7 @@ export class AddEditTodoComponent implements OnInit {
     console.log(this.todoForm);
   }
 
-  addTag(event: MatChipInputEvent): void {
+  public addTag(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     const isValidTag = value.length >= 2 && value.length <= 14 && !this.tagsList?.value.includes(value);
     if (isValidTag) {
@@ -81,7 +81,7 @@ export class AddEditTodoComponent implements OnInit {
     }
   }
 
-  removeTag(tag: string): void {
+  public removeTag(tag: string): void {
     const index = this.tagsList?.value.indexOf(tag);
     if (index >= 0) {
       const newValue = this.tagsList?.value;
@@ -92,15 +92,15 @@ export class AddEditTodoComponent implements OnInit {
     this.checkTagLength();
   }
 
-  checkTagLength(): void {
+  public checkTagLength(): void {
     this.tagsList?.value.length === 3 ? this.cantAddTag = true : this.cantAddTag = false;
   }
 
-  addTodo(): void {
+  public addTodo(): void {
     if(!this.editData){
       if(this.todoForm.valid){
         this.todoService.createTodo(this.todoForm.value).then(() => {
-          this.dialogReg.close();
+          this.dialogRef.close();
         });
       }
     } else {
@@ -108,11 +108,11 @@ export class AddEditTodoComponent implements OnInit {
     }
   }
 
-  updateTodo(){
+  public updateTodo(){
     const dateString = this.todoForm.value.date.toString();
     this.date?.setValue(dateString);
     this.todoService.updateTodo(this.todoForm.value, this.key).then(() => {
-      this.dialogReg.close();
+      this.dialogRef.close();
       this.snackbar.openSnackBar('Task Updated', 'success', 'Close');
     });
   }

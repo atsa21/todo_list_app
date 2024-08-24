@@ -1,19 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { environment } from 'src/environments/environment';
-
 import { AddEditTodoFormService } from './add-edit-todo-form.service';
+import { FormBuilder } from '@angular/forms';
 
 describe('AddEditTodoFormService', () => {
   let service: AddEditTodoFormService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFireDatabaseModule
-      ]
+      providers: [AddEditTodoFormService, FormBuilder],
     });
     service = TestBed.inject(AddEditTodoFormService);
   });

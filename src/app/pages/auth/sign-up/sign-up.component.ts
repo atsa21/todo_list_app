@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@core/services/auth/auth.service';
-import { User } from 'src/app/core/models/user.model';
+import { UserModel } from '@core/models';
 import { Patterns } from 'src/assets/patterns/patterns';
 
 @Component({
@@ -10,10 +10,10 @@ import { Patterns } from 'src/assets/patterns/patterns';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-
-  signUpForm !: FormGroup;
-  user: User = new User();
+  public signUpForm?: FormGroup;
   public hide = true;
+
+  private user: UserModel = new UserModel();
 
   constructor(
     private auth : AuthService,
@@ -28,23 +28,23 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  get name(){
-    return this.signUpForm.get('name');
+  public get name(): FormControl {
+    return this.signUpForm?.get('name') as FormControl;
   }
 
-  get email(){
-    return this.signUpForm.get('email');
+  public get email(): FormControl {
+    return this.signUpForm?.get('email') as FormControl;
   }
 
-  get password(){
-    return this.signUpForm.get('password');
+  public get password(): FormControl {
+    return this.signUpForm?.get('password') as FormControl;
   }
 
   public signUp(){
-    if(this.signUpForm.valid){
-      this.user.username = this.signUpForm.value.name;
-      this.user.email = this.signUpForm.value.email;
-      this.auth.signUp(this.signUpForm.value.email, this.signUpForm.value.password, this.user);
+    if (this.signUpForm?.valid) {
+      this.user.username = this.signUpForm?.value.name;
+      this.user.email = this.signUpForm?.value.email;
+      this.auth.signUp(this.signUpForm?.value.email, this.signUpForm?.value.password, this.user);
     }
   };
 

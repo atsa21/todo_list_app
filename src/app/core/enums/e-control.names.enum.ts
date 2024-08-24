@@ -11,4 +11,7 @@ export enum EControlNames {
   Price = 'price',
   Currency = 'currency',
   Link = 'link',
+  Username = 'username',
+  ProfilePhoto = 'profile_photo',
+  Key = 'key',
 }

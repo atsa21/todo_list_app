@@ -1,20 +1,20 @@
 <div class="profile-container">
     <div class="profile-box">
-        <div *ngIf="user; else loading" class="profile">
+        <div *ngIf="profileForm; else loading" class="profile">
             <h1 class="text-center">Edit profile</h1>
             <form [formGroup]="profileForm" class="form">
                 <div class="img-crop-container">
                     <div class="title-box">
                         <h3 class="h3 text-center">Select profile picture (JPG/JPEG/PNG)</h3>
                     </div>
-                    <div *ngIf="!croppedImage && profileForm.get('profile_photo').value" class="edit-photo">
-                        <img [src]="profileForm.get('profile_photo').value" class="prof-photo"/>
+                    <div *ngIf="!croppedImage && profilePhoto.value" class="edit-photo">
+                        <img [src]="profilePhoto.value" class="prof-photo"/>
                         <div class="edit-photo-btn">
                             <label class="btn-round btn-edit" for="upload-photo"><i class="fa-regular fa-pen-to-square"></i></label>
                             <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
                         </div>
                     </div>
-                    <div class="file-input" *ngIf="!croppedImage && !profileForm.get('profile_photo').value">
+                    <div class="file-input" *ngIf="!croppedImage && !profilePhoto.value">
                         <label class="btn-upload" for="upload-photo">Select image</label>
                         <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
                     </div>
@@ -27,7 +27,7 @@
                         [resizeToWidth]="160" 
                         format="png"
                         (imageCropped)="imageCropped($event)"
-                        (imageLoaded)="imageLoaded($event)"
+                        (imageLoaded)="imageLoaded()"
                         (loadImageFailed)="loadImageFailed()"
                         ></image-cropper>
                         <div class="edit-photo-btn" *ngIf="croppedImage">

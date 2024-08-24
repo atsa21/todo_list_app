@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/core/models/user.model';
+import { UserModel } from '@core/models';
 import { UsersService } from '@core/services/users/users.service';
 import { map } from 'rxjs';
-import { AbstractControl, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Patterns } from 'src/assets/patterns/patterns';
-import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
+import { ProfileFormService } from './services/profile-form.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,37 +13,33 @@ import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  public profileForm?: FormGroup;
 
-  user!: User;
-  edit: boolean = false;
-  profileForm: any;
+  public imageChangedEvent: any = '';
+  public croppedImage: any = '';
+  public showCropper = false;
 
-  imageChangedEvent: any = '';
-  croppedImage: any = '';
-  showCropper = false;
+  private user?: UserModel;
 
   constructor(
-    private fb: FormBuilder,
     private userService: UsersService,
+    private profileFormService: ProfileFormService,
     private snackbar: SnackBarService
   ) { }
 
+  public get username(): FormControl {
+    return this.profileForm?.get('username') as FormControl;
+  }
+
+  public get profilePhoto(): FormControl {
+    return this.profileForm?.get('profile_photo') as FormControl;
+  }
+
+  public get key(): FormControl {
+    return this.profileForm?.get('key') as FormControl;
+  }
+
   ngOnInit(): void {
-    this.getUser();
-    this.initForm();
-  }
-
-  initForm(): void {
-    this.profileForm = this.fb.group({
-      username: new FormControl('', [Validators.required, Validators.pattern(Patterns.NamePattern)]),
-      profile_photo: (''),
-      key: (''),
-      image: new FormControl('')
-    });
-
-  }
-
-  getUser(): void {
     this.userService.getUser().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -52,59 +48,38 @@ export class ProfileComponent implements OnInit {
       )
     ).subscribe(data => {
       this.user = data[0];
-      this.username.setValue(this.user.username);
-      this.profile_photo.setValue(this.user.profile_photo);
-      this.key.setValue(this.user.key);
+      this.profileForm = this.profileFormService.createForm(this.user);
     });
   }
 
-  getControl(control: string): AbstractControl {
-    return this.profileForm.get(control);
-  }
-
-  get username(){
-    return this.profileForm.get('username');
-  }
-
-  get profile_photo(){
-    return this.profileForm.get('profile_photo');
-  }
-
-  get key(){
-    return this.profileForm.get('key');
-  }
-
-  fileChangeEvent(event: any): void {
+  public fileChangeEvent(event: any): void {
     const isImage = event.target.files[0].type === 'image/jpeg' || event.target.files[0].type === 'image/jpg' || event.target.files[0].type === 'image/png';
-    if(isImage) {
-      this.imageChangedEvent = event;
-    } else {
-      this.snackbar.openSnackBar('Invalid image format', 'error', 'Close');
-    }
+    isImage ? this.imageChangedEvent = event : this.snackbar.openSnackBar('Invalid image format', 'error', 'Close');
   } 
 
-  imageCropped(event: ImageCroppedEvent): void {
+  public imageCropped(event: ImageCroppedEvent): void {
     this.croppedImage = event.base64;
   }
 
-  imageLoaded(image: LoadedImage): void {
+  public imageLoaded(): void {
     this.showCropper = true;
   }
 
-  loadImageFailed(): void {
+  public loadImageFailed(): void {
     this.snackbar.openSnackBar('Load image is failed', 'error', 'Close');
   }
 
-  submit(): void {
-    if(this.profileForm.valid) {
-      this.profileForm.key = this.user.key;
-      if(this.croppedImage) {
-        this.profile_photo.setValue(this.croppedImage);
+  public submit(): void {
+    if (this.profileForm?.valid) {
+      this.key.setValue(this.user?.key);
+
+      if (this.croppedImage) {
+        this.profilePhoto.setValue(this.croppedImage);
       }
+
       this.userService.updateUser(this.profileForm.value).then(() => {
         this.snackbar.openSnackBar('Profile was updated', 'success', 'Close');
       });
     }
   }
-
 }
