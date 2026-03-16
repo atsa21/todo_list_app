@@ -68,7 +68,6 @@ export class AddEditTodoComponent implements OnInit {
     }
 
     this.todoForm = this.addEditTodoFormService.createForm(this.editData);
-    console.log(this.todoForm);
   }
 
   public addTag(event: MatChipInputEvent): void {
