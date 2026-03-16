@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -68,7 +68,6 @@ export class AddEditTodoComponent implements OnInit {
     }
 
     this.todoForm = this.addEditTodoFormService.createForm(this.editData);
-    console.log(this.todoForm);
   }
 
   public addTag(event: MatChipInputEvent): void {

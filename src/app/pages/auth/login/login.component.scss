@@ -1,3 +1,5 @@
+@use "src/assets/styles/vars" as *;
+
 .page-container {
     display: flex;
     flex-direction: row;
@@ -40,15 +42,15 @@
     align-content: center;
     gap: 14px;
 
-    .mat-form-field {
+    .mat-mdc-form-field {
         width: 80%;
 
-        .mat-form-field-label {
+        .mat-mdc-form-field-label {
             color: var(--black) !important;
         }
     }
     
-    .mat-form-field-flex .mat-form-field-infix {
+    .mat-mdc-form-field-flex .mat-mdc-form-field-infix {
         padding: 12px 0px !important;
     }
 }
@@ -62,7 +64,7 @@
     padding: 6px 16px;
     width: 80%;
     color: var(--white);
-    background-color: var(--accent);
+    background-color: $accent;
     transition: all 0.4s;
 
     &:hover:enabled {
@@ -104,7 +106,7 @@ a {
     }
 
     .form {
-        .mat-form-field {
+        .mat-mdc-form-field {
             width: 90%;
         }
     }

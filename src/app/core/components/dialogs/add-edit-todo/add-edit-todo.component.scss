@@ -1,13 +1,13 @@
 :host ::ng-deep .form {
-    .mat-form-field {
+    .mat-mdc-form-field {
         width: 100%;
 
-        .mat-form-field-label {
+        .mat-mdc-form-field-label {
             color: var(--black) !important;
         }
     }
     
-    .mat-form-field-flex .mat-form-field-infix {
+    .mat-mdc-form-field-flex .mat-mdc-form-field-infix {
         padding: 12px 0px !important;
     }
 }
@@ -22,6 +22,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 16px 20px 8px 20px;
+}
+
+.subtitle {
+    padding: 0 20px;
 }
 
 .tag {
@@ -47,10 +52,10 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-}
 
-.close-btn:hover {
+    &:hover {
     color: rgb(101, 101, 101);
+}
 }
 
 .submit-btn {

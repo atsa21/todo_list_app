@@ -27,7 +27,7 @@ p {
         display: flex;
         flex-direction: column;
 
-        .mat-form-field {
+        .mat-mdc-form-field {
             font-size: 14px;
         }
     }
@@ -72,13 +72,13 @@ p {
 }
 
 :host ::ng-deep .form {
-    .mat-form-field {
-        .mat-form-field-label {
+    .mat-mdc-form-field {
+        .mat-mdc-form-field-label {
             color: var(--black) !important;
         }
     }
     
-    .mat-form-field-flex .mat-form-field-infix {
+    .mat-mdc-form-field-flex .mat-mdc-form-field-infix {
         padding: 12px 0px !important;
     }
 }
@@ -319,7 +319,7 @@ ul {
 
     .form {
 
-        .mat-form-field {
+        .mat-mdc-form-field {
             width: 180px;
         }
     }
@@ -425,7 +425,7 @@ ul {
         padding: 16px;
     }
 
-    .form .mat-form-field {
+    .form .mat-mdc-form-field {
         width: 120px;
     }
 

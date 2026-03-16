@@ -3,15 +3,15 @@
 }
 
 :host ::ng-deep .form {
-    .mat-form-field {
+    .mat-mdc-form-field {
         width: 100%;
 
-        .mat-form-field-label {
+        .mat-mdc-form-field-label {
             color: var(--black) !important;
         }
     }
     
-    .mat-form-field-flex .mat-form-field-infix {
+    .mat-mdc-form-field-flex .mat-mdc-form-field-infix {
         padding: 12px 0px !important;
     }
 }
