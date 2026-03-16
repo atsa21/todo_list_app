@@ -20,7 +20,7 @@
                 </button>
                 <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
             </mat-form-field>
-            <button [disabled]="!loginForm.valid" mat-flat-button class="btn-large" (click)="login()">Login</button>
+            <button mat-flat-button class="btn-large" [disabled]="!loginForm.valid" (click)="login()">Login</button>
         </form>
     </div>
 </div>

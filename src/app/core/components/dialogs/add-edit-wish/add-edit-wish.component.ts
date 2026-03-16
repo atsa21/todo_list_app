@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog'
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { Currency } from 'src/app/core/models/currency.model';
 import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';

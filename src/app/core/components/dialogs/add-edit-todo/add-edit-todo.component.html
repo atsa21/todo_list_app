@@ -47,7 +47,7 @@
     
             <mat-form-field appearance="outline" color="primary" floatLabel="always">
                 <mat-label>Add tags*</mat-label>
-                <mat-chip-list #chipList aria-label="Tag selection">
+                <mat-chip-grid #chipList aria-label="Tag selection">
                     <ng-container *ngIf="tagsList && tagsList.value && tagsList?.value.length">
                         <mat-chip *ngFor="let tag of tagsList.value" color="accent" class="tag" (removed)="removeTag(tag)" selected>
                             {{ tag }}
@@ -66,7 +66,7 @@
                             [matChipInputAddOnBlur]="addOnBlur"
                             (matChipInputTokenEnd)="addTag($event)"
                             required>
-                </mat-chip-list>
+                </mat-chip-grid>
             </mat-form-field>
     
             <div mat-dialog-action [align]="'end'">

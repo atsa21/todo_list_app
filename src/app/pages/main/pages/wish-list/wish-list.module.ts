@@ -9,7 +9,7 @@ import { WishListComponent } from './wish-list.component';
 import { WishCardComponent } from './wish-card/wish-card.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AddEditWishModule } from '@core/components/dialogs/add-edit-wish/add-edit-wish.module';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 
 export function playerFactory() {
   return player;

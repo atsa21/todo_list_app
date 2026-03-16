@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WishCardComponent } from './wish-card.component';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { WishListService } from '@core/services/wish-list/wish-list.service';
 
