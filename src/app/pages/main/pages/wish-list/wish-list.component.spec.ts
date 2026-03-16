@@ -4,8 +4,8 @@ import { WishListComponent } from './wish-list.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { of } from 'rxjs';
 
 class MatDialogMock {

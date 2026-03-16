@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { HeaderComponent } from './header.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 import { RouterModule } from '@angular/router';
 
 @NgModule({

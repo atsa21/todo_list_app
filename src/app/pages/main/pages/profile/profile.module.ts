@@ -7,8 +7,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { ProfileComponent } from './profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
 import { ProfileFormService } from './services/profile-form.service';
 
 const routes: Routes = [
