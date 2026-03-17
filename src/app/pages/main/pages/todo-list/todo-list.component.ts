@@ -10,10 +10,11 @@ import { AnimationOptions } from 'ngx-lottie';
 import { AddEditTodoComponent } from '@core/components/dialogs/add-edit-todo/add-edit-todo.component';
 
 @Component({
-  selector: 'app-todo-list',
-  templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-todo-list',
+    templateUrl: './todo-list.component.html',
+    styleUrls: ['./todo-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TodoListComponent implements OnInit {
 

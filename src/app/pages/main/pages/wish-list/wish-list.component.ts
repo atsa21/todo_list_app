@@ -6,9 +6,10 @@ import { AnimationOptions } from 'ngx-lottie';
 import { map } from 'rxjs';
 
 @Component({
-  selector: 'app-wish-list',
-  templateUrl: './wish-list.component.html',
-  styleUrls: ['./wish-list.component.scss']
+    selector: 'app-wish-list',
+    templateUrl: './wish-list.component.html',
+    styleUrls: ['./wish-list.component.scss'],
+    standalone: false
 })
 export class WishListComponent implements OnInit {
   public wishList: any;

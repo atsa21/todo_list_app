@@ -4,9 +4,10 @@ import { AuthService } from '@core/services/auth/auth.service';
 import { NavigationList } from 'src/app/core/models/navigation-list';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    standalone: false
 })
 export class HeaderComponent implements AfterViewInit {
 

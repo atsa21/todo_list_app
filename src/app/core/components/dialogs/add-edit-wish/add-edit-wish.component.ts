@@ -9,9 +9,10 @@ import { AddEditWishFormService } from './services/add-edit-wish-form.service';
 import { EControlNames } from '@core/enums';
 
 @Component({
-  selector: 'app-add-edit-wish',
-  templateUrl: './add-edit-wish.component.html',
-  styleUrls: ['./add-edit-wish.component.scss']
+    selector: 'app-add-edit-wish',
+    templateUrl: './add-edit-wish.component.html',
+    styleUrls: ['./add-edit-wish.component.scss'],
+    standalone: false
 })
 export class AddEditWishComponent implements OnInit {
   public wishForm!: FormGroup;
