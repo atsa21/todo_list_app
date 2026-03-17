@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { child, getDatabase, push, ref, set } from "firebase/database";
-import { getAuth } from "firebase/auth";
+import { getAuth } from '@angular/fire/auth';
 import { UserModel } from '@core/models';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { LocalStorageService } from '@core/services/local-storage/local-storage.service';

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
 import { Router } from '@angular/router';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { SnackBarService } from '../snack-bar/snack-bar.service';
 import { UsersService } from '../users/users.service';
+import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
