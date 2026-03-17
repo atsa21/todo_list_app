@@ -1,3 +1,5 @@
+@use "src/assets/styles/vars" as *;
+
 .dialog-container {
     padding: 12px;
 }
@@ -7,7 +9,7 @@
         width: 100%;
 
         .mat-mdc-form-field-label {
-            color: var(--black) !important;
+            color: $black !important;
         }
     }
     
@@ -24,15 +26,15 @@
 }
 
 .tag {
-    color: var(--white);
+    color: $white;
 }
 
 .btn-main {
-    color: var(--white);
-    background-color: var(--accent);
+    color: $white;
+    background-color: $accent;
 
     &:hover {
-        border-color: var(--accent-hover);
+        border-color: $black;
     }
 }
 
@@ -75,15 +77,15 @@
     align-items: center;
     height: 330px;
     width: 330px;
-    border: 2px dashed var(--accent);
+    border: 2px dashed $accent;
     border-radius: 4px;
-    color: var(--accent);
+    color: $accent;
     cursor: pointer;
     transition: all 0.4s ease-in-out;
 
     &:hover {
-        color: var(--black);
-        border: 2px dashed var(--black);
+        color: $black;
+        border: 2px dashed $black;
     }
 }
 
@@ -99,13 +101,13 @@
     padding: 12px;
     width: 330px;
     border-radius: 4px;
-    color: var(--white);
-    background-color: var(--black);
+    color: $white;
+    background-color: $black;
     cursor: pointer;
     transition: all 0.4s ease-in-out;
 
     &:hover {
-        background-color: var(--accent);
+        background-color: $accent;
     }
 
     label {

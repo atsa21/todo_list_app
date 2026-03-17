@@ -1,3 +1,5 @@
+@use "src/assets/styles/vars" as *;
+
 .profile-container {
     display: flex;
     justify-content: center;
@@ -23,7 +25,7 @@
     max-height: 80vh;
     width: 400px;
     padding: 48px;
-    background-color: var(--white);
+    background-color: $white;
     border: 1px solid var(--light-grey);
 }
 
@@ -59,11 +61,11 @@ h1 {
     height: 50px;
     padding: 0 18px;
     width: 240px;
-    color: var(--white);
-    background-color: var(--accent);
+    color: $white;
+    background-color: $accent;
 
     &:hover {
-        background-color: var(--accent-hover);
+        background-color: $black;
     }
 }
 
@@ -100,14 +102,14 @@ h1 {
     align-items: center;
     height: 140px;
     width: 140px;
-    border: 2px dashed var(--accent);
-    color: var(--accent);
+    border: 2px dashed $accent;
+    color: $accent;
     cursor: pointer;
     transition: all 0.4s ease-in-out;
 
     &:hover {
-        color: var(--black);
-        border: 2px dashed var(--black);
+        color: $black;
+        border: 2px dashed $black;
     }
 }
 
@@ -131,14 +133,14 @@ h1 {
     width: 34px;
     border-radius: 50%;
     border: 0;
-    color: var(--white);
-    background-color: var(--black);
+    color: $white;
+    background-color: $black;
     z-index: 99;
     cursor: pointer;
     transition: all 0.4s ease-in-out;
 
     &:hover {
-        background-color: var(--accent);
+        background-color: $accent;
     }
 
     .btn-round {

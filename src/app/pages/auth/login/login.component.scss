@@ -46,7 +46,7 @@
         width: 80%;
 
         .mat-mdc-form-field-label {
-            color: var(--black) !important;
+            color: $black !important;
         }
     }
     
@@ -63,12 +63,12 @@
     font-size: 16px;
     padding: 6px 16px;
     width: 80%;
-    color: var(--white);
+    color: $white;
     background-color: $accent;
     transition: all 0.4s;
 
     &:hover:enabled {
-        background-color: var(--accent-hover);
+        background-color: $black;
     }
 }
 
@@ -91,7 +91,7 @@ a {
     transition: all 0.4s;
 
     &:hover {
-        color: var(--accent);
+        color: $accent;
         cursor: pointer;
     }
 }

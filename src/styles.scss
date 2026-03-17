@@ -1,3 +1,4 @@
+@use "src/assets/styles/vars" as *;
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 * {
@@ -12,7 +13,7 @@ html, body {
 }
 
 body {
-  background-color: var(--yellow);
+  background-color: $yellow;
 }
 
 .text-center {
@@ -31,46 +32,46 @@ body {
 }
 
 .btn-accent {
-  color: var(--white);
-  background-color: var(--accent);
+  color: $white;
+  background-color: $accent;
   transition: all 0.4s ease-in-out;
 
   &:hover:enabled {
-    color: var(--white);
-    background-color: var(--accent-hover);
+    color: $white;
+    background-color: $black;
   }
 }
 
 .btn-white {
-  color: var(--black);
-  background-color: var(--white);
+  color: $black;
+  background-color: $white;
   transition: all 0.4s ease-in-out;
 
   &:hover:enabled {
-    color: var(--white);
-    background-color: var(--accent-hover);
+    color: $white;
+    background-color: $black;
   }
 }
 
 .error-snack-bar {
-  color: var(--black);
-  background-color: var(--danger);
+  color: $black;
+  background-color: $danger;
 
   .mat-simple-snackbar-action {
-    color: var(--black);
+    color: $black;
   }
 }
 
 .success-snack-bar {
-  color: var(--black);
-  background-color: var(--accent);
+  color: $black;
+  background-color: $accent;
 
   .mat-simple-snackbar-action {
-    color: var(--black);
+    color: $black;
   }
 }
 
 .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
-  color: var(--black);
-  background: var(--accent);
+  color: $black;
+  background: $accent;
 }
