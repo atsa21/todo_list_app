@@ -1,31 +1,41 @@
-<mat-toolbar class="header" *ngIf="user">
-  <span class="welcome-title" routerLink="todo">Hello, {{ user.username }}!</span>
-  <ul class="nav-list">
-    <li class="list" *ngFor="let nav of navList" [routerLink]="nav.link" (click)="getPageLink()">
-        <a [ngClass]="currentPage === nav.link ? 'nav-item-now' : 'nav-item'">{{nav.name}}</a>
-    </li>
-  </ul>
-  <div class="header-right">
-    <p *ngIf="user.username">{{ user.username }}</p>
-    <div>
-      <img *ngIf="user.profile_photo; else icon" class="user-photo" [src]="user.profile_photo" [matMenuTriggerFor]="menu"/>
-      <ng-template #icon>
-        <button mat-mini-fab [matMenuTriggerFor]="menu" class="btn">
-          <mat-icon>person icon</mat-icon>
-        </button>
-      </ng-template>
-    </div>
-    <mat-menu #menu="matMenu" xPosition="before">
-      <div class="nav-list-mobile">
-        <div mat-menu-item class="list" *ngFor="let nav of navList" [routerLink]="nav.link" (click)="getPageLink()">
-          <mat-icon>{{ nav.icon }}</mat-icon>
-          <a class="nav-mobile">{{nav.name}}</a>
-        </div>
+@if(user()) {
+  <mat-toolbar class="header">
+    <span class="welcome-title" routerLink="todo">Hello, {{ user()?.username }}!</span>
+    <ul class="nav-list">
+      @for (nav of navList; track nav) {
+        <li class="list" [routerLink]="nav.link" >
+            <a [ngClass]="currentPage === nav.link ? 'nav-item-now' : 'nav-item'">{{ nav.name }}</a>
+        </li>
+      }
+    </ul>
+
+    <div class="header-right">
+      @if(user()?.username) {
+        <p>{{ user()?.username }}</p>
+      }
+      <div>
+        @if(user()?.profile_photo) {
+          <img class="user-photo" [src]="user()?.profile_photo" [matMenuTriggerFor]="menu"/>
+        } @else {
+          <button mat-mini-fab [matMenuTriggerFor]="menu" class="btn">
+            <mat-icon>person icon</mat-icon>
+          </button>
+        }
       </div>
-      <button mat-menu-item (click)="logOut()">
-        <mat-icon>logout</mat-icon>
-        <span class="nav-mobile">Logout</span>
-      </button>
-    </mat-menu>
-  </div>
-</mat-toolbar>
+
+      <mat-menu #menu="matMenu" xPosition="before">
+        <div class="nav-list-mobile">
+          <div mat-menu-item class="list" *ngFor="let nav of navList" [routerLink]="nav.link" >
+            <mat-icon>{{ nav.icon }}</mat-icon>
+            <a class="nav-mobile">{{nav.name}}</a>
+          </div>
+        </div>
+        <button mat-menu-item (click)="logOut()">
+          <mat-icon>logout</mat-icon>
+          <span class="nav-mobile">Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+}
+

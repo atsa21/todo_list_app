@@ -9,16 +9,19 @@
             <mat-form-field appearance="outline" color="primary" floatLabel="always">
                 <mat-label>Email</mat-label>
                 <input formControlName="email" matInput placeholder="example@gmail.com" required>
-                <mat-error *ngIf="email?.errors?.['required']">Email is required</mat-error>
-                <mat-error *ngIf="email?.errors?.['email']">Please enter a correct email format</mat-error>
+                @if (emailError()) {
+                    <mat-error>{{ emailError() }}</mat-error>    
+                }
             </mat-form-field>
             <mat-form-field appearance="outline" color="primary" floatLabel="always">
                 <mat-label>Password</mat-label>
-                <input formControlName="password" [type]="hide ? 'password' : 'text'" matInput placeholder="enter your password" required>
-                <button mat-icon-button matSuffix type="button" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" (click)="hide = !hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <input formControlName="password" [type]="hide() ? 'password' : 'text'" matInput placeholder="enter your password" required>
+                <button mat-icon-button matSuffix type="button" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()" (click)="hide.set(!hide())">
+                    <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
                 </button>
-                <mat-error *ngIf="password?.errors?.['required']">Password is required</mat-error>
+                @if (passwordError()) {
+                    <mat-error>{{ passwordError() }}</mat-error>    
+                }
             </mat-form-field>
             <button mat-flat-button class="btn-large" [disabled]="!loginForm.valid" (click)="login()">Login</button>
         </form>

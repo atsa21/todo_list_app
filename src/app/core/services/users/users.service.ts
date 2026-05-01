@@ -1,31 +1,29 @@
-import { Injectable } from '@angular/core';
-import { child, getDatabase, push, ref, set } from "firebase/database";
-import { getAuth } from "firebase/auth";
+import { Injectable, inject } from '@angular/core';
+import { Database, listVal } from '@angular/fire/database';
+import { ref, push, set, update } from 'firebase/database';
+import { Auth } from '@angular/fire/auth';
 import { UserModel } from '@core/models';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { LocalStorageService } from '@core/services/local-storage/local-storage.service';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  constructor(
-    private db: AngularFireDatabase,
-    private localStoreService: LocalStorageService) {
-  }
+  private db = inject(Database);
+  private auth = inject(Auth);
+  private localStoreService = inject(LocalStorageService);
 
-  public getUser(): AngularFireList<UserModel> {
-    const id = this.localStoreService.getUserId();
-    const userRef: AngularFireList<UserModel> = this.db.list(`users/${id}`);
-    return userRef;
+  public getUser(): Observable<UserModel[]> {
+    const id = this.auth.currentUser?.uid ?? this.localStoreService.getUserId();
+    if (!id) return of([]);
+    return listVal<UserModel>(ref(this.db, `users/${id}`), { keyField: 'key' });
   }
 
   public createUser(user: UserModel): Promise<void> {
-    const db = getDatabase();
-    const auth = getAuth();
-    const id = auth.currentUser?.uid;
-    const newPostKey = push(child(ref(db), 'users')).key;
-    return set(ref(db, 'users/' + id + '/' + newPostKey), {
+    const id = this.auth.currentUser?.uid;
+    const newPostKey = push(ref(this.db, 'users')).key;
+    return set(ref(this.db, `users/${id}/${newPostKey}`), {
       key: newPostKey,
       userId: id,
       username: user.username,
@@ -35,10 +33,9 @@ export class UsersService {
   }
 
   public updateUser(user: UserModel): Promise<void> {
-    if(typeof user.key == 'string') {
+    if (typeof user.key == 'string') {
       const id = localStorage.getItem('userId');
-      const todoRef: AngularFireList<UserModel> = this.db.list(`users/${id}`);
-      return todoRef.update(user.key, user);
+      return update(ref(this.db, `users/${id}/${user.key}`), user as any);
     } else {
       return Promise.reject('Invalid user key');
     }

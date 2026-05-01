@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth/auth.guard';
 import { appRouts } from '@core/constants';
 
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     redirectTo: appRouts.main.routerPath,
@@ -13,13 +12,13 @@ const routes: Routes = [
   {
     path: appRouts.main.routerPath,
     loadChildren: () =>
-      import('./pages/main/main.module').then((mod) => mod.MainModule),
+      import('./pages/main/main.routes').then((mod) => mod.MAIN_ROUTES),
     canActivate: [AuthGuard],
   },
   {
     path: appRouts.login.routerPath,
-    loadChildren: () =>
-      import('./pages/auth/login/login.module').then((mod) => mod.LoginModule),
+    loadComponent: () =>
+      import('./pages/auth/login/login.component').then((mod) => mod.LoginComponent),
   },
   {
     path: appRouts.sign_up.routerPath,
@@ -32,9 +31,3 @@ const routes: Routes = [
       import('./pages/page-not-found/page-not-found.module').then((mod) => mod.PageNotFoundModule),
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

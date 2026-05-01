@@ -1,14 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { LottieModule } from 'ngx-lottie';
-import player from 'lottie-web';
 
 import { PageNotFoundComponent } from './page-not-found.component';
+import { LottieComponent } from "ngx-lottie";
 
-export function playerFactory() {
-  return player;
-}
 
 const routes: Routes = [
   {
@@ -22,7 +18,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    LottieModule.forRoot({ player: playerFactory }),
-  ],
+    LottieComponent
+],
 })
 export class PageNotFoundModule { }

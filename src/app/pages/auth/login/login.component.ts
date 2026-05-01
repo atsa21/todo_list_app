@@ -1,34 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { FormGroup, Validators, FormControl, ReactiveFormsModule, FormsModule, AbstractControl } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { AuthService } from '@core/services/auth/auth.service';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { getFormError } from '@core/constants';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    standalone: false
+  selector: 'app-login',
+  standalone: true,
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  imports: [
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit {
-  public hide = true;
-
-  loginForm = new FormGroup ({
+export class LoginComponent {
+  public loginForm = new FormGroup ({
     email : new FormControl('', [Validators.required, Validators.email]),
     password : new FormControl('', [Validators.required, Validators.minLength(6)])
   });
+  public hide = signal(true);
+  public emailError = signal(getFormError(this.email));
+  public passwordError = signal(getFormError(this.password));
 
-  constructor(private auth : AuthService) {}
+  private auth = inject(AuthService);
 
-  ngOnInit(): void {}
-
-  get email(){
-    return this.loginForm.get('email');
+  constructor() {
+    this.email?.valueChanges.pipe(takeUntilDestroyed()).subscribe(() => this.emailError.set(getFormError(this.email)));
+    this.password?.valueChanges.pipe(takeUntilDestroyed()).subscribe(() => this.passwordError.set(getFormError(this.password)));
   }
 
-  get password(){
-    return this.loginForm.get('password');
+  get email(): FormControl {
+    return this.loginForm.get('email') as FormControl;
   }
 
-  login(){
+  get password(): FormControl {
+    return this.loginForm.get('password') as FormControl;
+  }
+
+  login(): void {
     if(typeof this.loginForm.value.email === 'string' && typeof this.loginForm.value.password === 'string'){
       this.auth.login(this.loginForm.value.email, this.loginForm.value.password);
     }
