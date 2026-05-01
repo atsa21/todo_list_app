@@ -3,9 +3,10 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '@core/services/auth/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
   public hide = true;

@@ -10,9 +10,10 @@ import { AddEditTodoFormService } from './services/add-edit-todo-form.service';
 import { EControlNames } from '@core/enums';
 
 @Component({
-  selector: 'app-add-edit-todo',
-  templateUrl: './add-edit-todo.component.html',
-  styleUrls: ['./add-edit-todo.component.scss']
+    selector: 'app-add-edit-todo',
+    templateUrl: './add-edit-todo.component.html',
+    styleUrls: ['./add-edit-todo.component.scss'],
+    standalone: false
 })
 export class AddEditTodoComponent implements OnInit {
   public categories: string[] = ['work', 'study', 'home', 'hobbies', 'other'];
