@@ -8,12 +8,13 @@ export const appRouts: Record<
 AppRoutingType,
   {
     routerPath: string;
+    fullPath?: string
   }
 > = {
   login: { routerPath: 'login' },
   sign_up: { routerPath: 'sign_up' },
   main: { routerPath: 'main' },
-  todo: { routerPath: 'todo' },
-  wish_list: { routerPath:'wish_list' },
-  profile: { routerPath:'profile' },
+  todo: { routerPath: 'todo', fullPath: '/main/todo' },
+  wish_list: { routerPath: 'wish_list', fullPath: '/main/wish_list' },
+  profile: { routerPath: 'profile', fullPath: '/main/profile' },
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from '@core/models';
 import { UsersService } from '@core/services/users/users.service';
-import { map } from 'rxjs';
+import { take } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
@@ -41,13 +41,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getUser().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(data => {
+    this.userService.getUser().pipe(take(1)).subscribe(data => {
       this.user = data[0];
       this.profileForm = this.profileFormService.createForm(this.user);
     });

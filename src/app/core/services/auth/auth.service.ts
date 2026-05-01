@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth'
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { SnackBarService } from '../snack-bar/snack-bar.service';
 import { UsersService } from '../users/users.service';
-import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private auth = inject(Auth);
+
   constructor(
-    private fireAuth: AngularFireAuth,
     private router: Router,
     private snackbar: SnackBarService,
     private userService: UsersService,
@@ -20,18 +20,16 @@ export class AuthService {
   ) { }
 
   public login(email: string, password: string): void {
-    this.fireAuth.signInWithEmailAndPassword(email, password)
-    .then(() => {
+    signInWithEmailAndPassword(this.auth, email, password)
+    .then((userCredential) => {
       this.localStorService.setToken('true');
       this.localStorService.setEmail(email);
-      const auth = getAuth();
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          this.localStorService.setUserId(user.uid);
-        }
-        this.router.navigate(['/main']);
-      });
-    }, err => {
+
+      if (userCredential) {
+        this.localStorService.setUserId(userCredential.user.uid);
+      }
+      this.router.navigate(['/main']);
+    }, () => {
       this.snackbar.openSnackBar('Please check whether your email address or password is entered correctly', 'error', 'Close');
       this.router.navigate(['/login']);
     })
@@ -42,24 +40,24 @@ export class AuthService {
   }
 
   public signUp(email: string, password: string, user: any): void {
-    this.fireAuth.createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(this.auth, email, password)
     .then (() => {
       this.userService.createUser(user);
       this.login(email, password);
       this.snackbar.openSnackBar('Sign Up Successfull', 'success', 'Close');
-    }, err => {
+    }, () => {
       this.snackbar.openSnackBar('Something went wrong', 'error', 'Close');
       this.router.navigate(['/signup']);
     })
   }
 
   public logOut(): void {
-    this.fireAuth.signOut()
-    .then (() => {
-      this.localStorService.removeAll();
-      this.router.navigate(['/login']);
-    }, err => {
-      this.snackbar.openSnackBar('Error while log out', 'error', 'Close');
-    })
+    signOut(this.auth)
+      .then (() => {
+        this.localStorService.removeAll();
+        this.router.navigate(['/login']);
+      }, () => {
+        this.snackbar.openSnackBar('Error while log out', 'error', 'Close');
+      })
   }
 }

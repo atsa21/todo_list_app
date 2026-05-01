@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditWishComponent } from '@core/components/dialogs/add-edit-wish/add-edit-wish.component';
 import { WishListService } from '@core/services/wish-list/wish-list.service';
 import { AnimationOptions } from 'ngx-lottie';
-import { map } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-wish-list',
@@ -11,7 +11,7 @@ import { map } from 'rxjs';
     styleUrls: ['./wish-list.component.scss'],
     standalone: false
 })
-export class WishListComponent implements OnInit {
+export class WishListComponent implements OnInit, OnDestroy {
   public wishList: any;
   public options: AnimationOptions = {
     path: '/assets/animation/house.json',
@@ -26,6 +26,8 @@ export class WishListComponent implements OnInit {
     maxHeight: '400px',
   };
 
+  private destroy$ = new Subject<boolean>();
+
   constructor(
     private dialog: MatDialog,
     private wishService: WishListService
@@ -35,16 +37,17 @@ export class WishListComponent implements OnInit {
     this.getWishList();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
+  }
+
   private getWishList(): void {
-    this.wishService.getWish().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(data => {
-      this.wishList = data;
-    });
+    this.wishService.getWish()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        this.wishList = data;
+      });
   }
 
   openDialog(): void {

@@ -1,45 +1,50 @@
-import { ChangeDetectorRef, Component, Input, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { filter } from 'rxjs';
+import { NAV_LIST } from '@core/constants';
+import { UserModel } from '@core/models';
 import { AuthService } from '@core/services/auth/auth.service';
 import { NavigationList } from 'src/app/core/models/navigation-list';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    standalone: false
+  selector: 'app-header',
+  standalone: true,
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
+  ],
 })
-export class HeaderComponent implements AfterViewInit {
-
-  @Input() user: any;
-
+export class HeaderComponent {
+  public user = input<UserModel | null>();
   public currentPage: string = '';
-  public navList: NavigationList[] = [
-    { name: 'Todo list', link: '/main/todo', icon: 'check_circle_outline'},
-    { name: 'Wish list', link: '/main/wish_list', icon: 'favorite_border' },
-    { name: 'Profile', link: '/main/profile', icon: 'person_outline' }
-  ];
+  public navList: NavigationList[] = NAV_LIST;
 
   constructor(
     private auth: AuthService,
-    private cdr: ChangeDetectorRef,
     private router: Router
-  ) { }
-
-  ngAfterViewInit(): void {
-    this.cdr.detectChanges();
+  ) {
     this.currentPage = this.router.url;
-    this.getPageLink();
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        takeUntilDestroyed()
+      )
+      .subscribe(() => {
+        this.currentPage = this.router.url;
+      });
   }
 
-  getPageLink(): void {
-    this.router.events.subscribe((val) => {
-      this.currentPage = this.router.url;
-    });
-  }
-
-  logOut() {
+  logOut(): void {
     this.auth.logOut();
   }
-  
 }

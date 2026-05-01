@@ -1,7 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { appRouts } from '@core/constants';
-import { MainComponent } from './main.component';
 
 const children: Routes = [
   {
@@ -26,16 +24,11 @@ const children: Routes = [
   }
 ];
 
-const routes: Routes = [
+export const MAIN_ROUTES: Routes = [
   {
     path: '',
-    component: MainComponent,
+    loadComponent: () =>
+      import('./main.component').then(m => m.MainComponent),
     children: children,
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class MainRoutingModule { }
