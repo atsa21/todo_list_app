@@ -1,17 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { ImageCropperComponent, ImageCroppedEvent } from 'ngx-image-cropper';
+import { take } from 'rxjs';
 import { UserModel } from '@core/models';
 import { UsersService } from '@core/services/users/users.service';
-import { take } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
 import { ProfileFormService } from './services/profile-form.service';
+import { LoaderModule } from '@core/components/loader/loader.module';
 
 @Component({
+    standalone: true,
     selector: 'app-profile',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss'],
-    standalone: false
+    imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatButtonModule,
+      ImageCropperComponent,
+      LoaderModule,
+    ],
+    providers: [ProfileFormService]
 })
 export class ProfileComponent implements OnInit {
   public profileForm?: FormGroup;
@@ -50,7 +65,7 @@ export class ProfileComponent implements OnInit {
   public fileChangeEvent(event: any): void {
     const isImage = event.target.files[0].type === 'image/jpeg' || event.target.files[0].type === 'image/jpg' || event.target.files[0].type === 'image/png';
     isImage ? this.imageChangedEvent = event : this.snackbar.openSnackBar('Invalid image format', 'error', 'Close');
-  } 
+  }
 
   public imageCropped(event: ImageCroppedEvent): void {
     this.croppedImage = event.base64;

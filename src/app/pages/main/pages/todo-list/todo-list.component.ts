@@ -59,7 +59,7 @@ export class TodoListComponent implements OnInit {
       .subscribe(data => {
         this.setData(data);
         this.todoElements = data.length;
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
       });
   }
 
@@ -70,11 +70,10 @@ export class TodoListComponent implements OnInit {
         .pipe(take(1), takeUntil(this.destroy$))
         .subscribe((data) => {
           this.setData(data);
-          this.cdr.detectChanges();
+          this.cdr.markForCheck();
         });
     } else {
       this.getAllTodo();
-      this.cdr.detectChanges();
     }
   }
 
@@ -108,13 +107,13 @@ export class TodoListComponent implements OnInit {
     })
   }
 
-  checkTodo(row: Todo, key : string): void {
+  checkTodo(row: Todo, key: string): void {
     row.checked = !row.checked;
-    this.todoService.updateTodo(row, key).then(() => this.cdr.detectChanges());
+    this.todoService.updateTodo(row, key);
   }
 
   deleteTodo(key: any): void {
-    this.todoService.deleteTodo(key).then(() => this.cdr.detectChanges());
+    this.todoService.deleteTodo(key);
   }
 
   openDialog(): void {

@@ -19,8 +19,8 @@ const children: Routes = [
   },
   {
     path: appRouts.profile.routerPath,
-    loadChildren: () =>
-      import('./pages/profile/profile.module').then((mod) => mod.ProfileModule),
+    loadComponent: () =>
+      import('./pages/profile/profile.component').then((m) => m.ProfileComponent),
   }
 ];
 

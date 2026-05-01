@@ -14,7 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { AddEditTodoModule } from '@core/components/dialogs/add-edit-todo/add-edit-todo.module';
+import { AddEditTodoComponent } from '@core/components/dialogs/add-edit-todo/add-edit-todo.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule } from '@angular/material/sort';
@@ -49,7 +49,7 @@ const routes: Routes = [
     MatPaginatorModule,
     MatProgressBarModule,
     MatSortModule,
-    AddEditTodoModule,
+    AddEditTodoComponent,
     PriorityPipeModule,
     MatInputModule,
     MatButtonModule,

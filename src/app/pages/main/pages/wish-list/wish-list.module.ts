@@ -6,9 +6,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { WishListComponent } from './wish-list.component';
 import { WishCardComponent } from './wish-card/wish-card.component';
 import { MatIconModule } from '@angular/material/icon';
-import { AddEditWishModule } from '@core/components/dialogs/add-edit-wish/add-edit-wish.module';
 import { MatButtonModule } from '@angular/material/button';
 import { LottieComponent } from "ngx-lottie";
+import { AddEditWishComponent } from '@core/components/dialogs/add-edit-wish/add-edit-wish.component';
 
 const routes: Routes = [
   {
@@ -24,7 +24,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatIconModule,
     LoaderModule,
-    AddEditWishModule,
+    AddEditWishComponent,
     MatButtonModule,
     LottieComponent
 ]

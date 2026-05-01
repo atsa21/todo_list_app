@@ -1,56 +1,69 @@
 <div class="profile-container">
     <div class="profile-box">
-        <div *ngIf="profileForm; else loading" class="profile">
-            <h1 class="text-center">Edit profile</h1>
-            <form [formGroup]="profileForm" class="form">
-                <div class="img-crop-container">
-                    <div class="title-box">
-                        <h3 class="h3 text-center">Select profile picture (JPG/JPEG/PNG)</h3>
-                    </div>
-                    <div *ngIf="!croppedImage && profilePhoto.value" class="edit-photo">
-                        <img [src]="profilePhoto.value" class="prof-photo"/>
-                        <div class="edit-photo-btn">
-                            <label class="btn-round btn-edit" for="upload-photo"><i class="fa-regular fa-pen-to-square"></i></label>
-                            <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+        @if (profileForm) {
+            <div class="profile">
+                <h1 class="text-center">Edit profile</h1>
+                <form [formGroup]="profileForm" class="form">
+                    <div class="img-crop-container">
+                        <div class="title-box">
+                            <h3 class="h3 text-center">Select profile picture (JPG/JPEG/PNG)</h3>
                         </div>
+                        @if (!croppedImage && profilePhoto.value) {
+                            <div class="edit-photo">
+                                <img [src]="profilePhoto.value" class="prof-photo"/>
+                                <div class="edit-photo-btn">
+                                    <label class="btn-round btn-edit" for="upload-photo"><i class="fa-regular fa-pen-to-square"></i></label>
+                                    <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+                                </div>
+                            </div>
+                        }
+                        @if (!croppedImage && !profilePhoto.value) {
+                            <div class="file-input">
+                                <label class="btn-upload" for="upload-photo">Select image</label>
+                                <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+                            </div>
+                        }
+                        @if (imageChangedEvent) {
+                            <div class="cropper">
+                                <image-cropper
+                                class="image-cropper-box"
+                                [imageChangedEvent]="imageChangedEvent"
+                                [maintainAspectRatio]="true"
+                                [aspectRatio]="1 / 1"
+                                [resizeToWidth]="160"
+                                format="png"
+                                (imageCropped)="imageCropped($event)"
+                                (imageLoaded)="imageLoaded()"
+                                (loadImageFailed)="loadImageFailed()"
+                                ></image-cropper>
+                                @if (croppedImage) {
+                                    <div class="edit-photo-btn">
+                                        <label class="btn-round btn-edit" for="upload-photo"><i class="fa-regular fa-pen-to-square"></i></label>
+                                        <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+                                    </div>
+                                }
+                            </div>
+                        }
                     </div>
-                    <div class="file-input" *ngIf="!croppedImage && !profilePhoto.value">
-                        <label class="btn-upload" for="upload-photo">Select image</label>
-                        <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+                    <div class="input-box">
+                        <mat-form-field class="input" appearance="outline" color="primary" floatLabel="always">
+                            <mat-label>Name</mat-label>
+                            <input formControlName="username" matInput placeholder="example@gmail.com" required>
+                            @if (username.errors?.['required']) {
+                                <mat-error>Email is required</mat-error>
+                            }
+                            @if (username.errors?.['email']) {
+                                <mat-error>Please enter a correct email format</mat-error>
+                            }
+                        </mat-form-field>
+                        <button [disabled]="!profileForm.valid" mat-flat-button class="btn" (click)="submit()">Submit</button>
                     </div>
-                    <div class="cropper" *ngIf="imageChangedEvent">
-                        <image-cropper
-                        class="image-cropper-box"
-                        [imageChangedEvent]="imageChangedEvent"
-                        [maintainAspectRatio]="true"
-                        [aspectRatio]="1 / 1"
-                        [resizeToWidth]="160" 
-                        format="png"
-                        (imageCropped)="imageCropped($event)"
-                        (imageLoaded)="imageLoaded()"
-                        (loadImageFailed)="loadImageFailed()"
-                        ></image-cropper>
-                        <div class="edit-photo-btn" *ngIf="croppedImage">
-                            <label class="btn-round btn-edit" for="upload-photo"><i class="fa-regular fa-pen-to-square"></i></label>
-                            <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-box">
-                    <mat-form-field class="input" appearance="outline" color="primary" floatLabel="always">
-                        <mat-label>Name</mat-label>
-                        <input formControlName="username" matInput placeholder="example@gmail.com" required>
-                        <mat-error *ngIf="username?.errors?.['required']">Email is required</mat-error>
-                        <mat-error *ngIf="username?.errors?.['email']">Please enter a correct email format</mat-error>
-                    </mat-form-field>
-                    <button [disabled]="!profileForm.valid" mat-flat-button class="btn" (click)="submit()">Submit</button>
-                </div>
-            </form>
-        </div>
-        <ng-template #loading>
-            <div class="loading">
-              <app-loader></app-loader>
+                </form>
             </div>
-          </ng-template>
+        } @else {
+            <div class="loading">
+                <app-loader></app-loader>
+            </div>
+        }
     </div>
 </div>
