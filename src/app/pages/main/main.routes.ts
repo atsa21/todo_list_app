@@ -9,13 +9,13 @@ const children: Routes = [
   },
   {
     path: appRouts.todo.routerPath,
-    loadChildren: () =>
-      import('./pages/todo-list/todo-list.module').then((mod) => mod.TodoListModule),
+    loadComponent: () =>
+      import('./pages/todo-list/todo-list.component').then((mod) => mod.TodoListComponent),
   },
   {
     path: appRouts.wish_list.routerPath,
-    loadChildren: () =>
-      import('./pages/wish-list/wish-list.module').then((mod) => mod.WishListModule),
+    loadComponent: () =>
+      import('./pages/wish-list/wish-list.component').then((mod) => mod.WishListComponent),
   },
   {
     path: appRouts.profile.routerPath,

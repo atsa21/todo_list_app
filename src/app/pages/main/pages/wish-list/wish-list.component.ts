@@ -1,18 +1,31 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { AddEditWishComponent } from '@core/components/dialogs/add-edit-wish/add-edit-wish.component';
+import { LoaderModule } from '@core/components/loader/loader.module';
+import { Wish } from '@core/models/wish.model';
 import { WishListService } from '@core/services/wish-list/wish-list.service';
-import { AnimationOptions } from 'ngx-lottie';
-import { Subject, takeUntil } from 'rxjs';
+import { AnimationOptions, LottieComponent } from 'ngx-lottie';
+import { WishCardComponent } from './wish-card/wish-card.component';
 
 @Component({
+    standalone: true,
     selector: 'app-wish-list',
+    imports: [
+      MatIconModule,
+      LoaderModule,
+      MatButtonModule,
+      LottieComponent,
+      WishCardComponent,
+    ],
     templateUrl: './wish-list.component.html',
     styleUrls: ['./wish-list.component.scss'],
-    standalone: false
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WishListComponent implements OnInit, OnDestroy {
-  public wishList: any;
+export class WishListComponent {
+  public wishList = signal<Wish[] | null>(null);
   public options: AnimationOptions = {
     path: '/assets/animation/house.json',
     rendererSettings: {
@@ -26,31 +39,17 @@ export class WishListComponent implements OnInit, OnDestroy {
     maxHeight: '400px',
   };
 
-  private destroy$ = new Subject<boolean>();
+  private dialog = inject(MatDialog);
+  private wishService = inject(WishListService);
+  private destroyRef = inject(DestroyRef);
 
-  constructor(
-    private dialog: MatDialog,
-    private wishService: WishListService
-  ) { }
-
-  ngOnInit(): void {
-    this.getWishList();
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
-  }
-
-  private getWishList(): void {
+  constructor() {
     this.wishService.getWish()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(data => {
-        this.wishList = data;
-      });
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(data => this.wishList.set(data));
   }
 
-  openDialog(): void {
+  public openDialog(): void {
     this.dialog.open(AddEditWishComponent, {
       width: '420px'
     });

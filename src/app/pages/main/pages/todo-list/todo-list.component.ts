@@ -1,17 +1,52 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TodoService } from '@core/services/todo/todo.service';
 import { Subject, take, takeUntil } from 'rxjs';
 import { Todo } from 'src/app/core/models/todo.model';
-import { AnimationOptions } from 'ngx-lottie';
+import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 import { AddEditTodoComponent } from '@core/components/dialogs/add-edit-todo/add-edit-todo.component';
+import { LoaderModule } from '@core/components/loader/loader.module';
+import { PriorityStatusModule } from '@core/components/priority-status/priority-status.module';
+import { PriorityPipeModule } from '@core/pipes/priority-pipe/priority.pipe.module';
 
 @Component({
-    standalone: false,
+    standalone: true,
     selector: 'app-todo-list',
+    imports: [
+      CommonModule,
+      FormsModule,
+      MatDialogModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatSelectModule,
+      MatOptionModule,
+      MatCheckboxModule,
+      MatButtonModule,
+      MatIconModule,
+      MatMenuModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatSortModule,
+      MatProgressBarModule,
+      LottieComponent,
+      LoaderModule,
+      PriorityStatusModule,
+      PriorityPipeModule,
+    ],
     templateUrl: './todo-list.component.html',
     styleUrls: ['./todo-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,7 +66,7 @@ export class TodoListComponent implements OnInit {
   public unreadyTodo: number = 0;
   public progress: number = 0;
   public categories: string[] = ['all tasks', 'work', 'study', 'home', 'hobbies', 'other'];
-  public selectedCategory!: string;
+  public selectedCategory: string = 'all tasks';
 
   public data: any;
   public today: any;
@@ -42,11 +77,9 @@ export class TodoListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!:  MatSort;
 
-  constructor(
-    private dialog : MatDialog,
-    private todoService: TodoService,
-    private cdr: ChangeDetectorRef
-  ){}
+  public dialog = inject(MatDialog);
+  public todoService = inject(TodoService);
+  public cdr = inject(ChangeDetectorRef);
 
   ngOnInit(): void {
     this.today = new Date(new Date().setHours(0,0,0,0)).toString();
