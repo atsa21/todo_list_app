@@ -1,115 +1,87 @@
+@use "src/assets/styles/vars" as *;
+@use "sass:color";
+
 .page-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 32px 16px;
+}
 
-    .container {
-        display: flex;
-        flex-direction: column;
-        max-width: 420px;
-        height: 480px;
-        margin: auto 0;
-        padding-top: 48px;
-        padding-bottom: 36px;
-        background-color: white;
-        text-align: center;
-        border-radius: 12px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 440px;
+  padding: 48px 40px 40px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
 
-        .headings {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            width: 100%;
-            margin-bottom: 8px;
-        }
-    }
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: $accent;
+  margin-bottom: 24px;
+
+  .brand-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    color: $accent-dark;
+  }
 }
 
 .title {
-    font-size: 24px;
-    font-weight: 500;
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 6px;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #999;
+  margin: 0 0 32px;
+  text-align: center;
 }
 
 :host ::ng-deep .form {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: center;
-    gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  margin-bottom: 8px;
 
-    .mat-mdc-form-field {
-        width: 80%;
-
-        .mat-mdc-form-field-label {
-            color: var(--black) !important;
-        }
-    }
-
-    .mat-mdc-form-field-flex .mat-mdc-form-field-infix {
-        padding: 12px 0px !important;
-    }
+  .mat-mdc-form-field {
+    width: 100%;
+  }
 }
 
-.mat-error {
-    font-size: 10px;
+.btn-accent {
+  width: 100%;
+  height: 48px;
+  margin-top: 12px;
 }
 
-.btn-large {
-    font-size: 16px;
-    padding: 6px 16px;
-    width: 80%;
-    color: var(--white);
-    background-color: var(--accent);
-    transition: all 0.4s;
-
-    &:hover:enabled {
-        background-color: var(--accent-hover);
-    }
+.switch-text {
+  display: flex;
+  justify-content: center;
+  font-size: 13px;
+  color: #999;
+  margin-top: 24px;
 }
 
-a {
-    text-decoration: none;
-}
-
-.activeText {
-    text-align: center;
-    cursor: default;
-}
-
-.h-login {
-    padding-left: 16px;
-    padding-right: 16px;
-}
-
-.switch-to-text {
-    color: var(--light-grey);
-    transition: all 0.4s;
-
-    &:hover {
-        color: var(--accent);
-        cursor: pointer;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .page-container {
-        .container {
-            max-width: auto;
-            height: 440px;
-            margin: auto 16px;
-        }
-    }
-
-    .form {
-        .mat-mdc-form-field {
-            width: 90%;
-        }
-    }
-
-    .btn-large {
-        width: 90%;
-    }
+@media (max-width: 480px) {
+  .card {
+    padding: 36px 24px 32px;
+  }
 }

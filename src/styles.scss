@@ -1,4 +1,5 @@
 @use "src/assets/styles/vars" as *;
+@use "sass:color";
 
 * {
   padding: 0;
@@ -12,7 +13,7 @@ html, body {
 }
 
 body {
-  background-color: var(--yellow);
+  background-color: $yellow;
 }
 
 .text-center {
@@ -27,50 +28,71 @@ body {
   border-radius: 4px;
   gap: 4px;
   border: 0;
-  cursor: pointer;
-}
-
-.btn-accent {
-  color: var(--white);
-  background-color: var(--accent);
+  font-size: 16px;
+  font-weight: 600;
   transition: all 0.4s ease-in-out;
 
   &:hover:enabled {
-    color: var(--white);
-    background-color: var(--accent-hover);
+    cursor: pointer;
+  }
+}
+
+.btn-accent {
+  color: $white;
+  background-color: $accent;
+
+  &:hover:enabled {
+    color: $white;
+    background-color: $accent-dark;
+  }
+
+  &:disabled {
+    color: $white;
+    background-color: $accent-lighter;
   }
 }
 
 .btn-white {
-  color: var(--black);
-  background-color: var(--white);
-  transition: all 0.4s ease-in-out;
+  color: $black;
+  background-color: $white;
 
   &:hover:enabled {
-    color: var(--white);
-    background-color: var(--accent-hover);
+    color: $white;
+    background-color: $accent-lighter;
   }
 }
 
 .error-snack-bar {
-  color: var(--black);
-  background-color: var(--danger);
+  color: $black;
+  background-color: $danger;
 
   .mat-simple-snackbar-action {
-    color: var(--black);
+    color: $black;
   }
 }
 
 .success-snack-bar {
-  color: var(--black);
-  background-color: var(--accent);
+  color: $black;
+  background-color: $accent;
 
   .mat-simple-snackbar-action {
-    color: var(--black);
+    color: $black;
   }
 }
 
 .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
-  color: var(--black);
-  background: var(--accent);
+  color: $black;
+  background: $accent;
+}
+
+.link {
+  color: $accent-dark;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $black;
+    text-decoration: underline;
+  }
 }
