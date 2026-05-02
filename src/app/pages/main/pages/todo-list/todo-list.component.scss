@@ -1,92 +1,275 @@
 @use "src/assets/styles/vars" as *;
 
-.body-container {
+.page {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    height: 100%;
-    z-index: 1;
+    min-height: 100%;
+    padding: 96px 32px 48px;
 }
 
-.cont {
+.loading {
     display: flex;
+    align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    height: 400px;
+}
+
+.card {
+    width: 100%;
+    max-width: 1200px;
+    background: $white;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px 0;
+}
+
+.page-title {
+    font: 500 20px / 24px Poppins, sans-serif;
+    color: $black;
+    margin: 0;
+}
+
+.btn-add {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 18px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 10px;
+}
+
+.btn-text {
+    font-size: 14px;
+}
+
+.filters {
+    display: flex;
+    gap: 16px;
+    padding: 18px 28px 0;
+
+    .input-search {
+        flex: 1;
+        font-size: 14px;
+    }
+
+    .input-category {
+        width: 180px;
+        font-size: 14px;
+    }
+}
+
+.table-wrap {
+    overflow-x: auto;
+    margin-top: 8px;
+
+    table {
+        width: 100%;
+    }
+}
+
+:host ::ng-deep {
+    tr.mat-mdc-header-row {
+        height: 44px;
+        background-color: #f9f9f9;
+    }
+
+    th.mat-mdc-header-cell {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        color: $grey;
+        border-bottom: 1px solid $light-grey;
+    }
+
+    tr.mat-mdc-row {
+        height: 60px;
+        transition: background-color 0.15s;
+
+        &:hover {
+            background-color: rgba(236, 190, 225, 0.06);
+        }
+
+        &:hover .action-buttons {
+            opacity: 1;
+        }
+    }
+
+    td.mat-mdc-cell {
+        border-bottom: 1px solid #f3f3f3;
+        font-size: 14px;
+        color: $black;
+    }
+}
+
+.check-col {
+    width: 52px;
+}
+
+.date-col {
+    width: 110px;
+}
+
+.tags-col {
+    width: 170px;
+}
+
+.category-col,
+.priority-col {
+    width: 100px;
+}
+
+.action-col {
+    width: 90px;
+    padding-right: 12px;
+
+    .action-buttons {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+}
+
+.open-col {
+    display: none;
+}
+
+.task {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.task-name {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.3;
+}
+
+.small-text-task {
+    display: none;
+
+    span {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.circle {
+    font-size: 5px;
+    margin: 0 4px;
+}
+
+.ready {
+    color: $medium-grey;
+
+    .task-name {
+        text-decoration: line-through;
+        color: $medium-grey;
+    }
+}
+
+.unready { color: $black; }
+
+.past {
+    color: $danger;
+
+    .task-name { color: $danger; }
 }
 
 p {
     margin: 0;
 }
 
-.cont-box {
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tags-box {
     display: flex;
-    justify-content: center;
-    align-content: center;
-    width: 100%;
-    margin-top: 8%;
+    flex-wrap: wrap;
+    gap: 4px;
+}
 
-    .todo-box {
-        display: flex;
-        flex-direction: column;
+.tag {
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 11px;
+    font-weight: 500;
+}
 
-        .mat-mdc-form-field {
-            font-size: 14px;
-        }
-    }
+.tag-mobile,
+.mobile-description {
+    display: none;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
 
-    .table-box {
-        width: 1200px;
-        max-width: 100%;
-        border: 1px solid $light-grey;
-        overflow-x: auto;
 
-        table {
-            width: 100%;
-        }
+
+.edit-btn {
+    transition: color 0.25s;
+
+    &:hover { color: $accent-dark; }
+}
+
+.clear-btn {
+    color: $medium-grey;
+    transition: color 0.25s;
+
+    &:hover {
+        color: $danger;
     }
 }
 
-.form {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    width: 1200px;
-    max-width: 100%;
-    gap: 18px;
-
-    .input-search {
-        flex-grow: 2;
-    }
+.no-data {
+    height: 64px;
+    padding: 0 16px;
+    color: $grey;
+    font-size: 14px;
 }
 
-.paginator {
+.card-footer {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-    background-color: $white;
-    padding-left: 18px;
-
-    .paginator-text {
-        font-size: 12px;
-    }
-
-    .progress {
-        width: 100%;
-    }
+    justify-content: space-between;
+    padding: 8px 16px 8px 28px;
+    border-top: 1px solid $light-grey;
+    background: $white;
 }
 
-:host ::ng-deep .form {
-    .mat-mdc-form-field {
-        .mat-mdc-form-field-label {
-            color: $black !important;
-        }
-    }
-    
-    .mat-mdc-form-field-flex .mat-mdc-form-field-infix {
-        padding: 12px 0px !important;
-    }
+.footer-left {
+    flex: 1;
+    max-width: 240px;
+}
+
+.progress-text {
+    display: block;
+    font-size: 12px;
+    color: $grey;
+    margin-bottom: 4px;
+}
+
+.progress {
+    width: 100%;
+    border-radius: 4px;
 }
 
 .nav-btn {
@@ -100,28 +283,22 @@ p {
     align-items: center;
 }
 
-.small-text-task {
-    display: none;
-
-    span {
-        display: flex;
-        align-items: center;
-    }
+.nav-mobile {
+    font-size: 16px;
+    color: $black;
 }
 
-.no-task-box {
+.empty-state {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 4%;
-    height: 100%;
 
-    .no-task-image {
+    .empty-animation {
         position: absolute;
         top: 124px;
     }
 
-    .no-task-descr {
+    .empty-descr {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -129,227 +306,54 @@ p {
         gap: 12px;
         z-index: 2;
 
-        .no-task-text {
-            margin-top: 16px;
-            font-size: 24px;
+        .empty-text {
+            font-size: 22px;
+            font-weight: 500;
+            color: $black;
         }
 
         .btn-nt {
-            width: 140px;
-        }
-    }
-}
-
-.no-data {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 48px;
-}
-
-.loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-.check-col {
-    width: 52px;
-}
-
-.date-col {
-    width: 110px;
-}
-
-.tags-col {
-    width: 160px;
-}
-
-.category-col,
-.priority-col {
-    width: 100px;
-}
-
-.action-col {
-    width: 110px;
-    padding-right: 16px;
-    text-align: right;
-
-    .action-col-text {
-        padding-right: 12px;
-    }
-}
-
-.action-buttons {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.open-col {
-    display: none;
-}
-
-.btn-add {
-    display: flex;
-    gap: 12px;
-    margin-top: 3px;
-    height: 48px;
-    min-width: 160px;
-}
-
-.ready {
-    color: $medium-grey;
-}
-
-.unready {
-    color: $black;
-}
-
-.past {
-    color: $danger;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.tags-box {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-}
-
-.tag {
-    border-radius: 12px;
-    padding: 2px 8px;
-    font-size: 11px;
-}
-
-.tag-mobile,
-.mobile-description {
-    display: none;
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 12px;
-}
-
-.ready-tag {
-    color: $white;
-    background-color: $light-grey;
-}
-
-.critical-tag {
-    color: $white;
-    background-color: $danger;
-}
-
-.high-tag {
-    color: $white;
-    background-color: $warning;
-}
-
-.medium-tag {
-    color: $white;
-    background-color: $success;
-}
-
-.low-tag {
-    color: $white;
-    background-color: $neutral;
-}
-
-.edit-btn {
-    transition: color 0.4s;
-
-    &:hover {
-        color: $accent;
-    }
-}
-
-.clear-btn {
-    color: $medium-grey;
-    transition: color 0.4s;
-
-    &:hover {
-        color: $danger;
-    }
-}
-
-.critical {
-    color: $danger;
-}
-
-.high {
-    color: $warning;
-}
-
-.medium {
-    color: $success;
-}
-
-.low {
-    color: $neutral;
-}
-
-.nav-mobile {
-    font-size: 16px;
-    color: $black;
-}
-
-.circle {
-    font-size: 8px;
-}
-
-@media only screen and (max-width: 1400px) {
-    .cont-box {
-        padding: 24px;
-        margin-top: 120px;
-
-        .todo-box {
+            display: flex;
+            gap: 12px;
             width: 100%;
         }
     }
 }
 
+@media only screen and (max-width: 1400px) {
+    .page {
+        padding: 96px 24px 40px;
+    }
+}
+
 @media only screen and (max-width: 660px) {
-    tr.mat-mdc-header-row {
-        position: sticky;
-        top: 0;
-        z-index: 1;
+    .page {
+        padding: 88px 0 0;
     }
 
-    tr.mat-mdc-row {
-        vertical-align: top;
+    .card {
+        border-radius: 0;
+        box-shadow: none;
     }
 
-    .cont-box {
-        margin-top: 88px;
+    .toolbar {
+        padding: 16px 16px 0;
     }
 
-    .form {
+    .filters {
+        padding: 8px 16px 0;
 
-        .mat-mdc-form-field {
-            width: 180px;
+        .input-category {
+            width: 130px;
         }
     }
 
-    .col-task {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        font-size: 12px;
-        width: 100%;
-    }
-
     .btn-add {
-        height: 48px;
-        width: 48px;
-        min-width: 48px;
+        height: 40px;
+        width: 40px;
+        min-width: 40px;
+        padding: 0;
+        border-radius: 10px;
     }
 
     .btn-text {
@@ -358,7 +362,15 @@ ul {
 
     .open-col {
         display: flex;
-        max-width: 82px;
+        width: 80px;
+    }
+
+    .col-hide-mobile {
+        display: none;
+    }
+
+    .action-col .action-buttons {
+        opacity: 1;
     }
 
     .check-col,
@@ -366,22 +378,25 @@ ul {
         padding-top: 14px;
     }
 
-    .col-hide-mobile {
-        display: none;
+    .col-task {
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+        width: 100%;
     }
 
     .task {
         display: flex;
         flex-direction: column;
-        word-break: break-all;
-        word-wrap: break-word;
+        word-break: break-word;
         padding: 14px 0;
     }
 
     .small-text-task {
         display: flex;
-        font-size: 12px;
-        gap: 6px;
+        font-size: 11px;
+        gap: 4px;
+        color: $grey;
 
         .icon-text-box {
             display: flex;
@@ -400,7 +415,7 @@ ul {
         width: 100%;
         padding: 8px;
         gap: 4px;
-        border-top: 1px solid rgba(0, 0, 0, 0.12);
+        border-top: 1px solid $light-grey;
 
         .mobile-text {
             display: flex;
@@ -414,6 +429,7 @@ ul {
 
         .mobile-tags {
             display: flex;
+            flex-wrap: wrap;
             gap: 4px;
         }
     }
@@ -426,30 +442,29 @@ ul {
         height: 34px;
     }
 
-    .mat-header-cell, 
-    .col-text,
-    .task {
-        font-size: 16px;
+    tr.mat-mdc-header-row {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    tr.mat-mdc-row {
+        vertical-align: top;
     }
 }
 
 @media only screen and (max-width: 420px) {
-    .cont-box {
-        padding: 16px;
-    }
-
-    .form .mat-mdc-form-field {
-        width: 120px;
+    .filters .input-category {
+        width: 110px;
     }
 
     .check-col {
-        max-width: 48px;
-        padding-top: 14px;
-        padding-left: 18px;
+        width: 44px;
+        padding-left: 8px;
     }
 
     .open-col {
-        max-width: 72px;
-        padding-right: 18px;
+        width: 68px;
+        padding-right: 8px;
     }
 }

@@ -202,4 +202,4 @@ $tertiary-palette: map.merge(map.get($_palettes, tertiary), $_rest);
     surface-variant: _high-contrast-value(#e3e2e2, #464747, $theme-type),
     on-surface-variant: _high-contrast-value(#000000, #ffffff, $theme-type),
   ))
- }
+}

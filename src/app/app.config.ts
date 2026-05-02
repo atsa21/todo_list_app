@@ -1,4 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { initializeApp } from 'firebase/app';
@@ -23,5 +24,6 @@ export const appConfig: ApplicationConfig = {
       player: () => player,
     }),
     provideCacheableAnimationLoader(),
+    provideNativeDateAdapter(),
   ]
 };

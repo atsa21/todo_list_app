@@ -1,0 +1,7 @@
+@if (tag()) {
+  <span
+    class="tag"
+    [class.mobile-tag]="isMobile()"
+    [class]="getStateClass()"
+  >#{{ tag() }}</span>
+}

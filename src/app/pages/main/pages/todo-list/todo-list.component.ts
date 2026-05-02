@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,12 +16,13 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TodoService } from '@core/services/todo/todo.service';
-import { Subject, take, takeUntil } from 'rxjs';
+import { Subject, debounceTime, take, takeUntil } from 'rxjs';
 import { Todo } from 'src/app/core/models/todo.model';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 import { AddEditTodoComponent } from '@core/components/dialogs/add-edit-todo/add-edit-todo.component';
 import { LoaderModule } from '@core/components/loader/loader.module';
 import { PriorityStatusModule } from '@core/components/priority-status/priority-status.module';
+import { TagComponent } from '@core/components/tag/tag.component';
 import { PriorityPipeModule } from '@core/pipes/priority-pipe/priority.pipe.module';
 
 @Component({
@@ -29,6 +31,7 @@ import { PriorityPipeModule } from '@core/pipes/priority-pipe/priority.pipe.modu
     imports: [
       CommonModule,
       FormsModule,
+      ReactiveFormsModule,
       MatDialogModule,
       MatFormFieldModule,
       MatInputModule,
@@ -45,6 +48,7 @@ import { PriorityPipeModule } from '@core/pipes/priority-pipe/priority.pipe.modu
       LottieComponent,
       LoaderModule,
       PriorityStatusModule,
+      TagComponent,
       PriorityPipeModule,
     ],
     templateUrl: './todo-list.component.html',
@@ -68,11 +72,13 @@ export class TodoListComponent implements OnInit {
   public categories: string[] = ['all tasks', 'work', 'study', 'home', 'hobbies', 'other'];
   public selectedCategory: string = 'all tasks';
 
-  public data: any;
   public today: any;
   public menuOpen = false;
 
+  public searchControl = new FormControl('');
+
   private destroy$: Subject<boolean> = new Subject<boolean>();
+  private destroyRef = inject(DestroyRef);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!:  MatSort;
@@ -80,6 +86,20 @@ export class TodoListComponent implements OnInit {
   public dialog = inject(MatDialog);
   public todoService = inject(TodoService);
   public cdr = inject(ChangeDetectorRef);
+
+  constructor() {
+    this.searchControl.valueChanges.pipe(
+      debounceTime(300),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe(value => {
+      if (this.dataSource) {
+        this.dataSource.filter = (value ?? '').trim().toLowerCase();
+        if (this.dataSource.paginator) {
+          this.dataSource.paginator.firstPage();
+        }
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.today = new Date(new Date().setHours(0,0,0,0)).toString();
@@ -154,15 +174,6 @@ export class TodoListComponent implements OnInit {
     });
   }
 
-  search(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
   getStyle(checked: boolean, date: string): string {
     const isPast = this.checkPastDate(date);
     return checked ? 'ready' : (isPast ? 'past' : 'unready');
@@ -178,21 +189,6 @@ export class TodoListComponent implements OnInit {
         return 'medium-icon';
       case 4:
         return 'low-icon';
-      default:
-        return 'error';
-    }
-  }
-
-  getTagsClass(priority: number): string {
-    switch (priority) {
-      case 1:
-        return 'critical-tag';
-      case 2:
-        return 'high-tag';
-      case 3:
-        return 'medium-tag';
-      case 4:
-        return 'low-tag';
       default:
         return 'error';
     }

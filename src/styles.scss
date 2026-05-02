@@ -1,5 +1,4 @@
 @use "src/assets/styles/vars" as *;
-@use "sass:color";
 
 * {
   padding: 0;
@@ -58,7 +57,7 @@ body {
 
   &:hover:enabled {
     color: $white;
-    background-color: $accent-lighter;
+    background-color: $accent-dark;
   }
 }
 
