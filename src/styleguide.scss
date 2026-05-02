@@ -17,18 +17,3 @@ $my-theme: mat.m2-define-light-theme((
 ));
 
 @include mat.all-component-themes($my-theme);
-
-:root {
-  --black: rgb(31, 31, 31);
-  --grey: #7c7c7c;
-  --medium-grey: #ccc;
-  --light-grey: rgb(224, 224, 224);
-  --light-accent: #f5def0;
-  --accent: #ecbee1;
-  --accent-hover: rgb(31, 31, 31);
-  --danger: #F24535;
-  --warning: #F29F05;
-  --success: #35BF30;
-  --neutral: #2999A6;
-  --white: rgb(255, 255, 255);
-}

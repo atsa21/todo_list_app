@@ -1,3 +1,5 @@
+@use "src/assets/styles/vars" as *;
+
 .cards-container {
     display: flex;
     flex-wrap: wrap;
@@ -31,7 +33,7 @@
     right: 24px;
     padding: 0 0 12px 12px;
     border-radius: 0 0 0 5px;
-    background-color: var(--white);
+    background-color: $white;
 }
 
 .btn-round {
@@ -45,32 +47,32 @@
 }
 
 .btn-edit {
-    color: var(--white);
-    background-color: var(--accent);
+    color: $white;
+    background-color: $accent;
     transition: all 0.4s ease-in-out;
 
     &:hover {
-        background-color: var(--black);
+        background-color: $black;
     }
 }
 
 .btn-delete {
-    color: var(--white);
-    background-color: var(--light-grey);
+    color: $white;
+    background-color: $light-grey;
     transition: all 0.4s ease-in-out;
 
     &:hover {
-        background-color: var(--grey);
+        background-color: $grey;
     }
 }
 
 .btn-link {
-    color: var(--accent);
+    color: $accent;
     cursor: pointer;
     transition: all 0.4s ease-in-out;
 
     &:hover {
-        color: var(--black);
+        color: $black;
     }
 }
 
