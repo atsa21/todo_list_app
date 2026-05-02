@@ -10,8 +10,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { getFormError } from '@core/constants';
 
 @Component({
-  selector: 'app-login',
   standalone: true,
+  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   imports: [

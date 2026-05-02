@@ -22,8 +22,8 @@ export const routes: Routes = [
   },
   {
     path: appRouts.sign_up.routerPath,
-    loadChildren: () =>
-      import('./pages/auth/sign-up/sign-up.module').then((mod) => mod.SignUpModule),
+    loadComponent: () =>
+      import('./pages/auth/sign-up/sign-up.component').then((mod) => mod.SignUpComponent),
   },
   {
     path: '**',

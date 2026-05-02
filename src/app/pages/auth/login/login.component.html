@@ -1,29 +1,45 @@
 <div class="page-container">
-    <div class="container">
-        <div class="headings">
-            <h1 class="activeText h-login title">Login</h1>
-            <a routerLink="/sign_up"><h1 class="switch-to-text title">Sign Up</h1></a>
-        </div>
+  <div class="card">
 
-        <form [formGroup]="loginForm" class="form">
-            <mat-form-field appearance="outline" color="primary" floatLabel="always">
-                <mat-label>Email</mat-label>
-                <input formControlName="email" matInput placeholder="example@gmail.com" required>
-                @if (emailError()) {
-                    <mat-error>{{ emailError() }}</mat-error>    
-                }
-            </mat-form-field>
-            <mat-form-field appearance="outline" color="primary" floatLabel="always">
-                <mat-label>Password</mat-label>
-                <input formControlName="password" [type]="hide() ? 'password' : 'text'" matInput placeholder="enter your password" required>
-                <button mat-icon-button matSuffix type="button" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()" (click)="hide.set(!hide())">
-                    <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
-                </button>
-                @if (passwordError()) {
-                    <mat-error>{{ passwordError() }}</mat-error>    
-                }
-            </mat-form-field>
-            <button mat-flat-button class="btn-large" [disabled]="!loginForm.valid" (click)="login()">Login</button>
-        </form>
+    <div class="brand">
+      <mat-icon class="brand-icon">task_alt</mat-icon>
     </div>
+
+    <h1 class="title">Welcome back</h1>
+    <p class="subtitle">Sign in to your account</p>
+
+    <form [formGroup]="loginForm" class="form">
+      <mat-form-field appearance="outline" color="primary" floatLabel="always">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput placeholder="example@gmail.com" required>
+        @if (emailError()) {
+          <mat-error>{{ emailError() }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" color="primary" floatLabel="always">
+        <mat-label>Password</mat-label>
+        <input formControlName="password" [type]="hide() ? 'password' : 'text'" matInput placeholder="••••••••" required>
+        <button mat-icon-button matSuffix type="button" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()" (click)="hide.set(!hide())">
+          <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (passwordError()) {
+          <mat-error>{{ passwordError() }}</mat-error>
+        }
+      </mat-form-field>
+
+      <button
+        class="btn btn-accent"
+        [disabled]="!loginForm.valid"
+        (click)="login()"
+      >
+        Sign in
+      </button>
+    </form>
+
+    <p class="switch-text">
+      Don't have an account?&nbsp;<a routerLink="/sign_up" class="link">Sign up</a>
+    </p>
+
+  </div>
 </div>
