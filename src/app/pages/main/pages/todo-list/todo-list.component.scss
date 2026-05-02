@@ -36,7 +36,11 @@ p {
         width: 1200px;
         max-width: 100%;
         border: 1px solid var(--light-grey);
-        overflow-y: auto;
+        overflow-x: auto;
+
+        table {
+            width: 100%;
+        }
     }
 }
 
@@ -149,31 +153,36 @@ p {
 }
 
 .check-col {
-    max-width: 60px;
+    width: 52px;
 }
 
 .date-col {
-    max-width: 100px;
+    width: 110px;
 }
 
 .tags-col {
-    max-width: 140px;
+    width: 160px;
 }
 
 .category-col,
 .priority-col {
-    max-width: 90px;
+    width: 100px;
 }
 
 .action-col {
-    display: flex;
-    justify-content: flex-end;
-    max-width: 140px;
-    padding-right: 24px;
+    width: 110px;
+    padding-right: 16px;
+    text-align: right;
 
     .action-col-text {
         padding-right: 12px;
     }
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .open-col {
@@ -305,12 +314,14 @@ ul {
 }
 
 @media only screen and (max-width: 660px) {
-    .mat-header-row {
-       position: sticky;
+    tr.mat-mdc-header-row {
+        position: sticky;
+        top: 0;
+        z-index: 1;
     }
 
-    .mat-row {
-        align-items: flex-start;
+    tr.mat-mdc-row {
+        vertical-align: top;
     }
 
     .cont-box {
