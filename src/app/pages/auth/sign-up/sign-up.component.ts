@@ -5,9 +5,10 @@ import { UserModel } from '@core/models';
 import { Patterns } from 'src/assets/patterns/patterns';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+    selector: 'app-sign-up',
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.scss'],
+    standalone: false
 })
 export class SignUpComponent implements OnInit {
   public signUpForm?: FormGroup;

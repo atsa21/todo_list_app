@@ -1,12 +1,22 @@
-@import '@angular/material/theming';
-@include mat-core();
+@use '@angular/material' as mat;
+@include mat.elevation-classes();
+@include mat.app-background();
 
-  $primary: mat-palette($mat-purple,100);
-  $accent: mat-palette($mat-deep-orange,300);
+$my-primary: mat.m2-define-palette(mat.$m2-purple-palette, 500);
+$my-accent: mat.m2-define-palette(mat.$m2-deep-orange-palette, 300);
+$my-theme: mat.m2-define-palette(mat.$m2-deep-orange-palette, 300);
 
-  $theme: mat-light-theme($primary, $accent);
+$my-theme: mat.m2-define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+ ),
+ typography: mat.m2-define-typography-config(
+    $font-family: serif,
+  )
+));
 
-@include angular-material-theme($theme);
+@include mat.all-component-themes($my-theme);
 
 :root {
   --black: rgb(31, 31, 31);

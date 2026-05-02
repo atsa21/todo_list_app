@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { EPriorityIcons } from '@core/enums';
 
 @Pipe({
-  name: 'priorityIcon'
+    name: 'priorityIcon',
+    standalone: false
 })
 export class PriorityIconPipe implements PipeTransform {
   transform(value: number): string {

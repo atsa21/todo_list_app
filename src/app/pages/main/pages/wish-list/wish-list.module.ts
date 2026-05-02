@@ -2,18 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoaderModule } from '@core/components/loader/loader.module';
 import { RouterModule, Routes } from '@angular/router';
-import { LottieModule } from 'ngx-lottie';
-import player from 'lottie-web';
 
 import { WishListComponent } from './wish-list.component';
 import { WishCardComponent } from './wish-card/wish-card.component';
 import { MatIconModule } from '@angular/material/icon';
-import { AddEditWishModule } from '@core/components/dialogs/add-edit-wish/add-edit-wish.module';
 import { MatButtonModule } from '@angular/material/button';
-
-export function playerFactory() {
-  return player;
-}
+import { LottieComponent } from "ngx-lottie";
+import { AddEditWishComponent } from '@core/components/dialogs/add-edit-wish/add-edit-wish.component';
 
 const routes: Routes = [
   {
@@ -29,9 +24,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatIconModule,
     LoaderModule,
-    LottieModule.forRoot({ player: playerFactory }),
-    AddEditWishModule,
+    AddEditWishComponent,
     MatButtonModule,
-  ]
+    LottieComponent
+]
 })
 export class WishListModule { }

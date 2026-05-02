@@ -1,25 +1,41 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog'
+import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
 import { Currency } from 'src/app/core/models/currency.model';
 import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
 import { WishListService } from '@core/services/wish-list/wish-list.service';
 import { AddEditWishFormService } from './services/add-edit-wish-form.service';
 import { EControlNames } from '@core/enums';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatOptionModule } from '@angular/material/core';
+import { CURRENCIES } from '@core/constants/currencies.const';
 
 @Component({
-  selector: 'app-add-edit-wish',
-  templateUrl: './add-edit-wish.component.html',
-  styleUrls: ['./add-edit-wish.component.scss']
+  standalone: true,
+    selector: 'app-add-edit-wish',
+    templateUrl: './add-edit-wish.component.html',
+    styleUrls: ['./add-edit-wish.component.scss'],
+    imports: [
+      MatDialogModule,
+      MatIconModule,
+      ReactiveFormsModule,
+      MatFormFieldModule,
+      MatOptionModule,
+      MatInputModule,
+      MatButtonModule,
+      MatSelectModule,
+      ImageCropperComponent
+    ],
+    providers: [AddEditWishFormService],
 })
 export class AddEditWishComponent implements OnInit {
   public wishForm!: FormGroup;
-  public currencyList: Currency[] = [
-    { name: 'UAH - Ukrainian hryvnia', value: 'UAH' },
-    { name: 'USD - United States dollar', value: 'USD' },
-    { name: 'EUR - Euro', value: 'EUR' }
-  ]
+  public currencyList: Currency[] = CURRENCIES;
 
   public imageEdit: string = '';
   public imageChangedEvent: any = '';

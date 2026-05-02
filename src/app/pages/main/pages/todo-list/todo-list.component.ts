@@ -4,16 +4,17 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { TodoService } from '@core/services/todo/todo.service';
-import { map, Subject, take, takeUntil } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { Todo } from 'src/app/core/models/todo.model';
 import { AnimationOptions } from 'ngx-lottie';
 import { AddEditTodoComponent } from '@core/components/dialogs/add-edit-todo/add-edit-todo.component';
 
 @Component({
-  selector: 'app-todo-list',
-  templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false,
+    selector: 'app-todo-list',
+    templateUrl: './todo-list.component.html',
+    styleUrls: ['./todo-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoListComponent implements OnInit {
 
@@ -53,17 +54,13 @@ export class TodoListComponent implements OnInit {
   }
 
   private getAllTodo(): void {
-    this.todoService.getAllTodo().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ key: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(data => {
-      this.setData(data);
-      this.todoElements = data.length;
-      this.cdr.detectChanges();
-    });
+    this.todoService.getAllTodo()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        this.setData(data);
+        this.todoElements = data.length;
+        this.cdr.markForCheck();
+      });
   }
 
   public getTodoByCategory(category: string): void {
@@ -73,11 +70,10 @@ export class TodoListComponent implements OnInit {
         .pipe(take(1), takeUntil(this.destroy$))
         .subscribe((data) => {
           this.setData(data);
-          this.cdr.detectChanges();
+          this.cdr.markForCheck();
         });
     } else {
       this.getAllTodo();
-      this.cdr.detectChanges();
     }
   }
 
@@ -111,13 +107,12 @@ export class TodoListComponent implements OnInit {
     })
   }
 
-  checkTodo(row: Todo, key : string): void {
-    row.checked = !row.checked;
-    this.todoService.updateTodo(row, key).then(() => this.cdr.detectChanges());
+  checkTodo(row: Todo, key: string): void {
+    this.todoService.updateTodo(row, key);
   }
 
   deleteTodo(key: any): void {
-    this.todoService.deleteTodo(key).then(() => this.cdr.detectChanges());
+    this.todoService.deleteTodo(key);
   }
 
   openDialog(): void {

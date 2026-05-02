@@ -1,54 +1,47 @@
-import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
+import { Injectable, inject } from '@angular/core';
+import { Database } from '@angular/fire/database';
+import { ref, push, set, remove } from 'firebase/database';
 import { Wish } from '../../models/wish.model';
-import { child, getDatabase, push, ref, set } from 'firebase/database';
+import { Observable } from 'rxjs';
+import { listValRaw } from '@core/utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WishListService {
-
-  wish: any;
-  userId: any;
-
-  constructor(
-    private db: AngularFireDatabase
-  ) {
-  }
+  public userId: string | null = null;
+  private db = inject(Database);
 
   getUserId(): void {
     this.userId = localStorage.getItem('userId');
   }
 
-  getWish(): AngularFireList<Wish> {
+  getWish(): Observable<Wish[]> {
     this.getUserId();
-    const wishRef: AngularFireList<Wish> = this.db.list(`wishList/${this.userId}/data`);
-    return wishRef;
+    return listValRaw<Wish>(ref(this.db, `wishList/${this.userId}/data`));
   }
 
   createWish(wish: Wish): void {
     this.getUserId();
-    const db = getDatabase();
-    const newPostKey = push(child(ref(db), `wishList/${this.userId}/data`)).key;
-    set(ref(db, 'wishList/' + this.userId + '/data/' + newPostKey), {
+    const listRef = ref(this.db, `wishList/${this.userId}/data`);
+    const newPostKey = push(listRef).key;
+    set(ref(this.db, `wishList/${this.userId}/data/${newPostKey}`), {
       key: newPostKey,
       title: wish.title,
       price: wish.price,
       currency: wish.currency,
-      image: wish.image,
-      link: wish.link
+      image: wish.image ?? null,
+      link: wish.link ?? null
     });
   }
 
   updateWish(wish: Wish, key: string): Promise<void> {
     this.getUserId();
-    const wishRef: AngularFireList<Wish> = this.db.list(`wishList/${this.userId}/data`);
-    return wishRef.update(key, wish);
+    return set(ref(this.db, `wishList/${this.userId}/data/${key}`), wish as any);
   }
 
   deleteWish(key: any): Promise<void> {
     this.getUserId();
-    const wishRef: AngularFireList<Wish> = this.db.list(`wishList/${this.userId}/data`);
-    return wishRef.remove(key);
+    return remove(ref(this.db, `wishList/${this.userId}/data/${key}`));
   }
 }

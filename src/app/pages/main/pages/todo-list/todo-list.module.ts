@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { LottieModule } from 'ngx-lottie';
+import { LottieComponent } from 'ngx-lottie';
 import player from 'lottie-web';
 
 import { LoaderModule } from '@core/components/loader/loader.module';
@@ -14,7 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { AddEditTodoModule } from '@core/components/dialogs/add-edit-todo/add-edit-todo.module';
+import { AddEditTodoComponent } from '@core/components/dialogs/add-edit-todo/add-edit-todo.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSortModule } from '@angular/material/sort';
@@ -49,12 +49,12 @@ const routes: Routes = [
     MatPaginatorModule,
     MatProgressBarModule,
     MatSortModule,
-    AddEditTodoModule,
+    AddEditTodoComponent,
     PriorityPipeModule,
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,
-    LottieModule.forRoot({ player: playerFactory }),
-  ],
+    LottieComponent
+],
 })
 export class TodoListModule { }
