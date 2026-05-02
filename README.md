@@ -8,7 +8,7 @@ Node version 16.10.0.
 ## Site
 
 Navigate to [To-do List](https://todo-list-app-45cf7.firebaseapp.com/login) to see deployed app.
-![image](https://github.com/user-attachments/assets/41de6ccb-c96c-41b5-8b49-91ff59e24489)
+![image](https://github.com/user-attachments/assets/2e215101-89cf-4558-a101-855e7fa59fee)
 
 ## How to install
 
