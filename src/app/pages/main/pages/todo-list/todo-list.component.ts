@@ -108,7 +108,6 @@ export class TodoListComponent implements OnInit {
   }
 
   checkTodo(row: Todo, key: string): void {
-    row.checked = !row.checked;
     this.todoService.updateTodo(row, key);
   }
 

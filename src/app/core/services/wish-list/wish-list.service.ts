@@ -1,15 +1,16 @@
 import { Injectable, inject } from '@angular/core';
-import { Database, listVal } from '@angular/fire/database';
-import { ref, push, set, update, remove } from 'firebase/database';
+import { Database } from '@angular/fire/database';
+import { ref, push, set, remove } from 'firebase/database';
 import { Wish } from '../../models/wish.model';
 import { Observable } from 'rxjs';
+import { listValRaw } from '@core/utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WishListService {
+  public userId: string | null = null;
   private db = inject(Database);
-  userId: any;
 
   getUserId(): void {
     this.userId = localStorage.getItem('userId');
@@ -17,7 +18,7 @@ export class WishListService {
 
   getWish(): Observable<Wish[]> {
     this.getUserId();
-    return listVal<Wish>(ref(this.db, `wishList/${this.userId}/data`), { keyField: 'key' });
+    return listValRaw<Wish>(ref(this.db, `wishList/${this.userId}/data`));
   }
 
   createWish(wish: Wish): void {
@@ -29,14 +30,14 @@ export class WishListService {
       title: wish.title,
       price: wish.price,
       currency: wish.currency,
-      image: wish.image,
-      link: wish.link
+      image: wish.image ?? null,
+      link: wish.link ?? null
     });
   }
 
   updateWish(wish: Wish, key: string): Promise<void> {
     this.getUserId();
-    return update(ref(this.db, `wishList/${this.userId}/data/${key}`), wish as any);
+    return set(ref(this.db, `wishList/${this.userId}/data/${key}`), wish as any);
   }
 
   deleteWish(key: any): Promise<void> {

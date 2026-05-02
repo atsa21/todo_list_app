@@ -12,7 +12,7 @@
         }
 
         <mat-dialog-content>
-            <form [formGroup]="wishForm" class="form" (ngSubmit)="addWish()">
+            <form [formGroup]="wishForm" class="form">
                 <div class="img-crop-container">
                     @if (!croppedImage) {
                         @if(!isEditImage) {
@@ -103,8 +103,8 @@
                     }
                 </mat-form-field>
 
-                <div mat-dialog-action [align]="'end'">
-                    <button [disabled]="!wishForm.valid" mat-flat-button type="submit" class="submit-btn btn-main">{{actionBtn}}</button>
+                <div mat-dialog-actions align="end">
+                    <button [disabled]="!wishForm.valid" mat-flat-button type="button" (click)="addWish()" class="submit-btn btn-main">{{actionBtn}}</button>
                 </div>
 
             </form>

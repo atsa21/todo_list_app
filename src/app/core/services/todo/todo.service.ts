@@ -1,15 +1,16 @@
-import { Injectable, inject } from '@angular/core';
-import { Database, listVal } from '@angular/fire/database';
-import { ref, query, orderByChild, equalTo, push, set, update, remove } from 'firebase/database';
+import { inject, Injectable } from '@angular/core';
+import { Database } from '@angular/fire/database';
+import { ref, query, orderByChild, equalTo, push, set, remove } from 'firebase/database';
 import { Observable } from 'rxjs';
 import { Todo } from '@core/models/todo.model';
+import { listValRaw } from '@core/utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
+  public userId: string | null = null;
   private db = inject(Database);
-  userId: any;
 
   getUserId(): void {
     this.userId = localStorage.getItem('userId');
@@ -17,13 +18,13 @@ export class TodoService {
 
   getAllTodo(): Observable<Todo[]> {
     this.getUserId();
-    return listVal<Todo>(ref(this.db, `todoList/${this.userId}/data`), { keyField: 'key' });
+    return listValRaw<Todo>(ref(this.db, `todoList/${this.userId}/data`));
   }
 
   getTodoByCategory(category: string): Observable<Todo[]> {
     this.getUserId();
     const q = query(ref(this.db, `todoList/${this.userId}/data`), orderByChild('category'), equalTo(category));
-    return listVal<Todo>(q, { keyField: 'key' });
+    return listValRaw<Todo>(q);
   }
 
   createTodo(todo: Todo): Promise<void> {
@@ -47,7 +48,7 @@ export class TodoService {
 
   updateTodo(todo: Todo, key: string): Promise<void> {
     this.getUserId();
-    return update(ref(this.db, `todoList/${this.userId}/data/${key}`), todo as any);
+    return set(ref(this.db, `todoList/${this.userId}/data/${key}`), todo as any);
   }
 
   deleteTodo(key: any): Promise<void> {
