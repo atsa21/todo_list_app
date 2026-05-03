@@ -15,6 +15,10 @@ body {
   background-color: $yellow;
 }
 
+.mat-typography p {
+  margin: 0;
+}
+
 .text-center {
   text-align: center;
 }
@@ -51,6 +55,24 @@ body {
   }
 }
 
+.btn-secondary {
+  color: $accent-dark;
+  background-color: transparent;
+  border: 2px solid $accent-dark;
+
+  &:hover:enabled {
+    color: $black;
+    background-color: transparent;
+    border: 2px solid $black;
+  }
+
+  &:disabled {
+    color: $grey;
+    background-color: transparent;
+    border: 2px solid $grey;
+  }
+}
+
 .btn-white {
   color: $black;
   background-color: $white;
@@ -58,6 +80,38 @@ body {
   &:hover:enabled {
     color: $white;
     background-color: $accent-dark;
+  }
+}
+
+.btn-icon {
+  color: $accent-dark;
+  background-color: transparent;
+  border-radius: 50%;
+
+  &:hover:enabled {
+    color: $accent-dark;
+    background-color: $accent-lighter;
+  }
+
+  &:disabled {
+    color: $medium-grey;
+    background-color: transparent;
+  }
+}
+
+.btn-icon-warning {
+  color: $danger;
+  background-color: transparent;
+  border-radius: 50%;
+
+  &:hover:enabled {
+    color: $white;
+    background-color: $danger;
+  }
+
+  &:disabled {
+    color: $medium-grey;
+    background-color: transparent;
   }
 }
 

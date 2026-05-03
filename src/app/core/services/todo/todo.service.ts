@@ -29,21 +29,17 @@ export class TodoService {
 
   createTodo(todo: Todo): Promise<void> {
     this.getUserId();
-    if (todo.date) {
-      const listRef = ref(this.db, `todoList/${this.userId}/data`);
-      const newPostKey = push(listRef).key;
-      return set(ref(this.db, `todoList/${this.userId}/data/${newPostKey}`), {
-        key: newPostKey,
-        category: todo.category,
-        task: todo.task,
-        date: todo.date.toString(),
-        priority: todo.priority,
-        tags: todo.tags,
-        checked: false,
-      });
-    } else {
-      return Promise.reject('Invalid todo date');
-    }
+    const listRef = ref(this.db, `todoList/${this.userId}/data`);
+    const newPostKey = push(listRef).key;
+    return set(ref(this.db, `todoList/${this.userId}/data/${newPostKey}`), {
+      key: newPostKey,
+      category: todo.category,
+      task: todo.task,
+      date: todo.date ? todo.date.toString() : '-',
+      priority: todo.priority,
+      tags: todo.tags,
+      checked: false,
+    });
   }
 
   updateTodo(todo: Todo, key: string): Promise<void> {

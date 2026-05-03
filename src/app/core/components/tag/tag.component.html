@@ -2,6 +2,6 @@
   <span
     class="tag"
     [class.mobile-tag]="isMobile()"
-    [class]="getStateClass()"
+    [class]="priority() | tagState: checked()"
   >#{{ tag() }}</span>
 }

@@ -15,7 +15,7 @@
   align-items: center;
 }
 
-.ready-tag    {
+.ready-tag {
   color: $white;
   background-color: $light-grey;
 }
@@ -38,20 +38,4 @@
 .low-tag {
   color: $white;
   background-color: $neutral;
-}
-
-.critical {
-  color: $danger;
-}
-
-.high {
-  color: $warning;
-}
-
-.medium {
-  color: $success;
-}
-
-.low {
-  color: $neutral;
 }

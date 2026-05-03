@@ -1,0 +1,1 @@
+var i=[{id:"work",name:"work",icon:"fa-briefcase",isHidden:!1,isInitial:!0},{id:"study",name:"study",icon:"fa-book",isHidden:!1,isInitial:!0},{id:"home",name:"home",icon:"fa-house",isHidden:!1,isInitial:!0},{id:"hobbies",name:"hobbies",icon:"fa-palette",isHidden:!1,isInitial:!0},{id:"other",name:"other",icon:"fa-tag",isHidden:!1,isInitial:!0}];export{i as a};

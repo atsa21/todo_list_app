@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,12 +10,14 @@ import { MatOptionModule, MatNativeDateModule, DateAdapter } from '@angular/mate
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatChipsModule, MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { take } from 'rxjs';
 import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
 import { TodoService } from '@core/services/todo/todo.service';
+import { CategoryService } from '@core/services/category/category.service';
 import { AddEditTodoFormService } from './services/add-edit-todo-form.service';
-import { PriorityPipeModule } from '@core/pipes/priority-pipe/priority.pipe.module';
-import { ECategories, EControlNames } from '@core/enums';
-import { TODO_CATEGORIES } from '@core/constants/todo-categories.const';
+import { EControlNames } from '@core/enums';
+import { Category } from '@core/models/category.model';
+import { PriorityStatusModule } from '@core/components/priority-status/priority-status.module';
 
 @Component({
     standalone: true,
@@ -34,12 +36,12 @@ import { TODO_CATEGORIES } from '@core/constants/todo-categories.const';
       MatDatepickerModule,
       MatNativeDateModule,
       MatChipsModule,
-      PriorityPipeModule,
+      PriorityStatusModule,
     ],
     providers: [AddEditTodoFormService]
 })
 export class AddEditTodoComponent implements OnInit {
-  public categories: ECategories[] = TODO_CATEGORIES;
+  public categories: Category[] = [];
   public priorities: number[] = [1, 2, 3, 4];
   public cantAddTag = false;
   public minDate: Date;
@@ -51,6 +53,8 @@ export class AddEditTodoComponent implements OnInit {
 
   public addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
+
+  private categoryService = inject(CategoryService);
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public editData: any,
@@ -91,6 +95,9 @@ export class AddEditTodoComponent implements OnInit {
       this.key = this.editData.key;
     }
     this.todoForm = this.addEditTodoFormService.createForm(this.editData);
+    this.categoryService.getCategories().pipe(take(1)).subscribe(cats => {
+      this.categories = cats.filter(c => !c.isHidden);
+    });
   }
 
   public addTag(event: MatChipInputEvent): void {
@@ -131,7 +138,9 @@ export class AddEditTodoComponent implements OnInit {
   }
 
   public updateTodo(): void {
-    this.date.setValue(this.todoForm.value.date.toString());
+    if (this.todoForm.value.date) {
+      this.date.setValue(this.todoForm.value.date.toString());
+    }
     this.todoService.updateTodo(this.todoForm.value, this.key).then(() => {
       this.dialogRef.close();
       this.snackbar.openSnackBar('Task Updated', 'success', 'Close');

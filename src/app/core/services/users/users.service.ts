@@ -5,6 +5,7 @@ import { Auth } from '@angular/fire/auth';
 import { UserModel } from '@core/models';
 import { LocalStorageService } from '@core/services/local-storage/local-storage.service';
 import { Observable, of } from 'rxjs';
+import { listValRaw } from '@core/utils/list-val-raw';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class UsersService {
   public getUser(): Observable<UserModel[]> {
     const id = this.auth.currentUser?.uid ?? this.localStoreService.getUserId();
     if (!id) return of([]);
-    return listVal<UserModel>(ref(this.db, `users/${id}`), { keyField: 'key' });
+    return listValRaw<UserModel>(ref(this.db, `users/${id}`), 'key');
   }
 
   public createUser(user: UserModel): Promise<void> {

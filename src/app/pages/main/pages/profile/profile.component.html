@@ -32,6 +32,7 @@
                                 [aspectRatio]="1 / 1"
                                 [resizeToWidth]="160"
                                 format="png"
+                                [output]="'base64'"
                                 (imageCropped)="imageCropped($event)"
                                 (imageLoaded)="imageLoaded()"
                                 (loadImageFailed)="loadImageFailed()"

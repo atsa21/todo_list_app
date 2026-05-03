@@ -8,10 +8,6 @@
             color: $black !important;
         }
     }
-
-    .mat-mdc-form-field-flex .mat-mdc-form-field-infix {
-        padding: 12px 0px !important;
-    }
 }
 
 :host ::ng-deep .mat-chip.mat-standard-chip.mat-chip-selected.mat-accent {
@@ -58,11 +54,6 @@
     &:hover {
         color: $grey;
     }
-}
-
-.submit-btn {
-    font-size: 16px;
-    padding: 6px 16px;
 }
 
 textarea {

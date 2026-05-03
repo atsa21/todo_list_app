@@ -1,0 +1,100 @@
+<div class="header">
+  <h1 class="title">Edit Categories</h1>
+  <button mat-dialog-close class="close-btn">
+    <mat-icon>clear</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content>
+  <div class="category-list">
+    @for (cat of categories(); track cat.id; let i = $index) {
+      <div class="category-item" [class.is-hidden]="cat.isHidden">
+        <div class="category-item-info">
+          <i class="fa-solid {{ cat.icon }} cat-icon"></i>
+          <span class="category-name">{{ cat.name }}</span>
+        </div>
+
+        <div class="category-item-actions">
+          @if (cat.isInitial) {
+            <span class="initial-badge">default</span>
+          }
+
+          <div class="cat-actions">
+            <button
+              class="btn btn-icon vis-btn"
+              [title]="cat.isHidden ? 'Show' : 'Hide'"
+              (click)="toggleHidden(cat)"
+            >
+              <i class="fa {{ cat.isHidden ? 'fa-eye-slash' : 'fa-eye' }}"></i>
+            </button>
+            <button
+              class="btn btn-icon-warning delete-btn"
+              [disabled]="cat.isInitial"
+              (click)="remove(i)"
+            >
+              <i class="fa fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-hint">No categories yet</div>
+    }
+  </div>
+
+  <div class="add-section">
+    <p class="add-title">Add new category</p>
+
+    <div class="add-row">
+      <mat-form-field
+        appearance="outline"
+        color="primary"
+        floatLabel="always"
+        class="name-field"
+      >
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          [ngModel]="newName()"
+          (ngModelChange)="newName.set($event); duplicateError.set(false)"
+          placeholder="e.g. fitness"
+          maxlength="30"
+          (keydown.enter)="add()"
+        />
+        @if (duplicateError()) {
+          <mat-error>Already exists</mat-error>
+        }
+      </mat-form-field>
+
+      <div class="selected-preview" [title]="newIcon()">
+        <i class="fa-solid {{ newIcon() }}"></i>
+      </div>
+
+      <button mat-flat-button class="btn-add-cat" (click)="add()" [disabled]="!newName().trim()">
+        Add
+      </button>
+    </div>
+
+    <div class="icon-picker">
+      <p class="icon-picker-label">Pick an icon</p>
+      <div class="icon-grid">
+        @for (icon of icons; track icon.class) {
+          <button
+            type="button"
+            class="icon-btn"
+            [class.selected]="newIcon() === icon.class"
+            [title]="icon.label"
+            (click)="newIcon.set(icon.class)"
+          >
+            <i class="fa-solid {{ icon.class }}"></i>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button class="btn-save" (click)="save()">Save</button>
+</mat-dialog-actions>

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,14 +16,18 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TodoService } from '@core/services/todo/todo.service';
+import { CategoryService } from '@core/services/category/category.service';
 import { Subject, debounceTime, take, takeUntil } from 'rxjs';
 import { Todo } from 'src/app/core/models/todo.model';
+import { Category } from '@core/models/category.model';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 import { AddEditTodoComponent } from '@core/components/dialogs/add-edit-todo/add-edit-todo.component';
+import { EditCategoriesComponent } from '@core/components/dialogs/edit-categories/edit-categories.component';
 import { LoaderModule } from '@core/components/loader/loader.module';
 import { PriorityStatusModule } from '@core/components/priority-status/priority-status.module';
 import { TagComponent } from '@core/components/tag/tag.component';
-import { PriorityPipeModule } from '@core/pipes/priority-pipe/priority.pipe.module';
+import { PriorityPipe } from '@core/pipes';
+import { TODO_LIST_COLUMN } from './constants/todo-list.const';
 
 @Component({
     standalone: true,
@@ -49,15 +53,16 @@ import { PriorityPipeModule } from '@core/pipes/priority-pipe/priority.pipe.modu
       LoaderModule,
       PriorityStatusModule,
       TagComponent,
-      PriorityPipeModule,
+      PriorityPipe,
     ],
     templateUrl: './todo-list.component.html',
     styleUrls: ['./todo-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [DatePipe],
 })
 export class TodoListComponent implements OnInit {
 
-  public displayedColumns: string[] = ['checked', 'task','category', 'date', 'priority', 'tags', 'action', 'open'];
+  public displayedColumns: string[] = TODO_LIST_COLUMN;
   public dataSource!: MatTableDataSource<any>;
   public todoReadyList: any;
   public todoElements: number = 0;
@@ -69,8 +74,10 @@ export class TodoListComponent implements OnInit {
   public readyTodo: number = 0;
   public unreadyTodo: number = 0;
   public progress: number = 0;
-  public categories: string[] = ['all tasks', 'work', 'study', 'home', 'hobbies', 'other'];
+  public categories: Category[] = [];
   public selectedCategory: string = 'all tasks';
+
+  private rawTodos: Todo[] = [];
 
   public today: any;
   public menuOpen = false;
@@ -85,7 +92,13 @@ export class TodoListComponent implements OnInit {
 
   public dialog = inject(MatDialog);
   public todoService = inject(TodoService);
+  public categoryService = inject(CategoryService);
   public cdr = inject(ChangeDetectorRef);
+  private datePipe = inject(DatePipe);
+
+  public get visibleCategories(): Category[] {
+    return this.categories.filter(c => !c.isHidden);
+  }
 
   constructor() {
     this.searchControl.valueChanges.pipe(
@@ -103,15 +116,26 @@ export class TodoListComponent implements OnInit {
 
   ngOnInit(): void {
     this.today = new Date(new Date().setHours(0,0,0,0)).toString();
-    this.getAllTodo();
+    this.loadCategories();
+  }
+
+  private loadCategories(): void {
+    this.categoryService.getCategories()
+      .pipe(take(1))
+      .subscribe(cats => {
+        this.categories = cats;
+        this.getAllTodo();
+        this.cdr.markForCheck();
+      });
   }
 
   private getAllTodo(): void {
     this.todoService.getAllTodo()
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-        this.setData(data);
+        this.rawTodos = data;
         this.todoElements = data.length;
+        this.setData(data);
         this.cdr.markForCheck();
       });
   }
@@ -130,10 +154,13 @@ export class TodoListComponent implements OnInit {
     }
   }
 
-  private setData(data: any): void {
-    this.dataSource = new MatTableDataSource(data);
+  private setData(data: Todo[]): void {
+    const hiddenNames = new Set(this.categories.filter(c => c.isHidden).map(c => c.name));
+    const filtered = hiddenNames.size ? data.filter(t => !hiddenNames.has(t.category!)) : data;
+
+    this.dataSource = new MatTableDataSource(filtered);
     this.dataSource.data = this.dataSource.data.sort((a, b) => a.priority - b.priority);
-    this.totalTodo = data.length;
+    this.totalTodo = filtered.length;
     this.todoReadyList = this.dataSource.data.filter(el => el.checked === true);
     this.readyTodo = this.todoReadyList.length;
     this.unreadyTodo = this.totalTodo - this.readyTodo;
@@ -174,24 +201,34 @@ export class TodoListComponent implements OnInit {
     });
   }
 
+  openEditCategories(): void {
+    this.dialog.open(EditCategoriesComponent, {
+      width: '480px',
+      data: { categories: this.categories },
+    }).afterClosed().subscribe((updated: Category[] | undefined) => {
+      if (updated) {
+        this.categories = updated;
+        if (!this.visibleCategories.some(c => c.name === this.selectedCategory)) {
+          this.selectedCategory = 'all tasks';
+        }
+        this.setData(this.rawTodos);
+        this.cdr.markForCheck();
+      }
+    });
+  }
+
   getStyle(checked: boolean, date: string): string {
     const isPast = this.checkPastDate(date);
     return checked ? 'ready' : (isPast ? 'past' : 'unready');
   }
 
-  getPriorityClass(priority: number): string {
-    switch (priority) {
-      case 1:
-        return 'critical-icon';
-      case 2:
-        return 'high-icon';
-      case 3:
-        return 'medium-icon';
-      case 4:
-        return 'low-icon';
-      default:
-        return 'error';
-    }
+  getCategoryIcon(name: string): string {
+    return this.categories.find(c => c.name === name)?.icon ?? 'fa-tag';
   }
 
+  formatDate(date: string | undefined): string {
+    if (!date || date === '-') return '—';
+    if (date === this.today) return 'Today';
+    return this.datePipe.transform(date) ?? '—';
+  }
 }

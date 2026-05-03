@@ -1,6 +1,8 @@
 import { ApplicationConfig } from '@angular/core';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideRouter } from '@angular/router';
+import { authErrorInterceptor } from './core/interceptors/auth-error.interceptor';
 import { routes } from './app.routes';
 import { initializeApp } from 'firebase/app';
 import { provideFirebaseApp } from '@angular/fire/app';
@@ -17,6 +19,7 @@ const firebaseApp = initializeApp(environment.firebase);
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
+    provideHttpClient(withInterceptors([authErrorInterceptor])),
     provideFirebaseApp(() => firebaseApp),
     provideDatabase(() => getDatabase(firebaseApp)),
     provideAuth(() => getAuth(firebaseApp)),

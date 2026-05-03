@@ -4,6 +4,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { SnackBarService } from '../snack-bar/snack-bar.service';
 import { UsersService } from '../users/users.service';
+import { CategoryService } from '../category/category.service';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 
 @Injectable({
@@ -16,6 +17,7 @@ export class AuthService {
     private router: Router,
     private snackbar: SnackBarService,
     private userService: UsersService,
+    private categoryService: CategoryService,
     private localStorService: LocalStorageService
   ) { }
 
@@ -41,8 +43,9 @@ export class AuthService {
 
   public signUp(email: string, password: string, user: any): void {
     createUserWithEmailAndPassword(this.auth, email, password)
-    .then (() => {
+    .then ((userCredential) => {
       this.userService.createUser(user);
+      this.categoryService.seedDefaultCategories(userCredential.user.uid);
       this.login(email, password);
       this.snackbar.openSnackBar('Sign Up Successfull', 'success', 'Close');
     }, () => {

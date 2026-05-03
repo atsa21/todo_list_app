@@ -1,3 +1,5 @@
+@use "src/assets/styles/vars" as *;
+
 .priority {
   display: flex;
 
@@ -12,4 +14,20 @@
   & .p-priority {
     font-size: 12px;
   }
+}
+
+.critical {
+  color: $danger;
+}
+
+.high {
+  color: $warning;
+}
+
+.medium {
+  color: $success;
+}
+
+.low {
+  color: $neutral;
 }

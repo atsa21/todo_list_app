@@ -39,6 +39,20 @@
     margin: 0;
 }
 
+.toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.more-btn {
+    color: $grey;
+    width: 36px;
+    height: 36px;
+
+    &:hover { color: $black; }
+}
+
 .btn-add {
     display: flex;
     align-items: center;
@@ -111,6 +125,18 @@
         border-bottom: 1px solid #f3f3f3;
         font-size: 14px;
         color: $black;
+    }
+}
+
+.category-cell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: capitalize;
+
+    i {
+        color: $grey;
+        font-size: 13px;
     }
 }
 

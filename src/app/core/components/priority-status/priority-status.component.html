@@ -1,4 +1,6 @@
-<div *ngIf="priority" class="priority">
-  <i [class]="priority | priorityIcon"></i>
-  <span class="p-priority">{{ priority | priority }}</span>
-</div>
+@if (priority) {
+  <div class="priority" [class]="priority | priority">
+    <i [class]="priority | priorityIcon"></i>
+    <span class="p-priority">{{ priority | priority }}</span>
+  </div>
+}

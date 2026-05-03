@@ -4,10 +4,25 @@
       <div class="card">
         <div class="toolbar">
           <h2 class="page-title">My Tasks</h2>
-          <button class="btn btn-accent btn-add" type="button" (click)="openDialog()">
-            <i class="fa-regular fa-plus"></i>
-            <span class="btn-text">Add task</span>
-          </button>
+          <div class="toolbar-right">
+            <button
+              class="btn btn-accent btn-add"
+              type="button"
+              (click)="openDialog()"
+            >
+              <i class="fa-regular fa-plus"></i>
+              <span class="btn-text">Add task</span>
+            </button>
+
+            <button
+              class="btn btn-secondary btn-add"
+              type="button"
+              (click)="openEditCategories()"
+            >
+              <i class="fa-regular fa-folder-open"></i>
+              <span>Edit categories</span>
+            </button>
+          </div>
         </div>
 
         <div class="filters">
@@ -19,8 +34,11 @@
           <mat-form-field class="input-category" appearance="outline" color="primary" floatLabel="always">
             <mat-label>Category</mat-label>
             <mat-select [(ngModel)]="selectedCategory" (ngModelChange)="getTodoByCategory($event)">
-              @for (category of categories; track category) {
-                <mat-option [value]="category">{{ category }}</mat-option>
+              <mat-option value="all tasks">All tasks</mat-option>
+              @for (cat of visibleCategories; track cat.id) {
+                <mat-option [value]="cat.name">
+                  <i class="fa-solid {{ cat.icon }}"></i>&nbsp;{{ cat.name }}
+                </mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -43,11 +61,12 @@
                 <div class="task">
                   <span class="task-name">{{row.task}}</span>
                   <div class="small-text-task">
+                    <i class="fa-solid {{ getCategoryIcon(row.category) }} cat-icon"></i>
                     <p>{{row.category}}</p>
                     <span class="circle">&#9679;</span>
                     <span class="icon-text-box">
                       <i class="fa-regular fa-calendar"></i>
-                      <p>{{ row.date == today ? 'Today' : row.date | date }}</p>
+                      <p>{{ formatDate(row.date) }}</p>
                     </span>
                   </div>
                 </div>
@@ -70,7 +89,12 @@
 
             <ng-container matColumnDef="category">
               <th mat-header-cell *matHeaderCellDef class="category-col col-hide-mobile">Category</th>
-              <td mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="category-col col-hide-mobile">{{row.category}}</td>
+              <td mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="category-col col-hide-mobile">
+                <span class="category-cell">
+                  <i class="fa-solid {{ getCategoryIcon(row.category) }}"></i>
+                  {{ row.category }}
+                </span>
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="tags">
@@ -86,7 +110,7 @@
 
             <ng-container matColumnDef="date">
               <th mat-header-cell *matHeaderCellDef class="date-col col-hide-mobile">Date</th>
-              <td mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="date-col col-hide-mobile">{{ row.date == today ? 'Today' : row.date | date }}</td>
+              <td mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="date-col col-hide-mobile">{{ formatDate(row.date) }}</td>
             </ng-container>
 
             <ng-container matColumnDef="priority">
@@ -136,7 +160,11 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
             <tr class="mat-row no-data" *matNoDataRow>
-              <td class="mat-cell no-data" colspan="8">No results for "{{ searchControl.value }}"</td>
+              <td class="mat-cell no-data" colspan="8">
+                No results for
+                  @if (searchControl.value) { "{{ searchControl.value }}" and}
+                  {{ visibleCategories.length }} categories selected
+              </td>
             </tr>
 
           </table>
