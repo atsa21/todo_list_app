@@ -2,13 +2,16 @@
 
 This project was created to manage task.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
 Node version 16.10.0.
 
 ## Site
 
 Navigate to [To-do List](https://todo-list-app-45cf7.firebaseapp.com/login) to see deployed app.
-![image](https://github.com/user-attachments/assets/3754f5a3-869b-4ad6-996d-49c353ff8015)
+<img width="1907" height="864" alt="image" src="https://github.com/user-attachments/assets/a71075e7-5dfb-489a-ac4a-2ba3b0c8e414" />
+
+<img width="1909" height="864" alt="image" src="https://github.com/user-attachments/assets/242378b6-0e4f-4d51-804d-7cbd5d39aa02" />
+
 
 
 ## How to install
