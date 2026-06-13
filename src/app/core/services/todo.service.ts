@@ -44,7 +44,16 @@ export class TodoService {
 
   updateTodo(todo: Todo, key: string): Promise<void> {
     this.getUserId();
-    return set(ref(this.db, `todoList/${this.userId}/data/${key}`), todo as any);
+    return set(ref(this.db, `todoList/${this.userId}/data/${key}`), {
+      key,
+      category: todo.category,
+      task: todo.task,
+      date: todo.date ? todo.date.toString() : '-',
+      priority: todo.priority,
+      tags: todo.tags || [],
+      checked: todo.checked ?? false,
+      authorId: todo.authorId ?? null,
+    });
   }
 
   deleteTodo(key: any): Promise<void> {

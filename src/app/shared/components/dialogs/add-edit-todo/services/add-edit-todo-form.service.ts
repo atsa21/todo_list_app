@@ -8,7 +8,8 @@ export class AddEditTodoFormService {
 
   public createForm(data: any): FormGroup {
     const userId = localStorage.getItem('uid');
-    const date = data ? new Date(data?.date) : null;
+    const parsedDate = data?.date && data.date !== '-' ? new Date(data.date) : null;
+    const date = parsedDate && !isNaN(parsedDate.getTime()) ? parsedDate : null;
 
     return this.fb.group({
       [EControlNames.Category]: new FormControl(data?.category || null, Validators.required),

@@ -398,10 +398,16 @@ export class TodoListComponent implements OnInit {
     if (!date || date === '-') {
       return '—';
     }
-    if (date === this.today) {
-      return 'Today';
+    const parsed = new Date(date);
+    if (isNaN(parsed.getTime())) {
+      return '—';
     }
-    return this.datePipe.transform(date) ?? '—';
+    const hasTime = parsed.getHours() !== 0 || parsed.getMinutes() !== 0;
+    const time = hasTime ? `, ${this.datePipe.transform(parsed, 'h:mm a')}` : '';
+    if (this.dueOffset(date) === 0) {
+      return `Today${time}`;
+    }
+    return `${this.datePipe.transform(parsed, 'MMM d, y')}${time}`;
   }
 
   private titleOf(todo: Todo): string {

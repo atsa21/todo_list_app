@@ -14,7 +14,8 @@
                 <textarea
                     id="todo-task"
                     #taskInput
-                    class="minput task-input"
+                    appInput
+                    class="task-input"
                     rows="2"
                     formControlName="task"
                     placeholder="What do you need to do?"
@@ -73,15 +74,28 @@
 
             <!-- Due date -->
             <div class="field">
-                <label class="field-label" for="todo-date">Due date <span class="required">*</span></label>
-                <input
-                    id="todo-date"
-                    class="minput"
-                    type="date"
-                    [min]="minDate"
-                    [value]="dateInputValue"
-                    (change)="onDateChange($any($event.target).value)"
-                />
+                <label class="field-label" for="todo-date">Due date</label>
+                <div class="datetime-row">
+                    <input
+                        id="todo-date"
+                        appInput
+                        class="datetime-input"
+                        type="date"
+                        [min]="minDate"
+                        [value]="dateInputValue"
+                        (change)="onDateChange($any($event.target).value)"
+                    />
+                    <input
+                        id="todo-time"
+                        appInput
+                        class="datetime-input datetime-input--time"
+                        type="time"
+                        aria-label="Due time"
+                        [disabled]="!date.value"
+                        [value]="timeInputValue"
+                        (change)="onTimeChange($any($event.target).value)"
+                    />
+                </div>
             </div>
 
             <!-- Tags -->
@@ -103,7 +117,7 @@
                     <input
                         id="todo-tags"
                         #tagInput
-                        class="minput"
+                        appInput
                         type="text"
                         minlength="2"
                         maxlength="14"

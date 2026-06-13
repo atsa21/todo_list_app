@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, Inject, OnInit, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { take } from 'rxjs';
@@ -10,6 +10,7 @@ import { EControlNames } from '@core/enums';
 import { Category } from '@core/models/category.model';
 import { PriorityPipe } from '@core/pipes';
 import { DialogShellComponent } from '@shared/components/dialogs/dialog-shell/dialog-shell.component';
+import { InputDirective } from '@shared/directives';
 
 const MAX_TAGS = 3;
 const MIN_TAG_LENGTH = 2;
@@ -20,10 +21,10 @@ const MAX_TAG_LENGTH = 14;
     selector: 'app-add-edit-todo',
     templateUrl: './add-edit-todo.component.html',
     styleUrls: ['./add-edit-todo.component.scss'],
-    imports: [ReactiveFormsModule, PriorityPipe, DialogShellComponent],
+    imports: [ReactiveFormsModule, PriorityPipe, DialogShellComponent, InputDirective],
     providers: [AddEditTodoFormService]
 })
-export class AddEditTodoComponent implements OnInit, AfterViewInit {
+export class AddEditTodoComponent implements OnInit {
   @ViewChild('taskInput') private taskInput?: ElementRef<HTMLTextAreaElement>;
 
   public categories: Category[] = [];
@@ -89,6 +90,10 @@ export class AddEditTodoComponent implements OnInit, AfterViewInit {
     return this.date.value ? this.toInputDate(new Date(this.date.value)) : '';
   }
 
+  public get timeInputValue(): string {
+    return this.date.value ? this.toInputTime(new Date(this.date.value)) : '';
+  }
+
   ngOnInit(): void {
     if (this.editData) {
       this.key = this.editData.key;
@@ -99,9 +104,6 @@ export class AddEditTodoComponent implements OnInit, AfterViewInit {
       if (!this.priority.value) {
         this.priority.setValue(3);
       }
-      if (!this.date.value) {
-        this.date.setValue(new Date(new Date().setHours(0, 0, 0, 0)));
-      }
     }
 
     this.categoryService.getCategories().pipe(take(1)).subscribe(cats => {
@@ -110,10 +112,6 @@ export class AddEditTodoComponent implements OnInit, AfterViewInit {
         this.category.setValue(this.categories[0].name);
       }
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.taskInput?.nativeElement.focus();
   }
 
   public selectCategory(name: string): void {
@@ -132,7 +130,21 @@ export class AddEditTodoComponent implements OnInit, AfterViewInit {
       return;
     }
     const [year, month, day] = value.split('-').map(Number);
-    this.date.setValue(new Date(year, month - 1, day));
+    const current = this.date.value ? new Date(this.date.value) : null;
+    const hours = current ? current.getHours() : 0;
+    const minutes = current ? current.getMinutes() : 0;
+    this.date.setValue(new Date(year, month - 1, day, hours, minutes));
+  }
+
+  public onTimeChange(value: string): void {
+    // Time alone has no meaning without a day — ignore it until a date is picked.
+    if (!this.date.value) {
+      return;
+    }
+    const current = new Date(this.date.value);
+    const [hours, minutes] = value ? value.split(':').map(Number) : [0, 0];
+    current.setHours(hours, minutes, 0, 0);
+    this.date.setValue(current);
   }
 
   public onTagKeydown(event: KeyboardEvent, input: HTMLInputElement): void {
@@ -179,9 +191,6 @@ export class AddEditTodoComponent implements OnInit, AfterViewInit {
   }
 
   private updateTodo(): void {
-    if (this.date.value) {
-      this.date.setValue(this.date.value.toString());
-    }
     this.todoService.updateTodo(this.todoForm.value, this.key as string).then(() => {
       this.dialogRef.close();
       this.snackbar.openSnackBar('Task Updated', 'success', 'Close');
@@ -193,5 +202,11 @@ export class AddEditTodoComponent implements OnInit, AfterViewInit {
     const month = `${date.getMonth() + 1}`.padStart(2, '0');
     const day = `${date.getDate()}`.padStart(2, '0');
     return `${year}-${month}-${day}`;
+  }
+
+  private toInputTime(date: Date): string {
+    const hours = `${date.getHours()}`.padStart(2, '0');
+    const minutes = `${date.getMinutes()}`.padStart(2, '0');
+    return `${hours}:${minutes}`;
   }
 }

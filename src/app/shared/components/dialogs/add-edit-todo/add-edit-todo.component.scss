@@ -29,32 +29,73 @@
     color: #6c6478;
 }
 
-.minput {
-    width: 100%;
-    padding: 13px 16px;
-    font-size: 15px;
-    font-weight: 500;
-    color: $black;
-    border: 1px solid rgba(120, 90, 150, 0.2);
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.66);
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-
-    &::placeholder {
-        color: $medium-grey;
-    }
-
-    &:focus {
-        border-color: $accent;
-        background: rgba(255, 255, 255, 0.85);
-        box-shadow: 0 0 0 3px rgba(187, 150, 218, 0.18);
-    }
-}
-
 .task-input {
     resize: none;
     font-family: 'Poppins', sans-serif;
+}
+
+.datetime-row {
+    display: flex;
+    gap: 10px;
+}
+
+// Native date/time controls, themed to match the app's accent + field style.
+.datetime-input {
+    flex: 1 1 auto;
+    // Drives the calendar/clock popup + spinners to the brand accent.
+    accent-color: $accent;
+    color-scheme: light;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+
+    &--time {
+        flex: 0 0 38%;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    // The text portion (e.g. "13 / 06 / 2026").
+    &::-webkit-datetime-edit {
+        color: $black;
+    }
+
+    &::-webkit-datetime-edit-fields-wrapper {
+        padding: 0;
+    }
+
+    // Highlight the focused field segment with the accent tint.
+    &::-webkit-datetime-edit-day-field:focus,
+    &::-webkit-datetime-edit-month-field:focus,
+    &::-webkit-datetime-edit-year-field:focus,
+    &::-webkit-datetime-edit-hour-field:focus,
+    &::-webkit-datetime-edit-minute-field:focus,
+    &::-webkit-datetime-edit-ampm-field:focus {
+        color: $accent-dark;
+        background: $accent-lighter;
+        border-radius: 4px;
+        outline: none;
+    }
+
+    // The calendar/clock launcher icon.
+    &::-webkit-calendar-picker-indicator {
+        padding: 4px;
+        border-radius: 8px;
+        opacity: 0.55;
+        cursor: pointer;
+        transition: opacity 0.2s ease, background-color 0.2s ease;
+
+        &:hover {
+            opacity: 1;
+            background: rgba(187, 150, 218, 0.16);
+        }
+    }
+
+    &:disabled::-webkit-calendar-picker-indicator {
+        cursor: not-allowed;
+    }
 }
 
 .hint {
