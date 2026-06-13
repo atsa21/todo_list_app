@@ -14,6 +14,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { TodoService } from '@core/services/todo.service';
 import { CategoryService } from '@core/services/category.service';
 import { UsersService } from '@core/services/users.service';
+import { SnackBarService } from '@core/services/snack-bar.service';
+import { parseQuickTask } from '@core/utils';
 import { UserModel } from '@core/models';
 import { Subject, debounceTime, take, takeUntil } from 'rxjs';
 import { Todo } from 'src/app/core/models/todo.model';
@@ -29,6 +31,29 @@ type SortKey = 'default' | 'date' | 'priority';
 type DateFilter = 'all' | 'today' | 'week' | 'later';
 
 const DAY_MS = 86400000;
+
+interface SpeechRecognitionLike {
+  lang: string;
+  interimResults: boolean;
+  maxAlternatives: number;
+  onresult: ((event: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null;
+  onend: (() => void) | null;
+  onerror: (() => void) | null;
+  start(): void;
+  stop(): void;
+}
+type SpeechRecognitionCtor = new () => SpeechRecognitionLike;
+
+function getSpeechRecognition(): SpeechRecognitionCtor | undefined {
+  if (typeof window === 'undefined') {
+    return undefined;
+  }
+  const w = window as unknown as {
+    SpeechRecognition?: SpeechRecognitionCtor;
+    webkitSpeechRecognition?: SpeechRecognitionCtor;
+  };
+  return w.SpeechRecognition ?? w.webkitSpeechRecognition;
+}
 
 @Component({
   standalone: true,
@@ -70,6 +95,8 @@ export class TodoListComponent implements OnInit {
   public page = 0;
 
   public quickAddValue = '';
+  public isListening = false;
+  private recognition: SpeechRecognitionLike | null = null;
 
   public readonly sortKeys: SortKey[] = ['default', 'date', 'priority'];
   public readonly sortLabels: Record<SortKey, string> = {
@@ -95,6 +122,7 @@ export class TodoListComponent implements OnInit {
   public todoService = inject(TodoService);
   public categoryService = inject(CategoryService);
   private usersService = inject(UsersService);
+  private snackbar = inject(SnackBarService);
   public cdr = inject(ChangeDetectorRef);
   private datePipe = inject(DatePipe);
 
@@ -346,15 +374,68 @@ export class TodoListComponent implements OnInit {
     if (!value) {
       return;
     }
-    const category = this.visibleCategories[0]?.name ?? 'other';
+
+    const parsed = parseQuickTask(value, this.visibleCategories);
+    const task = parsed.task || value;
+    const category = parsed.category ?? this.visibleCategories[0]?.name ?? 'other';
+
     this.todoService.createTodo({
-      task: value as unknown as string[],
+      task: task as unknown as string[],
       category,
-      date: this.today,
-      priority: 4,
-      tags: [],
+      date: parsed.date ? parsed.date.toString() : this.today,
+      priority: parsed.priority ?? 3,
+      tags: parsed.tags,
     });
+
     this.quickAddValue = '';
+    this.snackbar.openSnackBar(`Added to “${category}”`, 'success', 'Close');
+  }
+
+  public get voiceSupported(): boolean {
+    return !!getSpeechRecognition();
+  }
+
+  public toggleVoice(): void {
+    if (this.isListening) {
+      this.recognition?.stop();
+      return;
+    }
+    this.startVoice();
+  }
+
+  private startVoice(): void {
+    const SpeechRecognition = getSpeechRecognition();
+    if (!SpeechRecognition) {
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = navigator.language || 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onresult = (event) => {
+      const transcript = event.results?.[0]?.[0]?.transcript ?? '';
+      this.quickAddValue = (this.quickAddValue ? `${this.quickAddValue} ` : '') + transcript;
+      this.cdr.markForCheck();
+    };
+    recognition.onend = () => {
+      this.isListening = false;
+      this.recognition = null;
+      this.cdr.markForCheck();
+      if (this.quickAddValue.trim()) {
+        this.quickAdd();
+      }
+    };
+    recognition.onerror = () => {
+      this.isListening = false;
+      this.recognition = null;
+      this.cdr.markForCheck();
+    };
+
+    this.recognition = recognition;
+    this.isListening = true;
+    recognition.start();
   }
 
   public openDialog(): void {

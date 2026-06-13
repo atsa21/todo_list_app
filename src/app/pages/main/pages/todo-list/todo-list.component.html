@@ -160,9 +160,32 @@
                 type="text"
                 [(ngModel)]="quickAddValue"
                 (keydown.enter)="quickAdd()"
-                placeholder="Add a new task…  press Enter"
+                placeholder="e.g. Call dentist tomorrow 3pm #health !high"
               />
+              @if (voiceSupported) {
+                <button
+                  type="button"
+                  class="mic-btn"
+                  [class.listening]="isListening"
+                  (click)="toggleVoice()"
+                  [attr.aria-label]="isListening ? 'Stop voice input' : 'Add task by voice'"
+                >
+                  <i class="fa-solid" [class.fa-microphone]="!isListening" [class.fa-stop]="isListening"></i>
+                </button>
+              }
+              <button
+                type="button"
+                class="add-btn"
+                (click)="quickAdd()"
+                [disabled]="!quickAddValue.trim()"
+                aria-label="Add task"
+              >
+                <i class="fa-solid fa-arrow-up"></i>
+              </button>
             </div>
+            <p class="quick-hint">
+              Type naturally — dates (<b>tomorrow 3pm</b>), <b>#category</b> and <b>!priority</b> are detected automatically.
+            </p>
           } @else {
             <div class="empty-state">
               <div class="empty-animation">
