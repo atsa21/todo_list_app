@@ -1,21 +1,24 @@
-# To-do List App
+# Notatka App
 
 This project was created to manage task.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 20.3.25.
 Node version 16.10.0.
 
 ## Site
 
-Navigate to [To-do List](https://todo-list-app-45cf7.firebaseapp.com/login) to see deployed app.
-![image](https://github.com/user-attachments/assets/3754f5a3-869b-4ad6-996d-49c353ff8015)
+Navigate to [Notatka](https://todo-list-app-45cf7.firebaseapp.com/login) to see deployed app.
+<img width="1907" height="861" alt="image" src="https://github.com/user-attachments/assets/bd0f9a68-c17e-4983-9259-aae669af2e37" />
+
+<img width="1909" height="864" alt="image" src="https://github.com/user-attachments/assets/242378b6-0e4f-4d51-804d-7cbd5d39aa02" />
+
 
 
 ## How to install
 
 Run `ng version` and `npm -v` to see your versions of Angular and Node. 
 You need versions:
-Angular CLI: 14.1.0
+Angular CLI: 20.3.25
 Node: 16.10.0 to work.
 
 To switch in right node version, I recommend to download Node Version Manager.
@@ -27,11 +30,11 @@ Steps to change Node version by Node Version Manager:
 
 In other case, you need to uninstall your Node and install Node 16.10.0.
 
-To install Angular run `npm install -g @angular/cli@14.1.0`
+To install Angular run `npm install -g @angular/cli@20.3.25`
 If you have other installed Angular version you need to unistall it:
 1. To uninstall Angular run `npm unistall -g @angular/cli`.
 2. Run `npm cache clean --force`.
-3. To install needed Angular version run `npm install -g @angular/cli@14.1.0`.
+3. To install needed Angular version run `npm install -g @angular/cli@20.3.25`.
 
 ## Code scaffolding
 
