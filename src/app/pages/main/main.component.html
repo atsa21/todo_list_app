@@ -1,4 +1,10 @@
 @if (user()) {
+    <div class="page-background" aria-hidden="true">
+        <span class="orb orb--cyan"></span>
+        <span class="orb orb--peach"></span>
+        <span class="orb orb--lavender"></span>
+        <span class="orb orb--lavender-2"></span>
+    </div>
     <div class="page-container">
         <app-header [user]="user()" />
         <router-outlet></router-outlet>

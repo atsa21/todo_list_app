@@ -1,0 +1,17 @@
+@use "src/assets/styles/vars" as *;
+
+@mixin brand-font($size: 22px, $line-height: $size, $letter-spacing: 2px, $color: $grey) {
+    font-family: 'Bitcount Single', 'Poppins', system-ui;
+    font-variation-settings:
+        "slnt" 0,
+        "CRSV" 0.5,
+        "ELSH" 50,
+        "ELXP" 0;
+    font-size: $size;
+    line-height: $line-height;
+    font-weight: 300;
+    letter-spacing: $letter-spacing;
+    color: $color;
+    font-optical-sizing: auto;
+    white-space: nowrap;
+}

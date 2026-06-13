@@ -1,205 +1,208 @@
 <div class="page">
-  @if (dataSource) {
-    @if (todoElements) {
+  @if (loaded) {
+    
       <div class="card">
-        <div class="toolbar">
-          <h2 class="page-title">My Tasks</h2>
-          <div class="toolbar-right">
-            <button
-              class="btn btn-accent btn-add"
-              type="button"
-              (click)="openDialog()"
-            >
-              <i class="fa-regular fa-plus"></i>
-              <span class="btn-text">Add task</span>
-            </button>
 
-            <button
-              class="btn btn-secondary btn-add"
-              type="button"
-              (click)="openEditCategories()"
-            >
-              <i class="fa-regular fa-folder-open"></i>
-              <span>Edit categories</span>
-            </button>
+        <header class="band">
+          <div class="band-top">
+            <h2 class="band-title">MY TASKS</h2>
+
+            <div class="band-right">
+              <span class="band-date">
+                <i class="fa-regular fa-calendar"></i>
+                {{ todayDate | date: 'EEEE, MMMM d' | uppercase }}
+              </span>
+
+            </div>
           </div>
-        </div>
 
-        <div class="filters">
-          <mat-form-field class="input-search" appearance="outline" color="primary" floatLabel="always">
-            <mat-label>Search</mat-label>
-            <mat-icon matPrefix>search</mat-icon>
-            <input matInput [formControl]="searchControl" placeholder="Search tasks…"/>
-          </mat-form-field>
-          <mat-form-field class="input-category" appearance="outline" color="primary" floatLabel="always">
-            <mat-label>Category</mat-label>
-            <mat-select [(ngModel)]="selectedCategory" (ngModelChange)="getTodoByCategory($event)">
-              <mat-option value="all tasks">All tasks</mat-option>
-              @for (cat of visibleCategories; track cat.id) {
-                <mat-option [value]="cat.name">
-                  <i class="fa-solid {{ cat.icon }}"></i>&nbsp;{{ cat.name }}
-                </mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-        </div>
+          <div class="band-bottom">
+            <p class="band-sub">{{ remainingToday }} tasks remaining today · keep the streak going</p>
+            <div class="band-actions">
+              <button type="button" class="band-btn ghost" (click)="openEditCategories()">
+                <i class="fa-regular fa-folder-open"></i>
+                <span>Edit categories</span>
+              </button>
+              <button type="button" class="band-btn dark" (click)="openDialog()">
+                <i class="fa-regular fa-plus"></i>
+                <span>Add task</span>
+              </button>
+            </div>
+          </div>
+          
+        </header>
 
-        <div class="table-wrap">
-          <table mat-table [dataSource]="dataSource" matSort>
+        <div class="body">
+          @if (hasTodos) {
+            <div class="toolbar">
+              <label class="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" [formControl]="searchControl" placeholder="Search tasks…" />
+              </label>
 
-            <ng-container matColumnDef="checked">
-              <th mat-header-cell *matHeaderCellDef class="check-col"></th>
-              <td mat-cell *matCellDef="let row" class="check-col">
-                <mat-checkbox [(ngModel)]="row.checked" (change)="checkTodo(row, row.key)" color="primary">
-                </mat-checkbox>
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="task">
-              <th mat-header-cell *matHeaderCellDef>Task</th>
-              <td mat-cell *matCellDef="let row" class="col-task" [class]="getStyle(row.checked, row.date)">
-                <div class="task">
-                  <span class="task-name">{{row.task}}</span>
-                  <div class="small-text-task">
-                    <i class="fa-solid {{ getCategoryIcon(row.category) }} cat-icon"></i>
-                    <p>{{row.category}}</p>
-                    <span class="circle">&#9679;</span>
-                    <span class="icon-text-box">
-                      <i class="fa-regular fa-calendar"></i>
-                      <p>{{ formatDate(row.date) }}</p>
-                    </span>
+              <div class="dropdown" (click)="$event.stopPropagation()">
+                <button type="button" class="tool-btn" (click)="togglePopover('sort', $event)">
+                  <i class="fa-solid fa-arrow-down-wide-short"></i>
+                  Sort : {{ sortLabels[sort] }}
+                </button>
+                @if (openPopover === 'sort') {
+                  <div class="popover sort-popover">
+                    @for (key of sortKeys; track key) {
+                      <button type="button" class="pop-item" (click)="setSort(key)">
+                        <span>{{ sortLabels[key] }}</span>
+                        @if (sort === key) {
+                          <i class="fa-solid fa-check"></i>
+                        }
+                      </button>
+                    }
                   </div>
-                </div>
-                @if (row.open) {
-                  <div class="mobile-description">
-                    <div class="mobile-text">
-                      <span class="prior" [class]="row.checked ? 'ready' : (row.priority | priority)">
-                        <app-priority-status [priority]="row.priority"></app-priority-status>
-                      </span>
+                }
+              </div>
+
+              <div class="dropdown" (click)="$event.stopPropagation()">
+                <button type="button" class="tool-btn" (click)="togglePopover('filter', $event)">
+                  <i class="fa-solid fa-sliders"></i>
+                  Filter
+                  @if (activeFilterCount) {
+                    <span class="count-badge">{{ activeFilterCount }}</span>
+                  }
+                </button>
+                @if (openPopover === 'filter') {
+                  <div class="popover filter-popover">
+                    <div class="chip-group">
+                      <p class="chip-label">Category</p>
+                      <div class="chips">
+                        <button type="button" class="chip" [class.active]="isCategoryActive('all')" (click)="setCategory('all')">All</button>
+                        @for (cat of visibleCategories; track cat.id) {
+                          <button type="button" class="chip cap" [class.active]="isCategoryActive(cat.name)" (click)="setCategory(cat.name)">
+                            {{ cat.name }}
+                          </button>
+                        }
+                      </div>
                     </div>
-                    <div class="mobile-tags">
-                      @for (tag of row.tags; track tag) {
-                        <app-tag [tag]="tag" [priority]="row.priority" [checked]="row.checked" variant="mobile"></app-tag>
-                      }
+
+                    <div class="chip-group">
+                      <p class="chip-label">Priority</p>
+                      <div class="chips">
+                        <button type="button" class="chip" [class.active]="filterPriority === null" (click)="setPriority(null)">Any</button>
+                        @for (p of priorityOptions; track p.value) {
+                          <button type="button" class="chip" [class.active]="filterPriority === p.value" (click)="setPriority(p.value)">
+                            <span class="chip-dot" [class]="p.cls"></span>{{ p.label }}
+                          </button>
+                        }
+                      </div>
+                    </div>
+
+                    <div class="chip-group">
+                      <p class="chip-label">Date</p>
+                      <div class="chips">
+                        <button type="button" class="chip" [class.active]="filterDate === 'all'" (click)="setDateFilter('all')">All</button>
+                        <button type="button" class="chip" [class.active]="filterDate === 'today'" (click)="setDateFilter('today')">Today</button>
+                        <button type="button" class="chip" [class.active]="filterDate === 'week'" (click)="setDateFilter('week')">This week</button>
+                        <button type="button" class="chip" [class.active]="filterDate === 'later'" (click)="setDateFilter('later')">Later</button>
+                      </div>
+                    </div>
+
+                    <div class="pop-footer">
+                      <button type="button" class="link-btn" (click)="clearFilters()">Clear all</button>
+                      <button type="button" class="done-btn" (click)="openPopover = null">Done</button>
                     </div>
                   </div>
                 }
-              </td>
-            </ng-container>
+              </div>
+            </div>
 
-            <ng-container matColumnDef="category">
-              <th mat-header-cell *matHeaderCellDef class="category-col col-hide-mobile">Category</th>
-              <td mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="category-col col-hide-mobile">
-                <span class="category-cell">
-                  <i class="fa-solid {{ getCategoryIcon(row.category) }}"></i>
-                  {{ row.category }}
-                </span>
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="tags">
-              <th mat-header-cell *matHeaderCellDef class="tags-col col-hide-mobile">Tags</th>
-              <td mat-cell *matCellDef="let row" class="tags-col col-hide-mobile">
-                <ul class="tags-box">
-                  @for (tag of row.tags; track tag) {
-                    <app-tag [tag]="tag" [priority]="row.priority" [checked]="row.checked" />
-                  }
-                </ul>
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="date">
-              <th mat-header-cell *matHeaderCellDef class="date-col col-hide-mobile">Date</th>
-              <td mat-cell *matCellDef="let row" [class]="getStyle(row.checked, row.date)" class="date-col col-hide-mobile">{{ formatDate(row.date) }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="priority">
-              <th mat-header-cell *matHeaderCellDef class="priority-col col-hide-mobile">Priority</th>
-              <td mat-cell *matCellDef="let row" [class]="row.checked ? 'ready' : (row.priority | priority)" class="priority-col col-hide-mobile">
-                <app-priority-status [priority]="row.priority"></app-priority-status>
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="action">
-              <th mat-header-cell *matHeaderCellDef class="action-col"></th>
-              <td mat-cell *matCellDef="let row" class="action-col col-hide-mobile">
-                <div class="action-buttons">
-                  <button mat-icon-button class="edit-btn" [class]="row.checked ? 'ready' : 'unready'" (click)="editTodo(row)">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                  </button>
-                  <button mat-icon-button class="clear-btn" (click)="deleteTodo(row.key)">
-                    <i class="fa-solid fa-xmark"></i>
-                  </button>
-                </div>
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="open">
-              <th mat-header-cell *matHeaderCellDef class="open-col"></th>
-              <td mat-cell *matCellDef="let row" class="open-col">
-                <button mat-icon-button class="mobile-icon small-btn" (click)="row.open = !row.open">
-                  <i class="fa-solid fa-angle-down"></i>
-                </button>
-                <button mat-icon-button class="mobile-icon small-btn" [matMenuTriggerFor]="menu">
-                  <i class="fa-solid fa-ellipsis-vertical"></i>
-                </button>
-                <mat-menu #menu="matMenu" xPosition="before">
-                  <button mat-menu-item class="nav-btn" (click)="editTodo(row)">
-                    <mat-icon class="fa-regular fa-pen-to-square"></mat-icon>
-                    <span class="nav-mobile">Edit</span>
-                  </button>
-                  <button mat-menu-item class="nav-btn" (click)="deleteTodo(row.key)">
-                    <mat-icon class="fa-solid fa-xmark"></mat-icon>
-                    <span class="nav-mobile">Delete</span>
-                  </button>
-                </mat-menu>
-              </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-            <tr class="mat-row no-data" *matNoDataRow>
-              <td class="mat-cell no-data" colspan="8">
-                No results for
-                  @if (searchControl.value) { "{{ searchControl.value }}" and}
-                  {{ visibleCategories.length }} categories selected
-              </td>
-            </tr>
-
-          </table>
-        </div>
-
-        <div class="card-footer">
-          <div class="footer-left">
-            @if (totalTodo) {
-              <span class="progress-text">{{ unreadyTodo }} task{{ unreadyTodo !== 1 ? 's' : '' }} remaining</span>
-              <mat-progress-bar class="progress" color="primary" mode="determinate" [value]="progress"></mat-progress-bar>
+            @if (activeFilterCount) {
+              <div class="active-tags">
+                @for (cat of filterCategories; track cat) {
+                  <span class="active-tag cap">
+                    {{ cat }}
+                    <button type="button" (click)="setCategory(cat)" aria-label="Remove">×</button>
+                  </span>
+                }
+                @if (filterPriority !== null) {
+                  <span class="active-tag">
+                    {{ priorityLabel(filterPriority) }}
+                    <button type="button" (click)="setPriority(null)" aria-label="Remove">×</button>
+                  </span>
+                }
+                @if (filterDate !== 'all') {
+                  <span class="active-tag">
+                    {{ filterDate === 'week' ? 'This week' : (filterDate | titlecase) }}
+                    <button type="button" (click)="setDateFilter('all')" aria-label="Remove">×</button>
+                  </span>
+                }
+                @if (activeFilterCount > 1) {
+                  <button type="button" class="link-btn" (click)="clearFilters()">Clear all</button>
+                }
+              </div>
             }
+
+            <div class="list">
+              @for (todo of pagedTodos; track todo.key) {
+                <app-task-row
+                  [todo]="todo"
+                  [categoryIcon]="categoryIcon(todo.category)"
+                  [dateLabel]="formatDate(todo.date)"
+                  [urgent]="isUrgent(todo)"
+                  (toggleDone)="toggleDone(todo)"
+                  (edit)="openEdit(todo)"
+                  (remove)="deleteTodo(todo.key)"
+                />
+              } @empty {
+                <p class="no-data">No tasks match these filters.</p>
+              }
+            </div>
+
+            <div class="quick-add">
+              <span class="medallion"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+              <input
+                type="text"
+                [(ngModel)]="quickAddValue"
+                (keydown.enter)="quickAdd()"
+                placeholder="Add a new task…  press Enter"
+              />
+            </div>
+          } @else {
+            <div class="empty-state">
+              <div class="empty-animation">
+                <ng-lottie [options]="options" width="400px" height="400px"></ng-lottie>
+              </div>
+              <div class="empty-descr">
+                <p class="empty-text">You don't have any tasks yet</p>
+                <button appButton variant="white" class="btn-nt" type="button" (click)="openDialog()">
+                  <span>Add your first task</span>
+                  <i class="fa fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          }
+
+        </div>
+
+        <footer class="card-footer">
+          <div class="footer-progress">
+            <span class="footer-note">{{ remainingCount }} task{{ remainingCount !== 1 ? 's' : '' }} remaining</span>
+            <span class="track"><span class="track-fill" [style.width.%]="progress"></span></span>
           </div>
-          <mat-paginator color="accent" [length]="totalTodo" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page"></mat-paginator>
-        </div>
-
+          <div class="pager">
+            <span class="per-page">Items per page: {{ pageSize }}</span>
+            <span class="range">{{ rangeStart }} – {{ rangeEnd }} of {{ sorted.length }}</span>
+            <button type="button" class="pager-btn" (click)="prevPage()" [disabled]="page === 0" aria-label="Previous page">
+              <i class="fa-solid fa-angle-left"></i>
+            </button>
+            <button type="button" class="pager-btn" (click)="nextPage()" [disabled]="page >= pageCount - 1" aria-label="Next page">
+              <i class="fa-solid fa-angle-right"></i>
+            </button>
+          </div>
+        </footer>
       </div>
+    
 
-    } @else {
-      <div class="empty-state">
-        <div class="empty-animation">
-          <ng-lottie [options]="options" width="400px" height="400px"></ng-lottie>
-        </div>
-        <div class="empty-descr">
-          <p class="empty-text">You don't have any tasks yet</p>
-          <button class="btn btn-white btn-nt" type="button" (click)="openDialog()">
-            <span>Add your first task</span>
-            <i class="fa fa-plus"></i>
-          </button>
-        </div>
-      </div>
-    }
+    
   } @else {
     <div class="loading">
       <app-loader></app-loader>
     </div>
   }
-
 </div>

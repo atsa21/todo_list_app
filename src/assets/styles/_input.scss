@@ -1,0 +1,98 @@
+@use "src/assets/styles/vars" as *;
+
+.field-label {
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: $grey;
+
+  & .required {
+    color: $danger;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field-control {
+  position: relative;
+  display: flex;
+}
+
+.field-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(120, 90, 150, 0.2);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.62);
+  font-size: 15px;
+  font-weight: 500;
+  color: $black;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+  &::placeholder {
+    color: $medium-grey;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $accent;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 0 3px rgba(187, 150, 218, 0.18);
+  }
+
+  &--password {
+    padding-right: 50px;
+  }
+
+  &--error {
+    border-color: $danger;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(203, 68, 54, 0.16);
+    }
+  }
+}
+
+.eye-toggle {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: $grey;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+
+  &:hover {
+    color: $accent-dark;
+    background: rgba(187, 150, 218, 0.14);
+  }
+
+  mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+  }
+}
+
+.field-error {
+  margin-top: 6px;
+  font-size: 12px;
+  color: $danger;
+}

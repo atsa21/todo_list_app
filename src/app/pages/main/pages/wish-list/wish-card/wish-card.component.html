@@ -1,19 +1,48 @@
-<div class="cards-container">
-    @for (wish of wishList(); track wish.key) {
-        <div class="card">
-            <div class="btns-box">
-                <button class="btn-round btn-edit" (click)="editWish(wish)"><i class="fa-regular fa-pen-to-square"></i></button>
-                <button class="btn-round btn-delete" (click)="deleteWish(wish.key)"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <img class="img" [src]="wish.image"/>
-            <h4 class="title">
-                {{ wish.title }}
-
-                @if (wish.link) {
-                    <a class="btn-link" [href]="wish.link" target="_blank"><i class="fa-solid fa-link"></i></a>
-                }
-            </h4>
-            <p class="price">{{ wish.price }} {{ wish.currency }}</p>
+@if (wish(); as w) {
+  <article class="wish">
+    <div class="kebab-wrap">
+      <button type="button" class="kebab" aria-label="Wish actions" (click)="toggleMenu($event)">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </button>
+      @if (menuOpen) {
+        <div class="menu">
+          <button type="button" class="menu-item" (click)="editWish()">
+            <i class="fa-regular fa-pen-to-square"></i> Edit
+          </button>
+          <button type="button" class="menu-item danger" (click)="deleteWish()">
+            <i class="fa-solid fa-trash-can"></i> Delete
+          </button>
         </div>
-    }
-</div>
+      }
+    </div>
+
+    <div class="thumb">
+      @if (w.image) {
+        <img [src]="w.image" [alt]="w.title" />
+      } @else {
+        <div class="thumb-empty">
+          <i class="fa-regular fa-image"></i>
+          <span>Add a product photo</span>
+        </div>
+      }
+    </div>
+
+    <div class="info">
+      <h4 class="title">{{ w.title }}</h4>
+
+      <div class="bottom">
+        <span class="price">
+          <span class="price-amount">{{ amount }}</span>
+          <span class="price-unit">{{ unit }}</span>
+        </span>
+
+        @if (w.link) {
+          <a class="view" [href]="w.link" target="_blank" rel="noopener">
+            <span>View</span>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        }
+      </div>
+    </div>
+  </article>
+}

@@ -2,9 +2,44 @@
 @include mat.elevation-classes();
 @include mat.app-background();
 
-$my-primary: mat.m2-define-palette(mat.$m2-purple-palette, 500);
-$my-accent: mat.m2-define-palette(mat.$m2-deep-orange-palette, 300);
-$my-theme: mat.m2-define-palette(mat.$m2-deep-orange-palette, 300);
+// Lavender primary — derived from the brand swatch #BB96DA
+$dream-lavender: (
+  50: #f4eefb,
+  100: #e3d3f3,
+  200: #d0b6ea,
+  300: #bd98e0,
+  400: #ae82d9,
+  500: #9f6dd1,
+  600: #9163c4,
+  700: #7d54b0,
+  800: #6a479d,
+  900: #4b317a,
+  contrast: (
+    50: #000, 100: #000, 200: #000, 300: #000, 400: #000,
+    500: #fff, 600: #fff, 700: #fff, 800: #fff, 900: #fff,
+  ),
+);
+
+// Peach accent — derived from #EFAF86
+$dream-peach: (
+  50: #fdf4ec,
+  100: #fbe2cd,
+  200: #f7cdab,
+  300: #f3b888,
+  400: #f0a96f,
+  500: #ed9a56,
+  600: #e08a4e,
+  700: #cf7743,
+  800: #bd6539,
+  900: #9e4827,
+  contrast: (
+    50: #000, 100: #000, 200: #000, 300: #000, 400: #000,
+    500: #000, 600: #000, 700: #fff, 800: #fff, 900: #fff,
+  ),
+);
+
+$my-primary: mat.m2-define-palette($dream-lavender, 500);
+$my-accent: mat.m2-define-palette($dream-peach, 400);
 
 $my-theme: mat.m2-define-light-theme((
  color: (

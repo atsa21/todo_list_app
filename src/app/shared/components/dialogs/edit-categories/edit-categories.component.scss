@@ -1,0 +1,273 @@
+@use "src/assets/styles/vars" as *;
+
+:host {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    max-height: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+// ── Fields ─────────────────────────────────────────────────────
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    margin-bottom: 9px;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6c6478;
+}
+
+.minput {
+    width: 100%;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: $black;
+    border: 1px solid rgba(120, 90, 150, 0.2);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.66);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+    &::placeholder {
+        color: $medium-grey;
+    }
+
+    &:focus {
+        border-color: $accent;
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 0 0 3px rgba(187, 150, 218, 0.18);
+    }
+}
+
+.hint {
+    margin: 8px 0 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: $grey;
+}
+
+// ── Category list ──────────────────────────────────────────────
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 232px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 2px;
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 9px 10px 9px 13px;
+    border: 1px solid rgba(120, 90, 150, 0.2);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.6);
+    transition: border-color 0.2s ease, opacity 0.2s ease;
+
+    &:hover {
+        border-color: rgba(120, 90, 150, 0.4);
+    }
+
+    &.is-hidden {
+        opacity: 0.5;
+    }
+
+    &-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+    }
+}
+
+.cat-icon {
+    width: 16px;
+    text-align: center;
+    font-size: 13px;
+    color: $grey;
+    flex-shrink: 0;
+}
+
+.category-name {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: $black;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.initial-badge {
+    flex-shrink: 0;
+    padding: 3px 9px;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $accent-dark;
+    background: $accent-lighter;
+    border-radius: 999px;
+}
+
+.cat-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.icon-action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    width: 32px;
+    font-size: 14px;
+    color: $grey;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        color: $black;
+        background: rgba(255, 255, 255, 0.85);
+    }
+
+    &.danger:hover:enabled {
+        color: $white;
+        background: $danger;
+    }
+
+    &:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+    }
+}
+
+// ── Add row ────────────────────────────────────────────────────
+.add-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .minput {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+.selected-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 46px;
+    width: 46px;
+    font-size: 16px;
+    color: $white;
+    background: $accent;
+    border-radius: 14px;
+}
+
+.add-btn {
+    flex-shrink: 0;
+    padding: 12px 18px;
+}
+
+// ── Icon picker ────────────────────────────────────────────────
+.icon-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    font-size: 15px;
+    color: $grey;
+    border: 1px solid rgba(120, 90, 150, 0.2);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: rgba(120, 90, 150, 0.4);
+        color: $black;
+    }
+
+    &.on {
+        color: $white;
+        background: #1a1722;
+        border-color: #1a1722;
+    }
+}
+
+// ── Errors ─────────────────────────────────────────────────────
+.error {
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: $danger;
+}
+
+// ── Add button pill ────────────────────────────────────────────
+.pill {
+    padding: 12px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ink {
+    color: $white;
+    background: #1a1722;
+    border: 1px solid #1a1722;
+    box-shadow: 0 10px 24px rgba(34, 28, 51, 0.28);
+
+    &:hover:enabled {
+        background: $accent-dark;
+        border-color: $accent-dark;
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(122, 79, 176, 0.4);
+    }
+
+    &:disabled {
+        background: $medium-grey;
+        border-color: $medium-grey;
+        box-shadow: none;
+        cursor: not-allowed;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ink:hover:enabled {
+        transform: none;
+    }
+}

@@ -1,55 +1,111 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '@core/services/auth/auth.service';
 import { UserModel } from '@core/models';
-import { Patterns } from 'src/assets/patterns/patterns';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { getFormError } from '@core/constants';
+import { ControlPipe } from '@core/pipes';
+import { InputDirective } from '@shared/directives';
+import { SignUpFormService } from './services/sign-up-form.service';
 
 @Component({
   selector: 'app-sign-up',
-  standalone: true,
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
   imports: [
     RouterModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
     MatIconModule,
-    MatInputModule,
-    MatButtonModule,
+    InputDirective,
+    ControlPipe,
   ],
+  providers: [SignUpFormService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignUpComponent implements OnInit {
-  public signUpForm?: FormGroup;
+export class SignUpComponent {
+  private signUpFormService = inject(SignUpFormService);
+
+  public signUpForm = this.signUpFormService.createForm();
+
   public hide = signal(true);
+  public hideConfirm = signal(true);
+
+  public nameError = signal<string | null>(null);
+  public emailError = signal<string | null>(null);
+  public passwordError = signal<string | null>(null);
+  public confirmError = signal<string | null>(null);
 
   private auth = inject(AuthService);
-  private fb = inject(FormBuilder);
+  private destroyRef = inject(DestroyRef);
+
+  get name(): FormControl { return this.signUpForm.get('name') as FormControl; }
+  get email(): FormControl { return this.signUpForm.get('email') as FormControl; }
+  get password(): FormControl { return this.signUpForm.get('password') as FormControl; }
+  get confirmPassword(): FormControl { return this.signUpForm.get('confirmPassword') as FormControl; }
 
   ngOnInit(): void {
-    this.signUpForm = this.fb.group({
-      name:     new FormControl('', [Validators.required, Validators.maxLength(20), Validators.pattern(Patterns.NamePattern)]),
-      email:    new FormControl('', [Validators.required, Validators.maxLength(62), Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(128), Validators.pattern(Patterns.PasswordPattern)]),
-    });
+    this.subscribeChanges();
   }
 
-  get name(): FormControl     { return this.signUpForm!.get('name') as FormControl; }
-  get email(): FormControl    { return this.signUpForm!.get('email') as FormControl; }
-  get password(): FormControl { return this.signUpForm!.get('password') as FormControl; }
-
-  public signUp(): void {
-    if (this.signUpForm?.valid) {
-      const user = new UserModel();
-      user.username = this.signUpForm.value.name;
-      user.email    = this.signUpForm.value.email;
-      this.auth.signUp(this.signUpForm.value.email, this.signUpForm.value.password, user);
+  signUp(): void {
+    if (this.signUpForm.invalid) {
+      this.signUpForm.markAllAsTouched();
+      this.nameError.set(getFormError(this.name));
+      this.emailError.set(getFormError(this.email));
+      this.passwordError.set(this.getPasswordError());
+      this.confirmError.set(this.getConfirmError());
+      return;
     }
+
+    const { name, email, password } = this.signUpForm.value;
+    const user = new UserModel();
+    user.username = name ?? '';
+    user.email = email ?? '';
+    this.auth.signUp(email ?? '', password ?? '', user);
+  }
+
+  loginWithGoogle(): void {
+    this.auth.loginWithGoogle();
+  }
+
+  private getPasswordError(): string {
+    if (this.password.errors?.['pattern']) {
+      return 'Password must contain at least 1 uppercase and 1 lowercase letter and 1 number';
+    }
+    return getFormError(this.password);
+  }
+
+  private getConfirmError(): string {
+    if (this.confirmPassword.errors?.['required']) {
+      return 'This field is required';
+    }
+    if (this.signUpForm.errors?.['mismatch'] && this.confirmPassword.value) {
+      return 'Passwords do not match';
+    }
+    return '';
+  }
+
+  private subscribeChanges(): void {
+    this.email
+      .valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.emailError.set(getFormError(this.email)));
+
+    this.password
+      .valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.passwordError.set(this.getPasswordError()));
+
+    this.name
+      .valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.nameError.set(getFormError(this.name)));
+    
+    this.signUpForm
+      .valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.confirmError.set(this.getConfirmError()));
   }
 }

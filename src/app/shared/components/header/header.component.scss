@@ -1,0 +1,262 @@
+@use "src/assets/styles/vars" as *;
+@use "src/assets/styles/mixins" as *;
+
+.header {
+    position: fixed;
+    top: 32px;
+    left: 32px;
+    bottom: 32px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    width: $sidebar-width;
+    padding: 24px 20px;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.42);
+    backdrop-filter: blur(24px) saturate(1.5);
+    -webkit-backdrop-filter: blur(24px) saturate(1.5);
+    box-shadow: 0 18px 44px rgba(122, 79, 176, 0.16);
+    overflow: visible;
+}
+
+// ── Brand ───────────────────────────────────────────────────────
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+
+    .brand-mark {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        flex-shrink: 0;
+        border-radius: 12px;
+        background: conic-gradient(from 210deg, $cyan, $accent, $peach, $cyan);
+        box-shadow: 0 6px 16px rgba(187, 150, 218, 0.4);
+
+        mat-icon {
+            color: $white;
+            font-size: 22px;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    &-name {
+        @include brand-font;
+    }
+}
+
+// ── Greeting ────────────────────────────────────────────────────
+.greeting {
+    margin: 26px 4px 22px;
+
+    .greeting-title {
+        font-size: 19px;
+        font-weight: 700;
+        color: $black;
+        line-height: 1.2;
+    }
+
+    .greeting-sub {
+        margin-top: 4px;
+        font-size: 13px;
+        font-weight: 400;
+        color: $grey;
+    }
+}
+
+// ── Vertical nav ────────────────────────────────────────────────
+.nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .nav-cell {
+        display: flex;
+    }
+
+    .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        padding: 11px 14px;
+        border-radius: 16px;
+        color: $grey;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+
+        .nav-icon {
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-label {
+            white-space: nowrap;
+        }
+
+        &:hover {
+            color: $black;
+            background-color: rgba(255, 255, 255, 0.55);
+        }
+
+        &.nav-item--active {
+            color: $accent-dark;
+            font-weight: 600;
+            background-color: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 6px 18px rgba(122, 79, 176, 0.16);
+            cursor: default;
+        }
+    }
+}
+
+// ── Profile card (bottom) ───────────────────────────────────────
+.profile-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-top: auto;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.4);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 8px 22px rgba(122, 79, 176, 0.14);
+    }
+
+    &--active {
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 6px 18px rgba(122, 79, 176, 0.16);
+        cursor: default;
+    }
+
+    .profile-avatar {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .profile-avatar--initial {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $grad-dream;
+        color: $white;
+        font-size: 17px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .profile-meta {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        line-height: 1.3;
+    }
+
+    .profile-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: $black;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .profile-email {
+        font-size: 12px;
+        color: $grey;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-list .nav-item,
+    .profile-card {
+        transition: none;
+    }
+}
+
+// ── Under 900px: collapse to a horizontal bar ───────────────────
+@media only screen and (max-width: 900px) {
+    .header {
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        top: 12px;
+        left: 12px;
+        right: 12px;
+        bottom: auto;
+        width: auto;
+        padding: 10px 16px;
+        border-radius: 22px;
+    }
+
+    .brand {
+        margin-right: 4px;
+    }
+
+    .greeting {
+        display: none;
+    }
+
+    .nav-list {
+        flex-direction: row;
+        flex: 1;
+        gap: 8px;
+        justify-content: center;
+
+        .nav-item {
+            width: auto;
+        }
+    }
+
+    .profile-card {
+        width: auto;
+        margin-top: 0;
+        padding: 6px;
+
+        .profile-meta {
+            display: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .nav-list .nav-item .nav-label {
+        display: none;
+    }
+
+    .brand .brand-name {
+        display: none;
+    }
+}

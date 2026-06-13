@@ -1,70 +1,190 @@
-<div class="profile-container">
-    <div class="profile-box">
-        @if (profileForm) {
-            <div class="profile">
-                <h1 class="text-center">Edit profile</h1>
-                <form [formGroup]="profileForm" class="form">
-                    <div class="img-crop-container">
-                        <div class="title-box">
-                            <h3 class="h3 text-center">Select profile picture (JPG/JPEG/PNG)</h3>
-                        </div>
-                        @if (!croppedImage && profilePhoto.value) {
-                            <div class="edit-photo">
-                                <img [src]="profilePhoto.value" class="prof-photo"/>
-                                <div class="edit-photo-btn">
-                                    <label class="btn-round btn-edit" for="upload-photo"><i class="fa-regular fa-pen-to-square"></i></label>
-                                    <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
-                                </div>
-                            </div>
-                        }
-                        @if (!croppedImage && !profilePhoto.value) {
-                            <div class="file-input">
-                                <label class="btn-upload" for="upload-photo">Select image</label>
-                                <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
-                            </div>
-                        }
-                        @if (imageChangedEvent) {
-                            <div class="cropper">
-                                <image-cropper
-                                class="image-cropper-box"
-                                [imageChangedEvent]="imageChangedEvent"
-                                [maintainAspectRatio]="true"
-                                [aspectRatio]="1 / 1"
-                                [resizeToWidth]="160"
-                                format="png"
-                                [output]="'base64'"
-                                (imageCropped)="imageCropped($event)"
-                                (imageLoaded)="imageLoaded()"
-                                (loadImageFailed)="loadImageFailed()"
-                                ></image-cropper>
-                                @if (croppedImage) {
-                                    <div class="edit-photo-btn">
-                                        <label class="btn-round btn-edit" for="upload-photo"><i class="fa-regular fa-pen-to-square"></i></label>
-                                        <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
-                                    </div>
-                                }
-                            </div>
-                        }
-                    </div>
-                    <div class="input-box">
-                        <mat-form-field class="input" appearance="outline" color="primary" floatLabel="always">
-                            <mat-label>Name</mat-label>
-                            <input formControlName="username" matInput placeholder="example@gmail.com" required>
-                            @if (username.errors?.['required']) {
-                                <mat-error>Email is required</mat-error>
-                            }
-                            @if (username.errors?.['email']) {
-                                <mat-error>Please enter a correct email format</mat-error>
-                            }
-                        </mat-form-field>
-                        <button [disabled]="!profileForm.valid" class="btn btn-accent" (click)="submit()">Submit</button>
-                    </div>
-                </form>
+<div class="page">
+  @if (loaded() && profileForm) {
+    <div class="card">
+
+      <header class="band">
+        <div class="band-top">
+          <h2 class="band-title">PROFILE</h2>
+
+          <div class="band-right">
+            <span class="band-date">
+              <i class="fa-regular fa-calendar"></i>
+              {{ todayDate | date: 'EEEE, MMMM d' | uppercase }}
+            </span>
+            <button type="button" class="band-btn dark" (click)="togglePhotoEditor()">
+              <i class="fa-regular fa-pen-to-square"></i>
+              <span>{{ photoEditorOpen() ? 'Close editor' : 'Edit profile' }}</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="body">
+
+        <!-- ── Identity header ── -->
+        <section class="identity">
+          <div class="avatar-wrap">
+            @if (photo()) {
+              <img class="avatar" [src]="photo()" alt="" />
+            } @else {
+              <span class="avatar avatar--initial">{{ initial() }}</span>
+            }
+            <button
+              type="button"
+              class="avatar-cam"
+              (click)="togglePhotoEditor()"
+              aria-label="Change photo"
+            >
+              <i class="fa-solid fa-camera"></i>
+            </button>
+          </div>
+
+          <div class="identity-meta">
+            <h1 class="identity-name">{{ username() || 'Your name' }}</h1>
+            <div class="identity-row">
+              @if (email()) {
+                <span class="identity-email">{{ email() }}</span>
+              }
+              <span class="role-badge">
+                <i class="fa-solid fa-star"></i>
+                Pro member
+              </span>
             </div>
-        } @else {
-            <div class="loading">
-                <app-loader></app-loader>
+          </div>
+        </section>
+
+        <!-- ── Stats ── -->
+        <section class="stats">
+          @for (stat of stats(); track stat.label) {
+            <div class="stat">
+              <span class="stat-chip" [class]="'tint-' + stat.tint">
+                <i class="fa-solid {{ stat.icon }}"></i>
+              </span>
+              <span class="stat-num">{{ stat.value }}{{ stat.suffix }}</span>
+              <span class="stat-label">{{ stat.label }}</span>
             </div>
-        }
+          }
+        </section>
+
+        <!-- ── Two columns ── -->
+        <section class="columns">
+
+          <!-- Account details -->
+          <div class="panel">
+            <h3 class="panel-title">ACCOUNT DETAILS</h3>
+            <p class="panel-sub">Update your personal information</p>
+
+            <form [formGroup]="profileForm" class="account-form" (ngSubmit)="submit()">
+              <label class="field">
+                <span class="field-label">Display name</span>
+                <input appInput type="text" formControlName="username" placeholder="Your name" />
+                @if (usernameControl.touched && usernameControl.errors?.['required']) {
+                  <span class="field-error">Name is required</span>
+                }
+                @if (usernameControl.touched && usernameControl.errors?.['pattern']) {
+                  <span class="field-error">1–20 chars, no leading/trailing or double spaces</span>
+                }
+              </label>
+
+              <label class="field">
+                <span class="field-label">Email</span>
+                <input appInput type="text" [value]="email()" disabled readonly />
+              </label>
+
+              @if (photoEditorOpen()) {
+                <div class="photo-editor">
+                  <span class="field-label">Profile photo (JPG / PNG)</span>
+
+                  <div class="photo-editor-body">
+                    @if (croppedImage || profilePhoto.value) {
+                      <img class="photo-preview" [src]="croppedImage || profilePhoto.value" alt="" />
+                    } @else {
+                      <span class="photo-preview photo-preview--empty">{{ initial() }}</span>
+                    }
+
+                    <div class="photo-actions">
+                      <label class="mini-btn" for="upload-photo">
+                        <i class="fa-regular fa-image"></i>
+                        {{ (croppedImage || profilePhoto.value) ? 'Replace' : 'Select image' }}
+                      </label>
+                      <input type="file" id="upload-photo" accept="image/*" (change)="fileChangeEvent($event)" />
+                      @if (croppedImage || profilePhoto.value) {
+                        <button type="button" class="mini-btn mini-btn--danger" (click)="deletePhoto()">
+                          <i class="fa-regular fa-trash-can"></i>
+                          Remove
+                        </button>
+                      }
+                    </div>
+                  </div>
+
+                  @if (imageChangedEvent) {
+                    <image-cropper
+                      class="cropper"
+                      [imageChangedEvent]="imageChangedEvent"
+                      [maintainAspectRatio]="true"
+                      [aspectRatio]="1 / 1"
+                      [resizeToWidth]="160"
+                      format="png"
+                      [output]="'base64'"
+                      (imageCropped)="imageCropped($event)"
+                      (loadImageFailed)="loadImageFailed()"
+                    ></image-cropper>
+                  }
+                </div>
+              }
+
+              <button type="submit" class="save-btn" [disabled]="!profileForm.valid">
+                <i class="fa-regular fa-floppy-disk"></i>
+                Save changes
+              </button>
+            </form>
+          </div>
+
+          <!-- Preferences -->
+          <div class="panel">
+            <h3 class="panel-title">PREFERENCES</h3>
+            <p class="panel-sub">Control how Taskly works for you</p>
+
+            <ul class="pref-list">
+              @for (row of prefRows; track row.key) {
+                <li class="pref-row">
+                  <span class="pref-text">
+                    <span class="pref-name">{{ row.title }}</span>
+                    <span class="pref-desc">{{ row.description }}</span>
+                  </span>
+                  <button
+                    type="button"
+                    class="switch"
+                    [class.switch--on]="preferences()[row.key]"
+                    role="switch"
+                    [attr.aria-checked]="preferences()[row.key]"
+                    [attr.aria-label]="row.title"
+                    (click)="toggle(row.key)"
+                  >
+                    <span class="switch-knob"></span>
+                  </button>
+                </li>
+              }
+            </ul>
+
+            <div class="danger-row">
+              <span class="pref-text">
+                <span class="pref-name">Log out</span>
+                <span class="pref-desc">Sign out on this device</span>
+              </span>
+              <button type="button" class="logout-btn" (click)="logOut()">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                Log out
+              </button>
+            </div>
+          </div>
+
+        </section>
+      </div>
     </div>
+  } @else {
+    <div class="loading">
+      <app-loader />
+    </div>
+  }
 </div>

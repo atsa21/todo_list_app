@@ -37,7 +37,7 @@ export class TodoService {
       task: todo.task,
       date: todo.date ? todo.date.toString() : '-',
       priority: todo.priority,
-      tags: todo.tags,
+      tags: todo.tags || [],
       checked: false,
     });
   }

@@ -1,111 +1,356 @@
-.page-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 24px;
-  padding-top: 120px;
-  width: 100%;
-}
+@use "src/assets/styles/vars" as *;
+@use "src/assets/styles/mixins" as *;
 
-.wish-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 24px;
-
-  h1 {
-      font-size: 36px;
-      font-weight: 500;
-      margin: 0;
-  }
-}
-
-.no-wish-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 48px;
-  height: 100%;
-  width: 100%;
-
-  .no-wish-descr {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 280px;
-      gap: 12px;
-      z-index: 2;
-
-      .no-wish-text {
-          margin-top: 16px;
-          font-size: 24px;
-      }
-
-      .btn-nt {
-          width: 140px;
-      }
-  }
-}
-
-.no-wish-image {
-  position: absolute;
-  left: 44%;
-  top: 144px;
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100%;
+    padding: 32px 32px 48px;
 }
 
 .loading {
-  height: 300px;
-  width: 300px;
-  animation: rotation 3s infinite ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 400px;
 }
 
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  100% {
-      transform: rotate(360deg);
-  }
+// ── Glass console card ──
+.card {
+    width: 100%;
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.34);
+    backdrop-filter: blur(34px) saturate(160%);
+    -webkit-backdrop-filter: blur(34px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 34px;
+    box-shadow: 0 28px 70px rgba(122, 79, 176, 0.18), 0 2px 8px rgba(34, 28, 51, 0.05);
+    overflow: hidden;
 }
 
-.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+// ── Iridescent header band ──
+.band {
+    position: relative;
+    padding: 30px 34px 26px;
+    background:
+        radial-gradient(62% 84% at 0% 0%, rgba(147, 220, 223, 0.9), transparent 62%),
+        radial-gradient(62% 84% at 100% 0%, rgba(205, 187, 232, 0.85), transparent 62%),
+        radial-gradient(80% 96% at 50% 124%, rgba(240, 195, 160, 0.92), transparent 60%),
+        linear-gradient(110deg, #a9e0e2, #cdbbe8 45%, #f0c3a0);
 }
 
-@media only screen and (max-width: 1600px) {
-  .page-container {
-      padding: 120px;
-  }
+.band-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
 }
 
-@media only screen and (max-width: 990px) {
-  .page-container {
-      padding: 18px;
-      padding-top: 88px;
-  }
-
-  .wish-title-box {
-      width: 400px;
-  }
-
-  .no-wish-image {
-      left: 0;
-  }
-
-  .no-wish-descr {
-      margin-top: 52px;
-  }
+.band-title {
+    @include brand-font(56px, 1, 0.12em, $white);
+    margin: 0;
+    text-shadow: 0 3px 16px rgba(34, 28, 51, 0.2);
 }
 
-@media only screen and (max-width: 460px) {
-  .wish-title-box {
-      width: 100%;
-  }
+.band-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 18px;
+}
+
+.band-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $white;
+    text-shadow: 0 1px 8px rgba(34, 28, 51, 0.28);
+}
+
+.band-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 42px;
+    padding: 0 20px;
+    border-radius: 99px;
+    border: 0;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, background 0.25s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+    }
+
+    &.dark {
+        background: #1a1722;
+        color: $white;
+        box-shadow: 0 8px 20px rgba(26, 23, 34, 0.32);
+
+        &:hover {
+            box-shadow: 0 12px 26px rgba(26, 23, 34, 0.4);
+        }
+    }
+}
+
+.band-sub {
+    margin: 16px 0 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: $grey;
+}
+
+// ── Card body ──
+.body {
+    padding: 24px 30px 30px;
+}
+
+// ── Toolbar ──
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 200px;
+    height: 44px;
+    padding: 0 18px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus-within {
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: 0 6px 18px rgba(122, 79, 176, 0.14);
+    }
+
+    i {
+        color: $grey;
+        font-size: 14px;
+    }
+
+    input {
+        flex: 1;
+        min-width: 0;
+        border: 0;
+        background: transparent;
+        outline: none;
+        font-size: 14px;
+        color: $black;
+
+        &::placeholder {
+            color: $grey;
+        }
+    }
+}
+
+.dropdown {
+    position: relative;
+}
+
+.tool-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 18px;
+    border-radius: 99px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.5);
+    color: $black;
+    font-size: 13.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    i {
+        font-size: 13px;
+        color: $grey;
+    }
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.74);
+    }
+}
+
+// ── Popover ──
+.popover {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 30;
+    padding: 8px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 18px 44px rgba(122, 79, 176, 0.22), 0 2px 8px rgba(34, 28, 51, 0.06);
+}
+
+.sort-popover {
+    min-width: 230px;
+}
+
+.pop-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 12px;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: $black;
+    font-size: 13.5px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    i {
+        color: $accent-dark;
+        font-size: 12px;
+    }
+
+    &:hover {
+        background: rgba(187, 150, 218, 0.14);
+    }
+}
+
+// ── Wish grid ──
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 22px;
+}
+
+.no-data {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 48px 12px;
+    text-align: center;
+    color: $grey;
+    font-size: 14px;
+}
+
+// ── Empty state ──
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 12px;
+    margin-top: -24px;
+
+    .empty-animation {
+        border-radius: 50%;
+        overflow: hidden;
+        margin-left: 62px;
+    }
+
+    .empty-descr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 8px;
+        gap: 16px;
+
+        .empty-text {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 500;
+            color: $black;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .band-btn {
+        transition: background 0.2s ease;
+
+        &:hover {
+            transform: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    .page {
+        padding: 32px 24px;
+    }
+}
+
+@media only screen and (max-width: 1080px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .band-top {
+        flex-direction: column;
+    }
+
+    .band-right {
+        align-items: flex-start;
+    }
+
+    .band-title {
+        @include brand-font(44px, 1, 0.1em, $white);
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media only screen and (max-width: $mobile) {
+    .page {
+        padding: 88px 16px 0;
+    }
+
+    .card {
+        border-radius: 24px;
+    }
+
+    .band {
+        padding: 22px 20px 20px;
+    }
+
+    .band-title {
+        @include brand-font(38px, 1, 0.08em, $white);
+    }
+
+    .body {
+        padding: 20px 16px 24px;
+    }
+
+    .search {
+        flex: 1 1 100%;
+    }
+
+    .popover {
+        right: auto;
+        left: 0;
+    }
 }

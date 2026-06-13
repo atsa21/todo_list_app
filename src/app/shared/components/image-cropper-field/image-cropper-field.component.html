@@ -1,0 +1,39 @@
+<div class="img-crop-container">
+    @if (!croppedImage) {
+        @if (!isEditImage) {
+            <div class="file-input">
+                <label class="btn-upload" for="upload-photo">Select image</label>
+                <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+            </div>
+        } @else {
+            <div class="file-input">
+                <img [src]="existingImage()" class="edit-img"/>
+                <div class="button-box">
+                    <label for="upload-photo">Change image</label>
+                    <input type="file" (change)="fileChangeEvent($event)" id="upload-photo"/>
+                </div>
+            </div>
+        }
+    }
+
+    @if (imageChangedEvent) {
+        <div class="cropper">
+            <image-cropper
+                [imageChangedEvent]="imageChangedEvent"
+                [maintainAspectRatio]="maintainAspectRatio()"
+                [aspectRatio]="aspectRatio()"
+                [resizeToWidth]="resizeToWidth()"
+                [format]="format()"
+                output="base64"
+                (imageCropped)="imageCropped($event)"
+                (loadImageFailed)="loadImageFailed()"
+            ></image-cropper>
+            @if (croppedImage) {
+                <div class="button-box">
+                    <label for="btn-reload">Change image</label>
+                    <input type="file" (change)="fileChangeEvent($event)" id="btn-reload"/>
+                </div>
+            }
+        </div>
+    }
+</div>

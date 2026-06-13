@@ -1,0 +1,49 @@
+@if(user()) {
+  <nav class="header">
+    <div class="brand">
+      <span class="brand-mark">
+        <mat-icon>check_circle_outline</mat-icon>
+      </span>
+      <span class="brand-name">Notatka</span>
+    </div>
+
+    <div class="greeting">
+      <p class="greeting-title">Hello, {{ user()?.username || 'there' }}!</p>
+      <p class="greeting-sub">let's get things done</p>
+    </div>
+
+    <ul class="nav-list">
+      @for (nav of navList; track nav.link) {
+        <li class="nav-cell">
+          <a
+            class="nav-item"
+            [class.nav-item--active]="currentPage === nav.link"
+            [routerLink]="nav.link"
+          >
+            <mat-icon class="nav-icon">{{ nav.icon }}</mat-icon>
+            <span class="nav-label">{{ nav.name }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+
+    <a
+      class="profile-card"
+      [class.profile-card--active]="currentPage === profilePath"
+      [routerLink]="profilePath"
+      aria-label="Open profile"
+    >
+      @if(user()?.profile_photo) {
+        <img class="profile-avatar" [src]="user()?.profile_photo" alt="" />
+      } @else {
+        <span class="profile-avatar profile-avatar--initial">
+          {{ (user()?.username?.charAt(0) || '?') | uppercase }}
+        </span>
+      }
+      <span class="profile-meta">
+        <span class="profile-name">{{ user()?.username }}</span>
+        <span class="profile-email">{{ user()?.email }}</span>
+      </span>
+    </a>
+  </nav>
+}

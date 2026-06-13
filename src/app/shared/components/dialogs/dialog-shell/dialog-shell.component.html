@@ -1,0 +1,31 @@
+<div class="header">
+    <div class="header-text">
+        <h1 class="modal-title-1 title">{{ title() }}</h1>
+        @if (subtitle()) {
+            <p class="subline">{{ subtitle() }}</p>
+        }
+    </div>
+    <button type="button" class="close-btn" (click)="cancel.emit()" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="body">
+    <ng-content></ng-content>
+</div>
+
+@if (showFooter()) {
+    <div class="actions">
+        <ng-content select="[dialogActions]">
+            <button type="button" class="pill ghost" (click)="cancel.emit()">{{ cancelLabel() }}</button>
+            <button
+                type="button"
+                class="pill ink"
+                [disabled]="confirmDisabled()"
+                (click)="confirm.emit()"
+            >
+                {{ confirmLabel() }}
+            </button>
+        </ng-content>
+    </div>
+}

@@ -1,0 +1,6 @@
+@use "src/assets/styles/mixins" as *;
+
+h1.modal-title-1 {
+  @include brand-font(32px);
+  text-transform: uppercase;
+}

@@ -1,0 +1,121 @@
+@if (todoForm) {
+    <app-dialog-shell
+        [title]="dialogTitle"
+        [subtitle]="subline"
+        [confirmLabel]="actionBtn"
+        [confirmDisabled]="todoForm.invalid"
+        (cancel)="close()"
+        (confirm)="submit()"
+    >
+        <form [formGroup]="todoForm" class="form">
+            <!-- Task -->
+            <div class="field">
+                <label class="field-label" for="todo-task">Task <span class="required">*</span></label>
+                <textarea
+                    id="todo-task"
+                    #taskInput
+                    class="minput task-input"
+                    rows="2"
+                    formControlName="task"
+                    placeholder="What do you need to do?"
+                ></textarea>
+                @if (task.touched && task.errors?.['required']) {
+                    <p class="error">Task is required</p>
+                }
+                @if (task.touched && task.errors?.['minlength']) {
+                    <p class="error">The task must be at least 2 characters long</p>
+                }
+                @if (task.touched && task.errors?.['maxlength']) {
+                    <p class="error">The task must be 70 characters or fewer</p>
+                }
+            </div>
+
+            <!-- Category -->
+            <div class="field">
+                <label class="field-label">Category <span class="required">*</span></label>
+                <div class="chip-group" role="group" aria-label="Category">
+                    @for (cat of categories; track cat.id) {
+                        <button
+                            type="button"
+                            class="chip"
+                            [class.on]="category.value === cat.name"
+                            [attr.aria-pressed]="category.value === cat.name"
+                            (click)="selectCategory(cat.name)"
+                        >
+                            <i class="fa-solid {{ cat.icon }}"></i>
+                            <span>{{ cat.name }}</span>
+                        </button>
+                    }
+                </div>
+                @if (category.touched && category.errors?.['required']) {
+                    <p class="error">Please select a category</p>
+                }
+            </div>
+
+            <!-- Priority -->
+            <div class="field">
+                <label class="field-label">Priority <span class="required">*</span></label>
+                <div class="chip-group" role="group" aria-label="Priority">
+                    @for (p of priorities; track p) {
+                        <button
+                            type="button"
+                            class="chip"
+                            [class.on]="priority.value === p"
+                            [attr.aria-pressed]="priority.value === p"
+                            (click)="selectPriority(p)"
+                        >
+                            <span class="dot" [class]="p | priority"></span>
+                            <span>{{ p | priority }}</span>
+                        </button>
+                    }
+                </div>
+            </div>
+
+            <!-- Due date -->
+            <div class="field">
+                <label class="field-label" for="todo-date">Due date <span class="required">*</span></label>
+                <input
+                    id="todo-date"
+                    class="minput"
+                    type="date"
+                    [min]="minDate"
+                    [value]="dateInputValue"
+                    (change)="onDateChange($any($event.target).value)"
+                />
+            </div>
+
+            <!-- Tags -->
+            <div class="field">
+                <label class="field-label" for="todo-tags">Tags</label>
+                @if (tags.length) {
+                    <div class="tag-list">
+                        @for (tag of tags; track tag) {
+                            <span class="tag-chip">
+                                {{ tag }}
+                                <button type="button" class="tag-remove" (click)="removeTag(tag)" aria-label="Remove tag">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </span>
+                        }
+                    </div>
+                }
+                @if (canAddTag) {
+                    <input
+                        id="todo-tags"
+                        #tagInput
+                        class="minput"
+                        type="text"
+                        minlength="2"
+                        maxlength="14"
+                        placeholder="Add a tag, press Enter"
+                        (keydown)="onTagKeydown($event, tagInput)"
+                        (blur)="addTag(tagInput)"
+                    />
+                }
+                @if (!tags.length) {
+                    <p class="hint">Optional. Add up to 3 tags (2–14 characters).</p>
+                }
+            </div>
+        </form>
+    </app-dialog-shell>
+}

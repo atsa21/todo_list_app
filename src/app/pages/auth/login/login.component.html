@@ -1,43 +1,100 @@
-<div class="page-container">
-  <div class="card">
+<div class="auth-page">
+  <div class="auth-card">
 
     <div class="brand">
-      <mat-icon class="brand-icon">task_alt</mat-icon>
+      <span class="brand-mark">
+        <mat-icon>check_circle_outline</mat-icon>
+      </span>
+      <span class="brand-name">Notatka</span>
     </div>
 
-    <h1 class="title">Welcome back</h1>
-    <p class="subtitle">Sign in to your account</p>
+    <h1 class="auth-title">Welcome back</h1>
+    <p class="auth-subtitle">Sign in to pick up where you left off</p>
 
-    <form [formGroup]="loginForm" class="form">
-      <mat-form-field appearance="outline" color="primary" floatLabel="always">
-        <mat-label>Email</mat-label>
-        <input formControlName="email" matInput placeholder="example@gmail.com" required>
-        @if (emailError()) {
-          <mat-error>{{ emailError() }}</mat-error>
+    <form [formGroup]="loginForm" class="auth-form" (ngSubmit)="login()">
+      @let email = loginForm | control:'email';
+      @let password = loginForm | control:'password';
+
+      <div class="field">
+        <label class="field-label" for="login-email">Email <span class="required">*</span></label>
+        <div class="field-control">
+          <input
+            appInput
+            id="login-email"
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+            placeholder="example@gmail.com"
+            [invalid]="emailError() && email.touched"
+          >
+        </div>
+        @if (emailError() && email.touched) {
+          <p class="field-error">{{ emailError() }}</p>
         }
-      </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="outline" color="primary" floatLabel="always">
-        <mat-label>Password</mat-label>
-        <input formControlName="password" [type]="hide() ? 'password' : 'text'" matInput placeholder="••••••••" required>
-        <button mat-icon-button matSuffix type="button" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()" (click)="hide.set(!hide())">
-          <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+      <div class="field">
+        <label class="field-label" for="login-password">Password <span class="required">*</span></label>
+        <div class="field-control">
+          <input
+            appInput
+            password
+            id="login-password"
+            [type]="hide() ? 'password' : 'text'"
+            formControlName="password"
+            autocomplete="current-password"
+            placeholder="••••••••"
+            [invalid]="passwordError() && password.touched"
+          >
+          <button
+            type="button"
+            class="eye-toggle"
+            [attr.aria-label]="hide() ? 'Show password' : 'Hide password'"
+            [attr.aria-pressed]="!hide()"
+            (click)="hide.set(!hide())"
+          >
+            <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </div>
+        @if (passwordError() && password.touched) {
+          <p class="field-error">{{ passwordError() }}</p>
+        }
+      </div>
+
+      <div class="auth-meta">
+        <button
+          type="button"
+          class="remember"
+          role="checkbox"
+          [attr.aria-checked]="remember()"
+          (click)="remember.set(!remember())"
+        >
+          <span class="remember-box" [class.remember-box--on]="remember()">
+            @if (remember()) {
+              <mat-icon>check</mat-icon>
+            }
+          </span>
+          <span class="remember-text">Remember me</span>
         </button>
-        @if (passwordError()) {
-          <mat-error>{{ passwordError() }}</mat-error>
-        }
-      </mat-form-field>
+        <a class="link forgot" href="javascript:void(0)">Forgot password?</a>
+      </div>
 
-      <button
-        class="btn btn-accent"
-        [disabled]="!loginForm.valid"
-        (click)="login()"
-      >
-        Sign in
+      <button type="submit" class="btn btn-accent submit" [disabled]="loginForm.invalid">
+        <span>Sign in</span>
+        <mat-icon>arrow_forward</mat-icon>
       </button>
     </form>
 
-    <p class="switch-text">
+    <!-- <div class="divider"><span>OR</span></div>
+
+    <div class="social-row">
+      <button type="button" class="social-btn" (click)="loginWithGoogle()">
+        <i class="fa-brands fa-google social-glyph"></i>
+        <span>Google</span>
+      </button>
+    </div> -->
+
+    <p class="auth-footer">
       Don't have an account?&nbsp;<a routerLink="/sign_up" class="link">Sign up</a>
     </p>
 

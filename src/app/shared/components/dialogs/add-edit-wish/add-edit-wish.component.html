@@ -1,0 +1,99 @@
+@if (wishForm) {
+    <app-dialog-shell
+        [title]="dialogTitle"
+        [subtitle]="subline"
+        [confirmLabel]="actionBtn"
+        [confirmDisabled]="!wishForm.valid"
+        (cancel)="close()"
+        (confirm)="addWish()"
+    >
+        <form [formGroup]="wishForm" class="form">
+            <!-- Title -->
+            <div class="field">
+                <label class="field-label" for="wish-title">Title <span class="required">*</span></label>
+                <input
+                    id="wish-title"
+                    #titleInput
+                    class="minput"
+                    type="text"
+                    formControlName="title"
+                    placeholder="What do you wish for?"
+                />
+                @if (title.touched && title.errors?.['required']) {
+                    <p class="error">Title is required</p>
+                }
+                @if (title.touched && title.errors?.['minlength']) {
+                    <p class="error">The title must be at least 2 characters long</p>
+                }
+                @if (title.touched && title.errors?.['maxlength']) {
+                    <p class="error">The title must be 70 characters or fewer</p>
+                }
+            </div>
+
+            <!-- Price + Currency -->
+            <div class="field">
+                <label class="field-label" for="wish-price">Price <span class="required">*</span></label>
+                <div class="price-row">
+                    <input
+                        id="wish-price"
+                        class="minput price-input"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        formControlName="price"
+                        placeholder="0.00"
+                    />
+                    <div class="chip-group" role="group" aria-label="Currency">
+                        @for (cur of currencyList; track cur.value) {
+                            <button
+                                type="button"
+                                class="chip"
+                                [class.on]="currency.value === cur.value"
+                                [attr.aria-pressed]="currency.value === cur.value"
+                                (click)="selectCurrency(cur.value)"
+                            >
+                                {{ cur.value }}
+                            </button>
+                        }
+                    </div>
+                </div>
+                @if (price.touched && price.errors?.['required']) {
+                    <p class="error">Price is required</p>
+                }
+                @if (price.touched && price.errors?.['min']) {
+                    <p class="error">The price must be at least 0.01</p>
+                }
+                @if (price.touched && price.errors?.['max']) {
+                    <p class="error">The price must be 100 000 000 or fewer</p>
+                }
+                @if (currency.touched && currency.errors?.['required']) {
+                    <p class="error">Please select a currency</p>
+                }
+            </div>
+
+            <!-- Link -->
+            <div class="field">
+                <label class="field-label" for="wish-link">Link</label>
+                <input
+                    id="wish-link"
+                    class="minput"
+                    type="url"
+                    formControlName="link"
+                    placeholder="https://store.com/product"
+                />
+                @if (link.touched && link.errors?.['pattern']) {
+                    <p class="error">Link must start with 'https://'</p>
+                }
+            </div>
+
+            <!-- Image -->
+            <div class="field">
+                <label class="field-label">Image</label>
+                <app-image-cropper-field
+                    [existingImage]="imageEdit"
+                    (cropped)="onImageCropped($event)"
+                ></app-image-cropper-field>
+            </div>
+        </form>
+    </app-dialog-shell>
+}

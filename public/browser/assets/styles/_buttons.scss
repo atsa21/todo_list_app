@@ -1,0 +1,135 @@
+@use "src/assets/styles/vars" as *;
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px;
+  border-radius: 20px;
+  gap: 8px;
+  border: 0;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.4s ease-in-out;
+
+  &:hover:enabled {
+    cursor: pointer;
+  }
+}
+
+.btn-accent {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: $grad-dream;
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  color: $white;
+  border: 0;
+  box-shadow: 0 6px 16px rgba(187, 150, 218, 0.45);
+  transition:
+    background-position 0.6s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+
+  &:hover:enabled {
+    color: $white;
+    background-position: 100% 50%;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(187, 150, 218, 0.55);
+  }
+
+  &:active:enabled {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(187, 150, 218, 0.4);
+  }
+
+  &:disabled {
+    color: $white;
+    background: $medium-grey;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-accent {
+    transition: box-shadow 0.3s ease;
+  }
+
+  .btn-accent,
+  .btn-secondary {
+    &:hover:enabled,
+    &:active:enabled {
+      transform: none;
+    }
+  }
+}
+
+.btn-secondary {
+  color: $dark-grey;
+  background-color: transparent;
+  box-shadow: 0 6px 16px rgba(187, 150, 218, 0.45);
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+
+  &:hover:enabled {
+    color: $black;
+    background-color: $white;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(187, 150, 218, 0.3);
+  }
+
+  &:active:enabled {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(187, 150, 218, 0.25);
+  }
+
+  &:disabled {
+    color: $grey;
+    background-color: transparent;
+  }
+}
+
+.btn-white {
+  color: $black;
+  background-color: $white;
+
+  &:hover:enabled {
+    color: $white;
+    background-color: $accent-dark;
+  }
+}
+
+.btn-icon {
+  color: $accent-dark;
+  background-color: transparent;
+  border-radius: 50%;
+
+  &:hover:enabled {
+    color: $accent-dark;
+    background-color: $accent-lighter;
+  }
+
+  &:disabled {
+    color: $medium-grey;
+    background-color: transparent;
+  }
+}
+
+.btn-icon-warning {
+  color: $danger;
+  background-color: transparent;
+  border-radius: 50%;
+
+  &:hover:enabled {
+    color: $white;
+    background-color: $danger;
+  }
+
+  &:disabled {
+    color: $medium-grey;
+    background-color: transparent;
+  }
+}

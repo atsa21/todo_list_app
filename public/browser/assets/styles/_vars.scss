@@ -1,15 +1,30 @@
-$accent: #ECBEE1;
-$accent-lighter: #F5DEF0;
-$accent-dark: #CC50AE;
+$cyan: #93DCDF;
+$peach: #EFAF86;
 
-$danger: #F24535;
-$warning: #F29F05;
-$success: #35BF30;
-$neutral: #2999A6;
-$yellow: #FFE6B6;
+$accent: #BB96DA;
+$accent-lighter: #E9DDF5;
+$accent-dark: #7A4FB0; 
+$accent-darker: #663C99; 
+
+$danger: #CB4436;
+$warning: #E59A4F;
+$success: #57BBA8;
+$neutral: #4FB6BD;
+
+// Surfaces
+$bg: #F4ECFA;
+$yellow: #F4ECFA;
 
 $white: #FFF;
-$light-grey: #E0E0E0;
-$medium-grey: #CCC;
-$grey: #7C7C7C;
-$black: #111111;
+$light-grey: #E7E1F0;
+$medium-grey: #C4BCD4;
+$grey: #6F6786;
+$dark-grey: #383838;
+$black: #221C33;
+
+$grad-dream: linear-gradient(100deg, #93DCDF 0%, #EFAF86 52%, #BB96DA 100%);
+$grad-dream-dark: linear-gradient(100deg, #82c3c5 0%, #d39a77 52%, #9d7eb6 100%);
+
+// Layout
+$sidebar-width: 248px;
+$mobile: 660px;

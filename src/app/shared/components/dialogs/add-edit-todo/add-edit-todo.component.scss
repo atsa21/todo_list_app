@@ -1,0 +1,181 @@
+@use "src/assets/styles/vars" as *;
+
+:host {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    max-height: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+// ── Fields ─────────────────────────────────────────────────────
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    margin-bottom: 9px;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6c6478;
+}
+
+.minput {
+    width: 100%;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: $black;
+    border: 1px solid rgba(120, 90, 150, 0.2);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.66);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+    &::placeholder {
+        color: $medium-grey;
+    }
+
+    &:focus {
+        border-color: $accent;
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 0 0 3px rgba(187, 150, 218, 0.18);
+    }
+}
+
+.task-input {
+    resize: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+.hint {
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: $grey;
+}
+
+// ── Chip groups (category + priority) ──────────────────────────
+.chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 15px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $black;
+    border: 1px solid rgba(120, 90, 150, 0.2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    text-transform: capitalize;
+    transition: all 0.2s ease;
+
+    .fa-solid {
+        font-size: 12px;
+        color: $grey;
+    }
+
+    &:hover {
+        border-color: rgba(120, 90, 150, 0.4);
+    }
+
+    &.on {
+        color: $white;
+        background: #1a1722;
+        border-color: #1a1722;
+
+        .fa-solid,
+        .dot {
+            color: $white;
+        }
+    }
+}
+
+// Priority dot — colored by the same scheme as the priority pipe.
+.dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+
+    &.critical {
+        color: $danger;
+    }
+
+    &.high {
+        color: $warning;
+    }
+
+    &.medium {
+        color: $success;
+    }
+
+    &.low {
+        color: $neutral;
+    }
+}
+
+// ── Tags ───────────────────────────────────────────────────────
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px 6px 13px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $accent-dark;
+    border-radius: 999px;
+    background: $accent-lighter;
+}
+
+.tag-remove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 18px;
+    width: 18px;
+    font-size: 14px;
+    line-height: 1;
+    color: $accent-dark;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        color: $white;
+        background: $accent-dark;
+    }
+}
+
+// ── Errors ─────────────────────────────────────────────────────
+.error {
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: $danger;
+}

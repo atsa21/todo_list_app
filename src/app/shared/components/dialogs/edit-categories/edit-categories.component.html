@@ -1,0 +1,99 @@
+<app-dialog-shell
+    title="Categories"
+    subtitle="Organize your tasks with custom labels"
+    confirmLabel="Save"
+    (cancel)="close()"
+    (confirm)="save()"
+>
+    <div class="form">
+        <div class="field">
+            <label class="field-label">Your categories</label>
+            <div class="category-list">
+                @for (cat of categories(); track cat.id; let i = $index) {
+                    <div class="category-item" [class.is-hidden]="cat.isHidden">
+                        <div class="category-item-info">
+                            <i class="fa-solid {{ cat.icon }} cat-icon"></i>
+                            <span class="category-name">{{ cat.name }}</span>
+                            @if (cat.isInitial) {
+                                <span class="initial-badge">default</span>
+                            }
+                        </div>
+
+                        <div class="cat-actions">
+                            <button
+                                type="button"
+                                class="icon-action"
+                                [title]="cat.isHidden ? 'Show' : 'Hide'"
+                                [attr.aria-label]="cat.isHidden ? 'Show category' : 'Hide category'"
+                                (click)="toggleHidden(cat)"
+                            >
+                                <i class="fa {{ cat.isHidden ? 'fa-eye-slash' : 'fa-eye' }}"></i>
+                            </button>
+                            <button
+                                type="button"
+                                class="icon-action danger"
+                                [disabled]="cat.isInitial"
+                                aria-label="Delete category"
+                                (click)="remove(i)"
+                            >
+                                <i class="fa fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                } @empty {
+                    <p class="hint">No categories yet</p>
+                }
+            </div>
+        </div>
+
+        <!-- Add new category -->
+        <div class="field">
+            <label class="field-label" for="cat-name">Add new category</label>
+            <div class="add-row">
+                <input
+                    id="cat-name"
+                    class="minput"
+                    type="text"
+                    maxlength="30"
+                    placeholder="e.g. fitness"
+                    [ngModel]="newName()"
+                    (ngModelChange)="newName.set($event); duplicateError.set(false)"
+                    (keydown.enter)="add()"
+                />
+                <div class="selected-preview" [title]="newIcon()">
+                    <i class="fa-solid {{ newIcon() }}"></i>
+                </div>
+                <button
+                    type="button"
+                    class="pill ink add-btn"
+                    [disabled]="!newName().trim()"
+                    (click)="add()"
+                >
+                    Add
+                </button>
+            </div>
+            @if (duplicateError()) {
+                <p class="error">A category with that name already exists</p>
+            }
+        </div>
+
+        <!-- Icon picker -->
+        <div class="field">
+            <label class="field-label">Pick an icon</label>
+            <div class="icon-grid" role="group" aria-label="Pick an icon">
+                @for (icon of icons; track icon.class) {
+                    <button
+                        type="button"
+                        class="icon-btn"
+                        [class.on]="newIcon() === icon.class"
+                        [attr.aria-pressed]="newIcon() === icon.class"
+                        [title]="icon.label"
+                        (click)="newIcon.set(icon.class)"
+                    >
+                        <i class="fa-solid {{ icon.class }}"></i>
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</app-dialog-shell>

@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { HeaderComponent } from '@core/components/header/header.component';
+import { HeaderComponent } from '@shared/components/header/header.component';
 import { UserModel } from '@core/models';
 import { UsersService } from '@core/services/users/users.service';
 

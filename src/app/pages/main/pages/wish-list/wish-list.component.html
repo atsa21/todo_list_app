@@ -1,31 +1,80 @@
-<div class="page-container">
-    @if (wishList(); as list) {
-        <div  class="page-box">
-            @if (list.length) {
-                <div class="wish-title-box">
-                    <div class="wish-title">
-                        <h1>Wish list</h1>
-                        <button class="btn btn-accent" (click)="openDialog()">Add wish<i class="fa-regular fa-plus"></i></button>
-                    </div>
-                    <app-wish-card [wishList]="list" />
-                </div>
-            } @else {
-                <div class="no-wish-box">
-                    <div class="no-wish-image">
-                        <ng-lottie [options]="options"  width="320px" height="320px" [styles]="styles"></ng-lottie>
-                        </div>
-                        <div class="no-wish-descr">
-                        <p class="no-wish-text">You don't have any wish</p>
-                        <button class="btn btn-white btn-nt" type="button" (click)="openDialog()">
-                            Add wish <i class="fa-regular fa-plus"></i>
-                        </button>
-                        </div>
-                </div>
-            }
+<div class="page">
+  @if (loaded()) {
+    <div class="card">
+
+      <header class="band">
+        <div class="band-top">
+          <h2 class="band-title">WISH LIST</h2>
+
+          <div class="band-right">
+            <span class="band-date">
+              <i class="fa-regular fa-calendar"></i>
+              {{ todayDate | date: 'EEEE, MMMM d' | uppercase }}
+            </span>
+            <button type="button" class="band-btn dark" (click)="openDialog()">
+              <i class="fa-regular fa-plus"></i>
+              <span>Add wish</span>
+            </button>
+          </div>
         </div>
-    } @else {
-      <div class="loading">
-          <app-loader></app-loader>
+
+        <p class="band-sub">{{ count() }} {{ count() === 1 ? 'thing' : 'things' }} on your wish list</p>
+      </header>
+
+      <div class="body">
+        @if (hasWishes()) {
+          <div class="toolbar">
+            <label class="search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" [formControl]="searchControl" placeholder="Search wishes…" />
+            </label>
+
+            <div class="dropdown" (click)="$event.stopPropagation()">
+              <button type="button" class="tool-btn" (click)="toggleSort($event)">
+                <i class="fa-solid fa-arrow-down-wide-short"></i>
+                Sort : {{ sortShort[sort()] }}
+              </button>
+              @if (openSort()) {
+                <div class="popover sort-popover">
+                  @for (key of sortKeys; track key) {
+                    <button type="button" class="pop-item" (click)="setSort(key)">
+                      <span>{{ sortLabels[key] }}</span>
+                      @if (sort() === key) {
+                        <i class="fa-solid fa-check"></i>
+                      }
+                    </button>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="grid">
+            @for (wish of visibleWishes(); track wish.key) {
+              <app-wish-card [wish]="wish" />
+            } @empty {
+              <p class="no-data">No wishes match your search.</p>
+            }
+          </div>
+        } @else {
+          <div class="empty-state">
+            <div class="empty-animation">
+              <ng-lottie [options]="options" width="280px" height="280px" [styles]="styles"></ng-lottie>
+            </div>
+            <div class="empty-descr">
+              <p class="empty-text">You don't have any wishes yet</p>
+              <button type="button" class="band-btn dark" (click)="openDialog()">
+                <span>Add your first wish</span>
+                <i class="fa-regular fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        }
       </div>
-    }
+    </div>
+  } @else {
+    <div class="loading">
+      <app-loader></app-loader>
+    </div>
+  }
 </div>

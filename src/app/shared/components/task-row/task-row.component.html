@@ -1,0 +1,58 @@
+<div class="row" [class.done]="todo.checked">
+  <div class="left">
+    <button
+      type="button"
+      class="check"
+      [class.checked]="todo.checked"
+      [attr.aria-pressed]="todo.checked"
+      aria-label="Toggle done"
+      (click)="toggleDone.emit()"
+    >
+      @if (todo.checked) {
+        <i class="fa-solid fa-check"></i>
+      }
+    </button>
+
+    <div class="main">
+      <span class="title">{{ title }}</span>
+      <span class="meta">
+        <i class="fa-solid {{ categoryIcon }}"></i>
+        <span class="meta-text">{{ todo.category }} · <span [class.urgent]="urgent && !todo.checked">{{ dateLabel }}</span></span>
+      </span>
+    </div>
+  </div>
+
+
+  <div class="right">
+    @if (todo.priority) {
+      <span
+        class="prio"
+        [class]="todo.checked ? 'done' : (todo.priority | priority)"
+        [title]="todo.priority | priority"
+      >
+        <span class="dot"></span>
+        <span class="prio-label">{{ todo.priority | priority }}</span>
+      </span>
+    }
+
+    @for (tag of todo.tags; track tag) {
+      <app-tag [tag]="tag" [priority]="todo.priority ?? 0" [checked]="todo.checked ?? false" />
+    }
+
+    <div class="kebab-wrap">
+      <button type="button" class="kebab" aria-label="Task actions" (click)="toggleMenu($event)">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </button>
+      @if (menuOpen) {
+        <div class="menu">
+          <button type="button" class="menu-item" (click)="startEdit()">
+            <i class="fa-regular fa-pen-to-square"></i> Edit
+          </button>
+          <button type="button" class="menu-item danger" (click)="deleteTask()">
+            <i class="fa-solid fa-trash-can"></i> Delete
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</div>
