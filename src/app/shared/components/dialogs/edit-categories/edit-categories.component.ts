@@ -28,6 +28,18 @@ export class EditCategoriesComponent {
   public readonly newName = signal('');
   public readonly newIcon = signal('fa-tag');
   public readonly duplicateError = signal(false);
+  public readonly showAddForm = signal(false);
+
+  public openAddForm(): void {
+    this.showAddForm.set(true);
+  }
+
+  public cancelAdd(): void {
+    this.showAddForm.set(false);
+    this.newName.set('');
+    this.newIcon.set('fa-tag');
+    this.duplicateError.set(false);
+  }
 
   public add(): void {
     const name = this.newName().trim().toLowerCase();
@@ -51,6 +63,7 @@ export class EditCategoriesComponent {
     this.newName.set('');
     this.newIcon.set('fa-tag');
     this.duplicateError.set(false);
+    this.showAddForm.set(false);
   }
 
   public toggleHidden(cat: Category): void {

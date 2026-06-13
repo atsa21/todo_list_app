@@ -46,54 +46,67 @@
             </div>
         </div>
 
-        <!-- Add new category -->
-        <div class="field">
-            <label class="field-label" for="cat-name">Add new category</label>
-            <div class="add-row">
-                <input
-                    id="cat-name"
-                    class="minput"
-                    type="text"
-                    maxlength="30"
-                    placeholder="e.g. fitness"
-                    [ngModel]="newName()"
-                    (ngModelChange)="newName.set($event); duplicateError.set(false)"
-                    (keydown.enter)="add()"
-                />
-                <div class="selected-preview" [title]="newIcon()">
-                    <i class="fa-solid {{ newIcon() }}"></i>
-                </div>
-                <button
-                    type="button"
-                    class="pill ink add-btn"
-                    [disabled]="!newName().trim()"
-                    (click)="add()"
-                >
-                    Add
-                </button>
-            </div>
-            @if (duplicateError()) {
-                <p class="error">A category with that name already exists</p>
-            }
-        </div>
-
-        <!-- Icon picker -->
-        <div class="field">
-            <label class="field-label">Pick an icon</label>
-            <div class="icon-grid" role="group" aria-label="Pick an icon">
-                @for (icon of icons; track icon.class) {
+        @if (!showAddForm()) {
+            <!-- Reveal add-category form -->
+            <button type="button" class="add-category-btn" (click)="openAddForm()">
+                <i class="fa fa-plus"></i>
+                <span>Add category</span>
+            </button>
+        } @else {
+            <!-- Add new category -->
+            <div class="field">
+                <label class="field-label" for="cat-name">Add new category</label>
+                <div class="add-row">
+                    <div class="selected-preview" [title]="newIcon()">
+                        <i class="fa-solid {{ newIcon() }}"></i>
+                    </div>
+                    <input
+                        id="cat-name"
+                        class="minput"
+                        type="text"
+                        maxlength="30"
+                        placeholder="e.g. fitness"
+                        autofocus
+                        [ngModel]="newName()"
+                        (ngModelChange)="newName.set($event); duplicateError.set(false)"
+                        (keydown.enter)="add()"
+                    />
                     <button
                         type="button"
-                        class="icon-btn"
-                        [class.on]="newIcon() === icon.class"
-                        [attr.aria-pressed]="newIcon() === icon.class"
-                        [title]="icon.label"
-                        (click)="newIcon.set(icon.class)"
+                        class="pill ink add-btn"
+                        [disabled]="!newName().trim()"
+                        (click)="add()"
                     >
-                        <i class="fa-solid {{ icon.class }}"></i>
+                        Add
                     </button>
+                </div>
+                @if (duplicateError()) {
+                    <p class="error">A category with that name already exists</p>
                 }
             </div>
-        </div>
+
+            <!-- Icon picker -->
+            <div class="field">
+                <label class="field-label">Pick an icon</label>
+                <div class="icon-grid" role="group" aria-label="Pick an icon">
+                    @for (icon of icons; track icon.class) {
+                        <button
+                            type="button"
+                            class="icon-btn"
+                            [class.on]="newIcon() === icon.class"
+                            [attr.aria-pressed]="newIcon() === icon.class"
+                            [title]="icon.label"
+                            (click)="newIcon.set(icon.class)"
+                        >
+                            <i class="fa-solid {{ icon.class }}"></i>
+                        </button>
+                    }
+                </div>
+            </div>
+
+            <button type="button" class="cancel-add-btn" (click)="cancelAdd()">
+                Cancel
+            </button>
+        }
     </div>
 </app-dialog-shell>

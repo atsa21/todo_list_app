@@ -164,6 +164,50 @@
     }
 }
 
+// ── Add category trigger ───────────────────────────────────────
+.add-category-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    color: $grey;
+    background: transparent;
+    border: 1.5px dashed rgba(120, 90, 150, 0.35);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    i {
+        font-size: 13px;
+    }
+
+    &:hover {
+        color: $accent-dark;
+        border-color: $accent;
+        background: rgba(187, 150, 218, 0.08);
+    }
+}
+
+.cancel-add-btn {
+    align-self: flex-start;
+    padding: 6px 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: $grey;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: $black;
+    }
+}
+
 // ── Add row ────────────────────────────────────────────────────
 .add-row {
     display: flex;
