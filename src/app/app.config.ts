@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideRouter } from '@angular/router';
@@ -13,6 +13,7 @@ import { getAuth } from 'firebase/auth';
 import { provideAuth } from '@angular/fire/auth';
 import { provideCacheableAnimationLoader, provideLottieOptions } from 'ngx-lottie';
 import player from 'lottie-web';
+import { provideServiceWorker } from '@angular/service-worker';
 
 const firebaseApp = initializeApp(environment.firebase);
 
@@ -28,5 +29,9 @@ export const appConfig: ApplicationConfig = {
     }),
     provideCacheableAnimationLoader(),
     provideNativeDateAdapter(),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ]
 };
