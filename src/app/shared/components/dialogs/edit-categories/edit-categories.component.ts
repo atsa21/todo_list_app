@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Category } from '@core/models/category.model';
-import { CategoryService } from '@core/services/category/category.service';
-import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
+import { CategoryService } from '@core/services/category.service';
+import { SnackBarService } from '@core/services/snack-bar.service';
 import { DialogShellComponent } from '@shared/components/dialogs/dialog-shell/dialog-shell.component';
 import { FA_ICONS } from './constants/fa-icons.const';
 import { IconOptionModel } from './models/icon-option.model';

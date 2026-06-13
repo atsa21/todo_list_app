@@ -11,9 +11,9 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { TodoService } from '@core/services/todo/todo.service';
-import { CategoryService } from '@core/services/category/category.service';
-import { UsersService } from '@core/services/users/users.service';
+import { TodoService } from '@core/services/todo.service';
+import { CategoryService } from '@core/services/category.service';
+import { UsersService } from '@core/services/users.service';
 import { UserModel } from '@core/models';
 import { Subject, debounceTime, take, takeUntil } from 'rxjs';
 import { Todo } from 'src/app/core/models/todo.model';

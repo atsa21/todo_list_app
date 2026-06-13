@@ -2,9 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
-import { TodoService } from '@core/services/todo/todo.service';
-import { CategoryService } from '@core/services/category/category.service';
+import { SnackBarService } from '@core/services/snack-bar.service';
+import { TodoService } from '@core/services/todo.service';
+import { CategoryService } from '@core/services/category.service';
 
 import { AddEditTodoComponent } from './add-edit-todo.component';
 import { AddEditTodoFormService } from './services/add-edit-todo-form.service';

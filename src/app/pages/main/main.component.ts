@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HeaderComponent } from '@shared/components/header/header.component';
 import { UserModel } from '@core/models';
-import { UsersService } from '@core/services/users/users.service';
+import { UsersService } from '@core/services/users.service';
 
 @Component({
     selector: 'app-main',

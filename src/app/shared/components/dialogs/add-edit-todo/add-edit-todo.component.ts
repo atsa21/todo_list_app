@@ -2,9 +2,9 @@ import { AfterViewInit, Component, ElementRef, inject, Inject, OnInit, ViewChild
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { take } from 'rxjs';
-import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
-import { TodoService } from '@core/services/todo/todo.service';
-import { CategoryService } from '@core/services/category/category.service';
+import { SnackBarService } from '@core/services/snack-bar.service';
+import { TodoService } from '@core/services/todo.service';
+import { CategoryService } from '@core/services/category.service';
 import { AddEditTodoFormService } from './services/add-edit-todo-form.service';
 import { EControlNames } from '@core/enums';
 import { Category } from '@core/models/category.model';

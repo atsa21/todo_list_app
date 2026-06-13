@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
-import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
+import { SnackBarService } from '@core/services/snack-bar.service';
 
 @Component({
   selector: 'app-image-cropper-field',

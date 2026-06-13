@@ -3,7 +3,7 @@ import { Component, ElementRef, HostListener, inject, input } from '@angular/cor
 import { MatDialog } from '@angular/material/dialog';
 import { AddEditWishComponent } from '@shared/components/dialogs/add-edit-wish/add-edit-wish.component';
 import { Wish } from 'src/app/core/models/wish.model';
-import { WishListService } from '@core/services/wish-list/wish-list.service';
+import { WishListService } from '@core/services/wish-list.service';
 
 /**
  * A single wish rendered as a glass product card. Owns its own kebab menu

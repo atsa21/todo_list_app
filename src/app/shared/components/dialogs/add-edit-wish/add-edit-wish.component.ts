@@ -2,8 +2,8 @@ import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from 
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Currency } from 'src/app/core/models/currency.model';
-import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
-import { WishListService } from '@core/services/wish-list/wish-list.service';
+import { SnackBarService } from '@core/services/snack-bar.service';
+import { WishListService } from '@core/services/wish-list.service';
 import { AddEditWishFormService } from './services/add-edit-wish-form.service';
 import { EControlNames } from '@core/enums';
 import { CURRENCIES } from '@core/constants/currencies.const';

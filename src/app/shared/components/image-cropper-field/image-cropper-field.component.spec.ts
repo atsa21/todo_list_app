@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
+import { SnackBarService } from '@core/services/snack-bar.service';
 
 import { ImageCropperFieldComponent } from './image-cropper-field.component';
 

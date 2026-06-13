@@ -2,11 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { ProfileComponent } from './profile.component';
-import { UsersService } from '@core/services/users/users.service';
-import { TodoService } from '@core/services/todo/todo.service';
-import { WishListService } from '@core/services/wish-list/wish-list.service';
-import { AuthService } from '@core/services/auth/auth.service';
-import { SnackBarService } from '@core/services/snack-bar/snack-bar.service';
+import { UsersService } from '@core/services/users.service';
+import { TodoService } from '@core/services/todo.service';
+import { WishListService } from '@core/services/wish-list.service';
+import { AuthService } from '@core/services/auth.service';
+import { SnackBarService } from '@core/services/snack-bar.service';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;

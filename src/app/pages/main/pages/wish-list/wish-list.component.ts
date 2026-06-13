@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { debounceTime } from 'rxjs';
 import { AddEditWishComponent } from '@shared/components/dialogs/add-edit-wish/add-edit-wish.component';
 import { Wish } from '@core/models/wish.model';
-import { WishListService } from '@core/services/wish-list/wish-list.service';
+import { WishListService } from '@core/services/wish-list.service';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 import { WishCardComponent } from './wish-card/wish-card.component';
 import { LoaderComponent } from '@shared/components/loader/loader.component';

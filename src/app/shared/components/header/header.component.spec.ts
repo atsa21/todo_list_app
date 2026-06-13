@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatMenuModule } from '@angular/material/menu';
-import { AuthService } from '@core/services/auth/auth.service';
-import { UsersService } from '@core/services/users/users.service';
+import { AuthService } from '@core/services/auth.service';
+import { UsersService } from '@core/services/users.service';
 
 import { HeaderComponent } from './header.component';
 
