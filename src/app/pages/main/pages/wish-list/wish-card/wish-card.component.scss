@@ -177,7 +177,8 @@
 }
 
 .price-amount {
-    @include brand-font(30px, 1, 0.02em, $black);
+    font-size: 28px;
+    color: $grey;
 }
 
 .price-unit {

@@ -318,15 +318,13 @@
     }
 }
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: $mobile) {
     .grid {
         grid-template-columns: 1fr;
     }
-}
 
-@media only screen and (max-width: $mobile) {
     .page {
-        padding: 88px 16px 0;
+        padding: 24px 16px;
     }
 
     .card {

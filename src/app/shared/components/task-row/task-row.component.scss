@@ -13,6 +13,7 @@
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 20px;
   padding: 15px 18px;
+  margin: 0;
   transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease, background-color 0.2s ease;
 
   &:hover:not(.done) {
@@ -245,16 +246,21 @@
 
 @media only screen and (max-width: $mobile) {
   .row {
-    grid-template-columns: 1fr 60px;
+    grid-template-columns: calc(100vw - 146px) 60px;
     gap: 8px;
     padding: 8px;
+    width: calc(100vw - 64px);
   }
 
   .title {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: calc(100vw - 180px);
+    width: calc(100vw - 200px);
+  }
+
+  .right {
+    justify-content: flex-start;
   }
 
   app-tag {

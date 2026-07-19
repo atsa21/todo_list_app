@@ -28,8 +28,6 @@
     border: 1px solid rgba(255, 255, 255, 0.65);
     border-radius: 34px;
     box-shadow: 0 28px 70px rgba(122, 79, 176, 0.18), 0 2px 8px rgba(34, 28, 51, 0.05);
-    // No `overflow: hidden` here — it would crop the filter/sort popovers.
-    // Rounded corners are clipped on the band (top) and footer (bottom) instead.
 }
 
 // ── Iridescent header band ──
@@ -59,6 +57,7 @@
 
 .band-title {
     @include brand-font(56px, 1, 0.12em, $white);
+
     margin: 0;
     text-shadow: 0 3px 16px rgba(34, 28, 51, 0.2);
 }
@@ -697,7 +696,7 @@
 
 @media only screen and (max-width: $mobile) {
     .page {
-        padding: 24px 16px 0;
+        padding: 24px 16px;
     }
 
     .greeting {
@@ -720,6 +719,7 @@
 
     .band {
         padding: 22px 20px 20px;
+        border-radius: 24px 24px 0;
     }
 
     .band-title {
@@ -753,6 +753,10 @@
 
     .card-footer {
         padding: 16px 16px 20px;
+    }
+
+    .list {
+        max-width: calc(100vw - 64px);
     }
 }
 
